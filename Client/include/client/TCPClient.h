@@ -44,7 +44,7 @@ public:
         }
     }
 
-    bool send(const string& data) const;
+    bool send(const string &data) const;
     void close() const {
         ::close(sock);
     }
