@@ -18,14 +18,16 @@ class JsonArray : public JsonElement {
 
 public:
     JsonArray(){}
-    JsonArray(const JsonArray *copy) {
-        cout << "copy" << endl;
+    JsonArray(const JsonArray &copy) {
+        //cout << "copy JsonArray" << endl;
+        for (const auto &it: copy.children) { add(it); }
     }
     ~JsonArray(){
+        //cout << "delete JsonArray" << endl;
         // todo
     }
 
-    void addChildren(JsonElement *json) {
+    void add(JsonElement *json) {
         children.push_back(json->clone());
     }
 
@@ -49,6 +51,11 @@ public:
         return res;
     }
 
+
+    auto begin() { return &children[0]; }
+    auto end() { return &children[children.size() - 1]; }
+    auto begin() const { return &children[0]; }
+    auto end() const { return &children[children.size() - 1]; }
 };
 
 

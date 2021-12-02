@@ -9,17 +9,20 @@
 #include "json/JsonPrimitive.h"
 #include "Color.h"
 
-class Shape : public JsonObject {
+class Shape {
 
 
 public:
 
-    Shape(const string& actionName) : JsonObject() {
-        addChildren("_action", new JsonPrimitive(actionName));
+    Shape(const string& name)  {
     }
 
+
+    virtual JsonElement* serialize() const = 0;
+
+    virtual Shape* clone() const = 0;
+
     void setColor(const Color* color){
-        addChildren("color", (JsonObject *) color);
     }
 };
 

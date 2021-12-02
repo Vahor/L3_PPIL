@@ -19,9 +19,9 @@ class Color : public JsonObject {
 
 private:
     Color(int red, int green, int blue): red(red), green(green), blue(blue){
-        addChildren("red", new JsonPrimitive(to_string(red)));
-        addChildren("green", new JsonPrimitive(to_string(green)));
-        addChildren("blue", new JsonPrimitive(to_string(blue)));
+        put("red", new JsonPrimitive(to_string(red)));
+        put("green", new JsonPrimitive(to_string(green)));
+        put("blue", new JsonPrimitive(to_string(blue)));
     }
 
 public:

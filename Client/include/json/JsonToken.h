@@ -63,9 +63,22 @@ public:
                 break;
             }
         }
-        token.position = i;
+        token.position = i+1;
 
         return token;
+    }
+
+    static int getNextTokenPosition( const string &str, const char test) {
+
+        unsigned long maxLength = str.length();
+        int i;
+        for (i = 0; i < maxLength; i++) {
+            char c = str[i];
+            if (c == test) {
+                break;
+            }
+        }
+        return i+1;
     }
 };
 

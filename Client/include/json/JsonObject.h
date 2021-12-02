@@ -26,19 +26,27 @@ using namespace std;
  */
 class JsonObject : public JsonElement {
 
-    map<string, JsonElement*> children;
+    map<string, JsonElement *> children;
 
 public:
-    JsonObject(){}
+    JsonObject() {}
+
     JsonObject(const JsonObject *copy) {
-        cout << "copy" << endl;
+        //cout << "copy JsonObject" << endl;
+        for (const auto &it: copy->children) { put(it.first, it.second); }
     }
-    ~JsonObject(){
+
+    ~JsonObject() {
+        //cout << "delete JsonObject" << endl;
         // todo
     }
 
-    void addChildren(const string &key, JsonElement *json) {
+    void put(const string &key, JsonElement *json) {
         children[key] = json->clone();
+    }
+
+    JsonElement *get(const string &key) const {
+        return children.at(key);
     }
 
     virtual JsonObject *clone() const {
@@ -49,11 +57,11 @@ public:
         string res = "{";
 
         for (auto it = children.begin(); it != children.end(); ++it) {
-            JsonElement* element = it->second;
+            JsonElement *element = it->second;
             res += '"' + it->first + "\":";
             res += element->toString();
 
-            if(std::next(it) != children.end()) {
+            if (std::next(it) != children.end()) {
                 res += ",";
             }
         }

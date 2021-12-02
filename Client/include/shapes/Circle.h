@@ -7,7 +7,7 @@
 
 #include "shapes/Shape.h"
 
-class Circle:public Shape{
+class Circle : public Shape {
 
 private:
 
@@ -17,15 +17,24 @@ private:
 
 public:
 
-    Circle(double x, double y, double diameter):
-    x(x),
-    y(y),
-    diameter(diameter),
-    Shape("D_CIRCLE")
-    {
-        addChildren("x", new JsonPrimitive(to_string(x)));
-        addChildren("y", new JsonPrimitive(to_string(y)));
-        addChildren("diameter", new JsonPrimitive(to_string(diameter)));
+    Circle(double x, double y, double diameter) :
+            x(x),
+            y(y),
+            diameter(diameter),
+            Shape("CIRCLE") {}
+
+    virtual JsonElement* serialize() const {
+        auto* object = new JsonObject();
+
+        object->put("x", new JsonPrimitive(to_string(x)));
+        object->put("y", new JsonPrimitive(to_string(y)));
+        object->put("diameter", new JsonPrimitive(to_string(diameter)));
+
+        return object;
+    }
+
+    virtual Circle* clone() const {
+        return new Circle(*this);
     }
 
 };
