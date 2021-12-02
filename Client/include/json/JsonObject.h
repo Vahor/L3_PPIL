@@ -33,6 +33,13 @@ public:
     JsonObject(const JsonObject *copy) {
         cout << "copy" << endl;
     }
+    ~JsonObject(){
+        // todo
+    }
+
+    void addChildren(const string &key, JsonElement *json) {
+        children[key] = json->clone();
+    }
 
     virtual JsonObject *clone() const {
         return new JsonObject(*this);
@@ -53,10 +60,6 @@ public:
 
         res += "}";
         return res;
-    }
-
-    void addChildren(const string &key, JsonElement *json) {
-        children[key] = json;
     }
 
 };

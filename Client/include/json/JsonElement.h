@@ -7,6 +7,7 @@
 
 #include <string>
 #include <utility>
+
 using namespace std;
 
 class JsonElement {
@@ -14,7 +15,8 @@ class JsonElement {
 public:
 
     virtual string toString() const = 0;
-    virtual JsonElement* clone() const = 0;
+
+    virtual JsonElement *clone() const = 0;
 
     explicit operator string() const {
         return toString();
