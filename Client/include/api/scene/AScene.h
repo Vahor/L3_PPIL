@@ -23,14 +23,18 @@ protected:
 public:
 
     AScene(const AScene &copy) {
-        cout << "copy AScene" << endl;
-        // todo
+        for (auto &shape: copy.shapes) {
+            add(shape);
+        }
+        this->name = copy.name;
+        this->height = copy.height;
+        this->width = copy.width;
     }
 
     AScene() {}
 
     virtual ~AScene() {
-        cout << "delete AScene" << endl;
+        cerr << "delete AScene" << endl;
         // todo
     }
 

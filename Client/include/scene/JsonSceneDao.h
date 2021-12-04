@@ -16,7 +16,7 @@ class JsonSceneDao : public Dao<JsonScene, string> {
 
     Handler<ADataObject, Shape *> *handler;
 
-    fstream getFileStream(string path, ios_base::openmode mode) const{
+    static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
         if (!inputFile.is_open()) {
             // todo exception
@@ -33,6 +33,7 @@ public:
     }
 
     /**
+     *  Récumère le fichier depuis {path} et le transforme en un JsonScene
      *
      * @param id nom de la scene a charger dans le dossier
      * @return La scene correspondante si elle existe.
@@ -48,6 +49,13 @@ public:
         return JsonScene::parse(*object, handler);
     }
 
+    /**
+     * Sauvegarde {data} dans un fichier situé en {path}.
+     * Créé le fichier si il n'existe pas, et remplace son contenu.
+     *
+     * @param path Chemin vers le fichier à sauvegarder
+     * @param data Donnés à sauvegarder
+     */
     virtual void save(string path, JsonScene *data) const {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();

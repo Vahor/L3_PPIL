@@ -24,7 +24,7 @@ public:
     ADataArray() {}
 
     virtual ~ADataArray(){
-        //cout << "delete JsonArray" << endl;
+        cerr << "delete JsonArray" << endl;
         // todo
     }
 

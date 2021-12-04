@@ -21,6 +21,7 @@ public:
 
         JsonSceneDao sceneDao;
         JsonScene *scene = sceneDao.get("/Users/nathan/Desktop/UFR/PPIL/Projet/Client/data/scene1.json");
+        JsonScene *sceneClone = scene->clone();
 
         JsonScene testScene;
         testScene.setName("Truc");
@@ -50,7 +51,13 @@ public:
 //
 //        cout << text << endl;
 
-        test.assertTrue(scene->serialize()->toString().length() == fromCode.length(), "scene.length() != fromCode.length");
+        cout << sceneClone->serialize()->toString() << endl;
+        cout << scene->serialize()->toString() << endl;
+
+        test.assertTrue(scene->serialize()->toString().length() == fromCode.length(),
+                        "scene.length() != fromCode.length");
+        test.assertTrue(sceneClone->serialize()->toString().length() == scene->serialize()->toString().length(),
+                        "scene.length() != sceneClone.length");
     }
 };
 

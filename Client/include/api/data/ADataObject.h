@@ -17,12 +17,11 @@ public:
     ADataObject() {}
 
     ADataObject(const ADataObject *copy) {
-        //cout << "copy ADataObject" << endl;
         for (const auto &it: copy->children) { put(it.first, it.second); }
     }
 
     virtual ~ADataObject() {
-        //cout << "delete ADataObject" << endl;
+        cerr << "delete ADataObject" << endl;
         // todo
     }
 
