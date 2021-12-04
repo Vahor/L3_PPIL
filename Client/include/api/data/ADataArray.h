@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "data/ADataElement.h"
+#include "ADataElement.h"
 using namespace std;
 
 class ADataArray : public ADataElement {
@@ -23,7 +23,7 @@ public:
 
     ADataArray() {}
 
-    ~ADataArray(){
+    virtual ~ADataArray(){
         //cout << "delete JsonArray" << endl;
         // todo
     }

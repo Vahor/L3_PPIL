@@ -5,7 +5,7 @@
 #ifndef CLIENT_CIRCLE_H
 #define CLIENT_CIRCLE_H
 
-#include "shapes/Shape.h"
+#include "api/shape/Shape.h"
 
 class Circle : public Shape {
 

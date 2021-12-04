@@ -1,25 +1,20 @@
-#include <string>
-#include <iostream>
-
-using namespace std;
-
 #include "client/TCPClient.h"
 #include "shapes/Circle.h"
 
-
+#include "scene/JsonScene.h"
+#include "scene/JsonSceneDao.h"
 
 int main() {
 
+    //TCPClient client("127.0.0.1", 10000);
 
-
-
+    JsonSceneDao sceneDao;
+    JsonScene *scene = sceneDao.get("/Users/nathan/Desktop/UFR/PPIL/Projet/Client/data/scene1.json");
+    cout << scene->getName() << endl;
     cout << scene->serialize()->toString() << endl;
-    cout << testScene.serialize()->toString() << endl;
-    return 0;
-//
-//    TCPClient client("127.0.0.1", 10000);
-//
-//
+
+    sceneDao.save("/Users/nathan/Desktop/UFR/PPIL/Projet/Client/data/scene2.json", scene);
+
 //    Circle sun(0, 0, 150);
 //    sun.setColor(Color::ORANGE);
 //
@@ -28,9 +23,9 @@ int main() {
 //
 //    Circle earthPath(0, 0, 310);
 //
-//    client.send(sun.toString());
-//    client.send(earth.toString());
-//    client.send(earthPath.toString());
+//    client.send(sun.serialize()->toString());
+//    client.send(earth.serialize()->toString());
+//    client.send(earthPath.serialize()->toString());
 
     return 0;
 }

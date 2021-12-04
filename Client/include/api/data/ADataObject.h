@@ -5,7 +5,7 @@
 #ifndef CLIENT_ADATAOBJECT_H
 #define CLIENT_ADATAOBJECT_H
 
-#include "data/ADataElement.h"
+#include "ADataElement.h"
 
 class ADataObject : public ADataElement {
 
@@ -21,7 +21,7 @@ public:
         for (const auto &it: copy->children) { put(it.first, it.second); }
     }
 
-    ~ADataObject() {
+    virtual ~ADataObject() {
         //cout << "delete ADataObject" << endl;
         // todo
     }

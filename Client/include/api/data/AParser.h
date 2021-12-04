@@ -5,7 +5,7 @@
 #ifndef CLIENT_APARSER_H
 #define CLIENT_APARSER_H
 
-#include "data/ADataObject.h"
+#include "ADataObject.h"
 
 class AParser {
 

@@ -4,9 +4,10 @@
 
 #include "../lib/SimpleTest.h"
 
+#include "scene/JsonScene.h"
+#include "scene/JsonSceneDao.h"
 #include "data/json/JsonParser.h"
-#include "Scene.h"
-#include "shapes/handler/ShapesCORLoader.h"
+#include "api/scene/AScene.h"
 #include <string>
 #include <algorithm>
 
@@ -18,44 +19,11 @@ public:
     static void runTest(SimpleTest &test) {
         SimpleTest::divider("PARSER_SCENE");
 
-        string text = R"({
-	"items": [{
-		"CIRCLE": {
-			"color": {
-				"b": "0",
-				"g": "0",
-				"r": "255"
-			},
-			"diameter": "50.000000",
-			"x": "50.000000",
-			"y": "50.000000"
-		},
-		"type": "CIRCLE"
-	}, {
-		"CIRCLE": {
-			"color": {
-				"b": "0",
-				"g": "0",
-				"r": "255"
-			},
-			"diameter": "50.000000",
-			"x": "200.000000",
-			"y": "200.000000"
-		},
-		"type": "CIRCLE"
-	}],
-	"window": {
-		"height": "500",
-		"name": "Truc",
-		"width": "1000"
-	}
-})";
+        JsonSceneDao sceneDao;
+        JsonScene *scene = sceneDao.get("/Users/nathan/Desktop/UFR/PPIL/Projet/Client/data/scene1.json");
 
-        JsonParser parser;
-
-        auto *handler = new ShapesCORLoader();
-
-        Scene testScene("Truc");
+        JsonScene testScene;
+        testScene.setName("Truc");
         testScene.setHeight(500);
         testScene.setWidth(1000);
 
@@ -67,14 +35,7 @@ public:
         circle2->setColor(Color::RED);
         testScene.add(circle2);
 
-        JsonObject *object = parser.parse(text);
-        Scene *scene = handler->parseScene(*object);
-        string fromParser = object->toString();
-        string fromParser2 = scene->serialize()->toString();
-
         string fromCode = testScene.serialize()->toString();
-
-        text.erase(remove_if(text.begin(), text.end(), ::isspace), text.end());
 
 //        cout << "fromCode.length() : " << fromCode.length() << endl;
 //        cout << fromCode << endl;
@@ -89,11 +50,7 @@ public:
 //
 //        cout << text << endl;
 
-        test.assertTrue(text.length() == fromParser.length(), "text.length() != fromParser.length");
-        test.assertTrue(text.length() == fromParser2.length(), "text.length() != fromParser2.length");
-        test.assertTrue(text.length() == fromCode.length(), "text.length() != fromCode.length");
-        test.assertTrue(fromParser2.length() == fromParser.length(), "fromParser2.length() != fromParser.length");
-        test.assertTrue(fromCode.length() == fromParser.length(), "fromCode.length() != fromParser.length");
+        test.assertTrue(scene->serialize()->toString().length() == fromCode.length(), "scene.length() != fromCode.length");
     }
 };
 

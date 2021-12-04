@@ -6,7 +6,7 @@
 #define CLIENT_ADATAPRIMITIVE_H
 
 #include <string>
-#include "data/ADataElement.h"
+#include "ADataElement.h"
 
 using namespace std;
 

@@ -6,8 +6,8 @@
 #define CLIENT_SHAPEHANDLER_H
 
 #include "shapes/Circle.h"
-#include "shapes/Shape.h"
-#include "handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/ACORHandler.h"
 
 class ShapeHandler : public ACORHandler<ADataObject, Shape *> {
 
@@ -22,7 +22,7 @@ protected:
 
         ADataObject *color = circle->get("color")->getAsObject();
 
-        Circle *res = new Circle(x, y, diameter);
+        auto *res = new Circle(x, y, diameter);
         res->setColor(Color(
                 color->get("r")->getAsPrimitive()->getAsInt(),
                 color->get("g")->getAsPrimitive()->getAsInt(),

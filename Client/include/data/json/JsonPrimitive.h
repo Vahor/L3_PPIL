@@ -6,7 +6,7 @@
 #define CLIENT_JSONPRIMITIVE_H
 
 
-#include "data/ADataPrimitive.h"
+#include "api/data/ADataPrimitive.h"
 
 using namespace std;
 
