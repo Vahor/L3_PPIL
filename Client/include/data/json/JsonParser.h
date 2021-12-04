@@ -5,11 +5,12 @@
 #ifndef CLIENT_JSONPARSER_H
 #define CLIENT_JSONPARSER_H
 
-#include "json/JsonObject.h"
-#include "json/JsonArray.h"
-#include "json/JsonToken.h"
+#include "data/json/JsonObject.h"
+#include "data/json/JsonArray.h"
+#include "data/json/JsonToken.h"
+#include "data/AParser.h"
 
-class JsonParser {
+class JsonParser : public AParser {
 
     static string getTokenName(TOKEN &token) {
         switch (token) {
@@ -29,7 +30,7 @@ class JsonParser {
     }
 
     static pair<JsonArray *, int> parseArray(string input) {
-        auto *array = new JsonArray();
+        auto *array = new JsonArray;
         Token token;
         unsigned long length = input.length();
         do {
@@ -123,7 +124,7 @@ class JsonParser {
 
 public:
 
-    static JsonObject *parse(const string &input) {
+    virtual JsonObject *parse(const string &input) const {
         return parseObject(input.substr(1)).first;  // racine à JsonObject de base
     }
 

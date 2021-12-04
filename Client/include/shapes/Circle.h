@@ -23,7 +23,7 @@ public:
             diameter(diameter),
             Shape("CIRCLE") {}
 
-    virtual JsonElement* serialize() const {
+    virtual ADataElement* serialize() const {
         auto* object = new JsonObject();
 
         object->put("x", new JsonPrimitive(to_string(x)));

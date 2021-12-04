@@ -6,8 +6,8 @@
 #define CLIENT_COLOR_H
 
 #include <string>
-#include "json/JsonObject.h"
-#include "json/JsonPrimitive.h"
+#include "data/json/JsonObject.h"
+#include "data/json/JsonPrimitive.h"
 
 using namespace std;
 

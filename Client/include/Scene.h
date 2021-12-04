@@ -7,7 +7,6 @@
 
 #include <string>
 #include <vector>
-#include "json/JsonObject.h"
 #include "shapes/Shape.h"
 #include "handler/Handler.h"
 
@@ -22,16 +21,17 @@ class Scene {
 
 public:
 
-    static Scene *parse(const JsonObject &object, const Handler<JsonObject, Shape* > *handler) {
-        JsonObject *window = object.get("window")->getAsJsonObject();
-        auto *scene = new Scene(window->get("name")->getAsJsonPrimitive()->getAsString());
+    static Scene *parse(const JsonObject &object, const Handler<ADataObject, Shape* > *handler) {
 
-        scene->setHeight(window->get("height")->getAsJsonPrimitive()->getAsInt());
-        scene->setWidth(window->get("width")->getAsJsonPrimitive()->getAsInt());
+        ADataObject *window = object.get("window")->getAsObject();
+        auto *scene = new Scene(window->get("name")->getAsPrimitive()->getAsString());
 
-        JsonArray *items = object.get("items")->getAsJsonArray();
-        for(JsonElement* element : *items){
-            Shape* shape = handler->solve(element->getAsJsonObject());
+        scene->setHeight(window->get("height")->getAsPrimitive()->getAsInt());
+        scene->setWidth(window->get("width")->getAsPrimitive()->getAsInt());
+
+        ADataArray *items = object.get("items")->getAsArray();
+        for(ADataElement* element : *items){
+            Shape* shape = handler->solve(*element->getAsObject());
             if(shape != nullptr)
                 scene->shapes.push_back(shape);
         }
@@ -58,7 +58,7 @@ public:
     }
 
 
-    virtual JsonElement *serialize() const {
+    virtual ADataElement *serialize() const {
         auto *object = new JsonObject();
         auto *window = new JsonObject();
         auto *items = new JsonArray();

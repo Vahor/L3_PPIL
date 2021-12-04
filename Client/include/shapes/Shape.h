@@ -5,8 +5,8 @@
 #ifndef CLIENT_SHAPE_H
 #define CLIENT_SHAPE_H
 
-#include "json/JsonObject.h"
-#include "json/JsonPrimitive.h"
+#include "data/json/JsonObject.h"
+#include "data/json/JsonPrimitive.h"
 #include "Color.h"
 
 class Shape {
@@ -18,7 +18,7 @@ public:
     }
 
 
-    virtual JsonElement* serialize() const = 0;
+    virtual ADataElement* serialize() const = 0;
 
     virtual Shape* clone() const = 0;
 

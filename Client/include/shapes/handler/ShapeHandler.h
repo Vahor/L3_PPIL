@@ -7,19 +7,18 @@
 
 #include "shapes/Circle.h"
 #include "shapes/Shape.h"
-#include "json/JsonArray.h"
 #include "handler/ACORHandler.h"
 
-class ShapeHandler : public ACORHandler<JsonObject, Shape *> {
+class ShapeHandler : public ACORHandler<ADataObject, Shape *> {
 
 protected:
 
-    Shape *parse(const JsonObject &line) const override {
-        JsonObject circle = line.get("CIRCLE")->getAsJsonObject();
+    Shape *parse(const ADataObject &line) const override {
+        ADataObject* circle = line.get("CIRCLE")->getAsObject();
 
-        int diameter = circle.get("diameter")->getAsJsonPrimitive()->getAsInt();
-        int x = circle.get("x")->getAsJsonPrimitive()->getAsInt();
-        int y = circle.get("y")->getAsJsonPrimitive()->getAsInt();
+        int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
+        int x = circle->get("x")->getAsPrimitive()->getAsInt();
+        int y = circle->get("y")->getAsPrimitive()->getAsInt();
 
         return new Circle(x, y, diameter);
     }

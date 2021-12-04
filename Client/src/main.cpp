@@ -6,14 +6,15 @@ using namespace std;
 #include "client/TCPClient.h"
 #include "shapes/Circle.h"
 
-#include "json/JsonParser.h"
+#include "data/json/JsonParser.h"
 #include "Scene.h"
 #include "shapes/handler/ShapesCORLoader.h"
 
 
 int main() {
 
-    JsonObject object = JsonParser::parse(R"({
+    JsonParser parser;
+    JsonObject *object = parser.parse(R"({
 	"items": [{
 		"CIRCLE": {
 			"color": {
@@ -45,9 +46,10 @@ int main() {
 		"width": "1000"
 	}
 })");
+    cout << object->toString() << endl;
 
     auto* handler = new ShapesCORLoader();
-    Scene* scene = handler->parseScene(object);
+    Scene* scene = handler->parseScene(*object);
 
     Scene testScene("Truc");
     testScene.setHeight(500);

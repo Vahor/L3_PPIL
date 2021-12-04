@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "shapes/Shape.h"
-#include "json/JsonArray.h"
 #include "handler/Handler.h"
 
 #include "shapes/handler/ShapeHandler.h"
@@ -17,7 +16,7 @@ using namespace std;
 
 class ShapesCORLoader {
 
-    Handler<JsonObject, Shape*>* handler;
+    Handler<ADataObject, Shape*>* handler;
 
 public:
 
@@ -26,6 +25,7 @@ public:
     }
 
     Scene* parseScene(const JsonObject &object) const {
+        cout << object.toString() << endl;
         return Scene::parse(object, handler);
     }
 

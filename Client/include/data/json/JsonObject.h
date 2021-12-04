@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#include "json/JsonElement.h"
+#include "data/ADataObject.h"
 
 /**
  * Création de Json simples pour l'envoie de packets
@@ -24,30 +24,10 @@ using namespace std;
  *
  *  }
  */
-class JsonObject : public JsonElement {
+class JsonObject : public ADataObject {
 
-    map<string, JsonElement *> children;
 
 public:
-    JsonObject() {}
-
-    JsonObject(const JsonObject *copy) {
-        //cout << "copy JsonObject" << endl;
-        for (const auto &it: copy->children) { put(it.first, it.second); }
-    }
-
-    ~JsonObject() {
-        //cout << "delete JsonObject" << endl;
-        // todo
-    }
-
-    void put(const string &key, JsonElement *json) {
-        children[key] = json->clone();
-    }
-
-    JsonElement *get(const string &key) const {
-        return children.at(key);
-    }
 
     virtual JsonObject *clone() const {
         return new JsonObject(*this);
@@ -57,7 +37,7 @@ public:
         string res = "{";
 
         for (auto it = children.begin(); it != children.end(); ++it) {
-            JsonElement *element = it->second;
+            ADataElement *element = it->second;
             res += '"' + it->first + "\":";
             res += element->toString();
 

@@ -6,30 +6,20 @@
 #define CLIENT_JSONPRIMITIVE_H
 
 
-#include <iostream>
-#include <utility>
-#include <vector>
-#include <string>
-#include <stdlib.h>
+#include "data/ADataPrimitive.h"
 
 using namespace std;
 
-#include "json/JsonElement.h"
 
-class JsonPrimitive : public JsonElement {
+class JsonPrimitive : public ADataPrimitive {
 
-    string value;
 
 public:
-    JsonPrimitive(string value) : value(std::move(value)) {}
+    JsonPrimitive(string value) : ADataPrimitive(std::move(value)) {}
 
     virtual JsonPrimitive *clone() const {
         return new JsonPrimitive(*this);
     }
-
-
-    int getAsInt() const { return stoi(value); }
-    string getAsString() const { return value; }
 
     virtual string toString() const {
         return '"' + value + '"';
