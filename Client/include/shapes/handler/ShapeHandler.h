@@ -14,13 +14,21 @@ class ShapeHandler : public ACORHandler<ADataObject, Shape *> {
 protected:
 
     Shape *parse(const ADataObject &line) const override {
-        ADataObject* circle = line.get("CIRCLE")->getAsObject();
+        ADataObject *circle = line.get("CIRCLE")->getAsObject();
 
         int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
         int x = circle->get("x")->getAsPrimitive()->getAsInt();
         int y = circle->get("y")->getAsPrimitive()->getAsInt();
 
-        return new Circle(x, y, diameter);
+        ADataObject *color = circle->get("color")->getAsObject();
+
+        Circle *res = new Circle(x, y, diameter);
+        res->setColor(Color(
+                color->get("r")->getAsPrimitive()->getAsInt(),
+                color->get("g")->getAsPrimitive()->getAsInt(),
+                color->get("b")->getAsPrimitive()->getAsInt()
+        ));
+        return res;
     }
 };
 

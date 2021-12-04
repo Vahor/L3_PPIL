@@ -10,7 +10,7 @@
 class AParser {
 
 public:
-    virtual ADataObject *parse(const string &input) const = 0;
+    virtual ADataObject *parse(string input) const = 0;
 
 };
 

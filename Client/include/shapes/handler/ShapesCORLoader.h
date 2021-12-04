@@ -24,8 +24,7 @@ public:
         handler = new ShapeHandler();
     }
 
-    Scene* parseScene(const JsonObject &object) const {
-        cout << object.toString() << endl;
+    Scene* parseScene(const ADataObject &object) const {
         return Scene::parse(object, handler);
     }
 

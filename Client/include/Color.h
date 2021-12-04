@@ -17,22 +17,23 @@ class Color : public JsonObject {
     int green;
     int blue;
 
-private:
+public:
+    // Default BLACK
+    Color(): red(0), green(0), blue(0){}
+
     Color(int red, int green, int blue): red(red), green(green), blue(blue){
-        put("red", new JsonPrimitive(to_string(red)));
-        put("green", new JsonPrimitive(to_string(green)));
-        put("blue", new JsonPrimitive(to_string(blue)));
+        put("r", new JsonPrimitive(to_string(red)));
+        put("g", new JsonPrimitive(to_string(green)));
+        put("b", new JsonPrimitive(to_string(blue)));
     }
 
-public:
-
-    static Color* BLACK;
-    static Color* BLUE;
-    static Color* RED;
-    static Color* GREEN;
-    static Color* YELLOW;
-    static Color* CYAN;
-    static Color* ORANGE;
+    static Color BLACK;
+    static Color BLUE;
+    static Color RED;
+    static Color GREEN;
+    static Color YELLOW;
+    static Color CYAN;
+    static Color ORANGE;
 
 
 };

@@ -63,7 +63,7 @@ public:
                 break;
             }
         }
-        token.position = i+1;
+        token.position = i;
 
         return token;
     }
@@ -78,7 +78,7 @@ public:
                 break;
             }
         }
-        return i+1;
+        return i;
     }
 };
 

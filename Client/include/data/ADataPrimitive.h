@@ -22,8 +22,6 @@ public:
     int getAsInt() const { return stoi(value); }
     string getAsString() const { return value; }
 
-    virtual string toString() const = 0;
-
 
     ADataPrimitive * getAsPrimitive() const override {
         return (ADataPrimitive *) this;

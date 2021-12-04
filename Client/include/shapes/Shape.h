@@ -11,19 +11,22 @@
 
 class Shape {
 
+    Color color;
+
 
 public:
-
-    Shape(const string& name)  {
-    }
-
 
     virtual ADataElement* serialize() const = 0;
 
     virtual Shape* clone() const = 0;
 
-    void setColor(const Color* color){
+    void setColor(const Color &color){
+        this->color = color;
     }
+
+    Color getColor() const { return color;}
+
+
 };
 
 

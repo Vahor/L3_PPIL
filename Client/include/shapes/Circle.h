@@ -20,15 +20,22 @@ public:
     Circle(double x, double y, double diameter) :
             x(x),
             y(y),
-            diameter(diameter),
-            Shape("CIRCLE") {}
+            diameter(diameter) {}
 
     virtual ADataElement* serialize() const {
         auto* object = new JsonObject();
 
-        object->put("x", new JsonPrimitive(to_string(x)));
-        object->put("y", new JsonPrimitive(to_string(y)));
-        object->put("diameter", new JsonPrimitive(to_string(diameter)));
+        object->put("type", new JsonPrimitive("CIRCLE"));
+
+        Color color = getColor();
+        auto* data = new JsonObject();
+        data->put("x", new JsonPrimitive(to_string(x)));
+        data->put("y", new JsonPrimitive(to_string(y)));
+        data->put("diameter", new JsonPrimitive(to_string(diameter)));
+        data->put("color", &color);
+
+        object->put("CIRCLE", data);
+
 
         return object;
     }

@@ -4,10 +4,10 @@
 
 #include "Color.h"
 
-Color *Color::BLACK = new Color(0, 0, 0);
-Color *Color::BLUE = new Color(0, 0, 255);
-Color *Color::RED = new Color(255, 0, 0);
-Color *Color::GREEN = new Color(0, 255, 0);
-Color *Color::YELLOW = new Color(255, 255, 0);
-Color *Color::CYAN = new Color(0, 255, 255);
-Color *Color::ORANGE = new Color(255, 200, 0);
+Color Color::BLACK = Color(0, 0, 0);
+Color Color::BLUE = Color(0, 0, 255);
+Color Color::RED = Color(255, 0, 0);
+Color Color::GREEN = Color(0, 255, 0);
+Color Color::YELLOW = Color(255, 255, 0);
+Color Color::CYAN = Color(0, 255, 255);
+Color Color::ORANGE = Color(255, 200, 0);

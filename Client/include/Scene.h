@@ -21,7 +21,7 @@ class Scene {
 
 public:
 
-    static Scene *parse(const JsonObject &object, const Handler<ADataObject, Shape* > *handler) {
+    static Scene *parse(const ADataObject &object, const Handler<ADataObject, Shape* > *handler) {
 
         ADataObject *window = object.get("window")->getAsObject();
         auto *scene = new Scene(window->get("name")->getAsPrimitive()->getAsString());

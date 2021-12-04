@@ -7,6 +7,7 @@
 
 #include "data/json/JsonObject.h"
 #include "data/json/JsonArray.h"
+#include "data/json/JsonPrimitive.h"
 #include "data/json/JsonToken.h"
 #include "data/AParser.h"
 
@@ -37,29 +38,31 @@ class JsonParser : public AParser {
             token = JsonToken::getNextToken(input);
             input = input.substr(token.position); // On avance à la fin de ce token
 
-
-            if(token.type == TOKEN::ARRAY_CLOSE || token.type == TOKEN::UNKNOWN) {
+            if (token.type == TOKEN::ARRAY_CLOSE || token.type == TOKEN::UNKNOWN) {
                 break;
             }
 
             switch (token.type) {
                 case TOKEN::STRING: {
                     array->add(new JsonPrimitive(token.value));
+                    input = input.substr(token.position); // On avance à la fin de la valeur
                     break;
                 }
                 case TOKEN::CURLY_OPEN: {
-                    pair<JsonObject *, int> res = parseObject(input.substr(token.position));
+                    input = input.substr(
+                            JsonToken::getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
+                    pair<JsonObject *, int> res = parseObject(input);
                     array->add(res.first);
-                    input = input.substr(res.second); // On avance à la fin de l'objet
-                    input = input.substr(JsonToken::getNextTokenPosition(input, '}')); // On avance à la fin de ce token
+                    input = input.substr(res.second + 1); // On avance à la fin de l'objet
 
                     break;
                 }
                 case TOKEN::ARRAY_OPEN: {
-                    pair<JsonArray *, int> res = parseArray(input.substr(token.position));
+                    input = input.substr(
+                            JsonToken::getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
+                    pair<JsonArray *, int> res = parseArray(input);
                     array->add(res.first);
-                    input = input.substr(res.second); // On avance à la fin de la liste
-                    input = input.substr(JsonToken::getNextTokenPosition(input, ']')); // On avance à la fin de ce token
+                    input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                     break;
                 }
@@ -83,7 +86,7 @@ class JsonParser : public AParser {
             input = input.substr(token.position); // On avance à la fin de ce token
             string key = token.value;
 
-            if(token.type == TOKEN::CURLY_CLOSE || token.type == TOKEN::UNKNOWN) {
+            if (token.type == TOKEN::CURLY_CLOSE || token.type == TOKEN::UNKNOWN) {
                 break;
             }
 
@@ -93,22 +96,24 @@ class JsonParser : public AParser {
             switch (token.type) {
                 case TOKEN::STRING: {
                     object->put(key, new JsonPrimitive(token.value));
-                    input = input.substr(token.position + 1); // On avance à la fin de la valeur
+                    input = input.substr(token.position); // On avance à la fin de la valeur
                     break;
                 }
                 case TOKEN::CURLY_OPEN: {
-                    pair<JsonObject *, int> res = parseObject(input.substr(token.position));
+                    input = input.substr(
+                            JsonToken::getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
+                    pair<JsonObject *, int> res = parseObject(input);
                     object->put(key, res.first);
-                    input = input.substr(res.second); // On avance à la fin de l'objet
-                    input = input.substr(JsonToken::getNextTokenPosition(input, '}')); // On avance à la fin de ce token
+                    input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                     break;
                 }
                 case TOKEN::ARRAY_OPEN: {
-                    pair<JsonArray *, int> res = parseArray(input.substr(token.position));
+                    input = input.substr(
+                            JsonToken::getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
+                    pair<JsonArray *, int> res = parseArray(input);
                     object->put(key, res.first);
-                    input = input.substr(res.second); // On avance à la fin de la liste
-                    input = input.substr(JsonToken::getNextTokenPosition(input, ']')); // On avance à la fin de ce token
+                    input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                     break;
                 }
@@ -124,7 +129,7 @@ class JsonParser : public AParser {
 
 public:
 
-    virtual JsonObject *parse(const string &input) const {
+    virtual JsonObject *parse(string input) const {
         return parseObject(input.substr(1)).first;  // racine à JsonObject de base
     }
 
