@@ -8,6 +8,7 @@ using namespace std;
 
 #include "json/JsonParser.h"
 #include "Scene.h"
+#include "shapes/handler/ShapesCORLoader.h"
 
 
 int main() {
@@ -45,7 +46,8 @@ int main() {
 	}
 })");
 
-    Scene* scene = Scene::parse(object);
+    auto* handler = new ShapesCORLoader();
+    Scene* scene = handler->parseScene(object);
 
     Scene testScene("Truc");
     testScene.setHeight(500);

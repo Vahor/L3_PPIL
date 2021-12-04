@@ -53,9 +53,9 @@ public:
 
 
     auto begin() { return &children[0]; }
-    auto end() { return &children[children.size() - 1]; }
+    auto end() { return &children[children.size()]; }
     auto begin() const { return &children[0]; }
-    auto end() const { return &children[children.size() - 1]; }
+    auto end() const { return &children[children.size()]; }
 };
 
 

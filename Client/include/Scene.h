@@ -9,6 +9,7 @@
 #include <vector>
 #include "json/JsonObject.h"
 #include "shapes/Shape.h"
+#include "handler/Handler.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ class Scene {
 
 public:
 
-    static Scene *parse(const JsonObject &object) {
+    static Scene *parse(const JsonObject &object, const Handler<JsonObject, Shape* > *handler) {
         JsonObject *window = object.get("window")->getAsJsonObject();
         auto *scene = new Scene(window->get("name")->getAsJsonPrimitive()->getAsString());
 
@@ -29,10 +30,10 @@ public:
         scene->setWidth(window->get("width")->getAsJsonPrimitive()->getAsInt());
 
         JsonArray *items = object.get("items")->getAsJsonArray();
-        for (JsonElement *element: *items) {
-            // todo
-            cout << "Ajout de : " << element->getAsJsonObject()->get("type")->getAsJsonPrimitive()->getAsString()
-                 << endl;
+        for(JsonElement* element : *items){
+            Shape* shape = handler->solve(element->getAsJsonObject());
+            if(shape != nullptr)
+                scene->shapes.push_back(shape);
         }
 
         return scene;
