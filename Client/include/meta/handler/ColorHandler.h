@@ -8,11 +8,11 @@
 #include "api/shape/Shape.h"
 #include "api/handler/ACORHandler.h"
 
-class ColorHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *>{
+class ColorHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *> {
 
 protected:
 
-    Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
+    Shape *parse(const pair<ADataObject *, Shape *> &source) const override {
         ADataObject *color = source.first->get("color")->getAsObject();
         source.second->setColor(Color(
                 color->get("r")->getAsPrimitive()->getAsInt(),
@@ -21,6 +21,11 @@ protected:
         ));
         return nullptr;
     }
+
+
+public:
+    explicit ColorHandler(Handler<pair<ADataObject *, Shape *>, Shape *> *suivant) : ACORHandler(suivant) {}
+
 };
 
 

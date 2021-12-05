@@ -33,11 +33,13 @@ public:
         auto *circle1 = new Circle(200, 200, 50);
         circle1->setColor(Color::RED);
         circle1->setName("Circle 1");
+        circle1->setVisible(false);
         testScene.add(circle1);
 
         auto *circle2 = new Circle(50, 50, 50);
         circle2->setColor(Color::BLUE);
         circle2->setName("Circle 2");
+        circle2->setShowName(true);
         testScene.add(circle2);
 
         JsonSceneDao sceneDao;
@@ -60,15 +62,13 @@ public:
 //
 //        cout << text << endl;
 
-//        cout << sceneClone->serialize()->toString() << endl;
-//        cout << scene->serialize()->toString() << endl;
+        cout << testScene.serialize()->toString() << endl;
+        cout << scene->serialize()->toString() << endl;
 
         test.assertTrue(scene->serialize()->toString().length() == fromCode.length(),
-                        "scene.length() == fromCode.length");
+                        "Load");
         test.assertTrue(sceneClone->serialize()->toString().length() == scene->serialize()->toString().length(),
-                        "scene.length() == sceneClone.length");
-        test.assertTrue(testScene.serialize()->toString().length() == scene->serialize()->toString().length(),
-                        "testScene.length() == sceneClone.length");
+                        "Clone");
     }
 };
 

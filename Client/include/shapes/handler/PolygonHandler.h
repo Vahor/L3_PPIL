@@ -32,6 +32,10 @@ protected:
         return res;
     }
 
+
+public:
+    explicit PolygonHandler(Handler<ADataObject, Shape *> *suivant) : ACORHandler(suivant) {}
+
 };
 
 
