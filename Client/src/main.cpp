@@ -2,13 +2,13 @@
 #include "shapes/Circle.h"
 
 #include "scene/JsonScene.h"
-#include "scene/JsonSceneDao.h"
+#include "scene/SceneDao.h"
 
 int main() {
 
     //TCPClient client("127.0.0.1", 10000);
 
-    JsonSceneDao sceneDao;
+    SceneDao sceneDao;
     JsonScene *scene = sceneDao.get("/Users/nathan/Desktop/UFR/PPIL/Projet/Client/data/scene1.json");
     cout << scene->getName() << endl;
     cout << scene->serialize()->toString() << endl;

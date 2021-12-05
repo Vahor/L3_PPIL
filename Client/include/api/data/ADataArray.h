@@ -6,14 +6,14 @@
 #define CLIENT_ADATAARRAY_H
 
 #include <vector>
+#include <iostream>
 
 #include "ADataElement.h"
-using namespace std;
 
 class ADataArray : public ADataElement {
 
 protected:
-    vector<ADataElement*> children;
+    std::vector<ADataElement*> children;
 
 public:
     ADataArray(const ADataArray &copy) {
@@ -24,7 +24,7 @@ public:
     ADataArray() {}
 
     virtual ~ADataArray(){
-        cerr << "delete JsonArray" << endl;
+        std::cerr << "delete JsonArray" << std::endl;
         // todo
     }
 

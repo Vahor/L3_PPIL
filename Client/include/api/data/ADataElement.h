@@ -9,6 +9,8 @@ class ADataObject;
 class ADataArray;
 class ADataPrimitive;
 
+#include <string>
+
 class ADataElement {
 
 public:
@@ -21,9 +23,9 @@ public:
 
     virtual ADataPrimitive *getAsPrimitive() const { return (ADataPrimitive*)this; }
 
-    virtual string toString() const = 0;
+    virtual std::string toString() const = 0;
 
-    explicit operator string() const {
+    explicit operator std::string() const {
         return toString();
     }
 };

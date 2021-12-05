@@ -6,6 +6,7 @@
 #define CLIENT_CIRCLE_H
 
 #include "api/shape/Shape.h"
+#include "data/DataImpl.h"
 #include <cmath>
 
 class Circle : public Shape {
@@ -24,13 +25,13 @@ public:
             diameter(diameter) {}
 
     ADataElement* serialize() const override {
-        auto* object = new JsonObject();
+        auto* object = new DataObjectImpl();
 
         Color color = getColor();
-        auto* data = new JsonObject();
-        data->put("x", new JsonPrimitive(x));
-        data->put("y", new JsonPrimitive(y));
-        data->put("diameter", new JsonPrimitive(diameter));
+        auto* data = new DataObjectImpl();
+        data->put("x", new DataElementImpl(x));
+        data->put("y", new DataElementImpl(y));
+        data->put("diameter", new DataElementImpl(diameter));
 
         object->put("CIRCLE", data);
 

@@ -16,11 +16,11 @@ class JsonArray : public ADataArray {
 
 public:
 
-    virtual JsonArray *clone() const {
+    JsonArray *clone() const override {
         return new JsonArray(*this);
     }
 
-    virtual string toString() const {
+    string toString() const override {
         string res = "[";
 
         for (auto it = children.begin(); it != children.end(); ++it) {

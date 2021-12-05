@@ -2,11 +2,11 @@
 // Created by Nathan David on 04/12/2021.
 //
 
-#ifndef CLIENT_JSONSCENEDAO_H
-#define CLIENT_JSONSCENEDAO_H
+#ifndef CLIENT_SCENEDAO_H
+#define CLIENT_SCENEDAO_H
 
 #include "api/dao/Dao.h"
-#include "scene/JsonScene.h"
+#include "scene/AScene.h"
 #include "shapes/handler/PolygonHandler.h"
 #include "shapes/handler/CircleHandler.h"
 #include "meta/handler/VisibilityHandler.h"
@@ -16,7 +16,7 @@
 #include "data/json/JsonParser.h"
 #include <fstream>
 
-class JsonSceneDao : public Dao<JsonScene, string> {
+class SceneDao : public Dao<AScene, string> {
 
 
     Handler<ADataObject, Shape*> *shapeHandler = nullptr;
@@ -46,7 +46,7 @@ class JsonSceneDao : public Dao<JsonScene, string> {
 
 public:
 
-    JsonSceneDao() {
+    SceneDao() {
         initShapeHandler();
         initMetaHandler();
     }
@@ -58,14 +58,14 @@ public:
      * @return La scene correspondante si elle existe.
      *  nullptr sinon
      */
-    JsonScene *get(string path) const override {
+    AScene *get(string path) const override {
         fstream inputFile = getFileStream(path, ios::in);
         JsonParser parser;
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
-        JsonObject *object = parser.parse(jsonFile);
+        ADataObject *object = parser.parse(jsonFile);
         inputFile.close();
-        return JsonScene::parse(*object, shapeHandler, metaHandler);
+        return AScene::parse(*object, shapeHandler, metaHandler);
     }
 
     /**
@@ -75,7 +75,7 @@ public:
      * @param path Chemin vers le fichier à sauvegarder
      * @param data Donnés à sauvegarder
      */
-    void save(string path, JsonScene *data) const override {
+    void save(string path, AScene *data) const override {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();
         inputFile.close();
@@ -86,4 +86,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONSCENEDAO_H
+#endif //CLIENT_SCENEDAO_H

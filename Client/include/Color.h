@@ -6,12 +6,11 @@
 #define CLIENT_COLOR_H
 
 #include <string>
-#include "data/json/JsonObject.h"
-#include "data/json/JsonPrimitive.h"
+#include "data/DataImpl.h"
 
 using namespace std;
 
-class Color : public JsonObject {
+class Color : public DataObjectImpl {
 
     int red;
     int green;
@@ -22,9 +21,9 @@ public:
     Color(): red(0), green(0), blue(0){}
 
     Color(int red, int green, int blue): red(red), green(green), blue(blue){
-        put("r", new JsonPrimitive(to_string(red)));
-        put("g", new JsonPrimitive(to_string(green)));
-        put("b", new JsonPrimitive(to_string(blue)));
+        put("r", new DataElementImpl(to_string(red)));
+        put("g", new DataElementImpl(to_string(green)));
+        put("b", new DataElementImpl(to_string(blue)));
     }
 
     static Color BLACK;

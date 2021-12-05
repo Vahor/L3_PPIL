@@ -29,11 +29,11 @@ class JsonObject : public ADataObject {
 
 public:
 
-    virtual JsonObject *clone() const {
+    JsonObject *clone() const override {
         return new JsonObject(*this);
     }
 
-    virtual string toString() const {
+    string toString() const override {
         string res = "{";
 
         for (auto it = children.begin(); it != children.end(); ++it) {

@@ -8,6 +8,7 @@
 #include "data/json/JsonObject.h"
 #include "data/json/JsonPrimitive.h"
 #include "Color.h"
+#include "data/DataImpl.h"
 
 class Shape {
 
@@ -20,22 +21,32 @@ class Shape {
 
 public:
 
+    /**
+     * Méthode appelée lorsqu'on veut enregistrer une forme en un objet neutre.
+     * @return L'objet actuel sous forme ADataElement
+     */
     virtual ADataElement *serialize() const = 0;
 
-    virtual void addMetaData(ADataObject *object) const {
+    /**
+     * Ajoutes les variables metas communes à chaque formes
+     * @param object Object dans lequel on va ajouter l'objet meta
+     * @return Objet meta
+     */
+    virtual ADataObject* addMetaData(ADataObject *object) const {
         ADataObject *metaObject;
 
         if (object->has("meta"))
             metaObject = object->get("meta")->getAsObject();
         else
-            metaObject = new JsonObject();
+            metaObject = new DataObjectImpl();
 
         metaObject->put("color", &color);
-        metaObject->put("name", new JsonPrimitive(name));
-        metaObject->put("showName", new JsonPrimitive(showName));
-        metaObject->put("visible", new JsonPrimitive(visible));
+        metaObject->put("name", new DataElementImpl(name));
+        metaObject->put("showName", new DataElementImpl(showName));
+        metaObject->put("visible", new DataElementImpl(visible));
 
         object->put("meta", metaObject);
+        return metaObject;
     }
 
     virtual Shape *clone() const = 0;

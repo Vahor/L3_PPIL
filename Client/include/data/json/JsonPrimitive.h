@@ -15,16 +15,16 @@ class JsonPrimitive : public ADataPrimitive {
 
 
 public:
-    JsonPrimitive(const string &value) : ADataPrimitive(value) {}
-    JsonPrimitive(int value) : ADataPrimitive(value) {}
-    JsonPrimitive(bool value) : ADataPrimitive(value) {}
-    JsonPrimitive(double value) : ADataPrimitive(value) {}
+    explicit JsonPrimitive(const string &value) : ADataPrimitive(value) {}
+    explicit JsonPrimitive(int value) : ADataPrimitive(value) {}
+    explicit JsonPrimitive(bool value) : ADataPrimitive(value) {}
+    explicit JsonPrimitive(double value) : ADataPrimitive(value) {}
 
-    virtual JsonPrimitive *clone() const {
+    JsonPrimitive *clone() const override {
         return new JsonPrimitive(*this);
     }
 
-    virtual string toString() const {
+    string toString() const override {
         return '"' + value + '"';
     }
 

@@ -4,10 +4,9 @@
 
 #include "../lib/SimpleTest.h"
 
-#include "scene/JsonScene.h"
-#include "scene/JsonSceneDao.h"
+#include "scene/SceneDao.h"
 #include "data/json/JsonParser.h"
-#include "api/scene/AScene.h"
+#include "scene/AScene.h"
 #include <string>
 #include <algorithm>
 
@@ -25,7 +24,7 @@ public:
     static void runTest(SimpleTest &test) {
         SimpleTest::divider("PARSER_SCENE");
 
-        JsonScene testScene;
+        AScene testScene;
         testScene.setName("Truc");
         testScene.setHeight(500);
         testScene.setWidth(1000);
@@ -42,10 +41,10 @@ public:
         circle2->setShowName(true);
         testScene.add(circle2);
 
-        JsonSceneDao sceneDao;
+        SceneDao sceneDao;
         sceneDao.save("scene1.json", &testScene);
-        JsonScene *scene = sceneDao.get("scene1.json");
-        JsonScene *sceneClone = scene->clone();
+        AScene *scene = sceneDao.get("scene1.json");
+        AScene *sceneClone = scene->clone();
 
         string fromCode = testScene.serialize()->toString();
 
@@ -62,8 +61,8 @@ public:
 //
 //        cout << text << endl;
 
-        cout << testScene.serialize()->toString() << endl;
-        cout << scene->serialize()->toString() << endl;
+//        cout << testScene.serialize()->toString() << endl;
+//        cout << scene->serialize()->toString() << endl;
 
         test.assertTrue(scene->serialize()->toString().length() == fromCode.length(),
                         "Load");
