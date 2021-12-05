@@ -13,8 +13,10 @@ class VisibilityHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape
 protected:
 
     Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
-        bool visible = source.first->get("visible")->getAsPrimitive()->getAsBool();
-        source.second->setVisible(visible);
+        if(source.first->has("visible")) {
+            bool visible = source.first->get("visible")->getAsPrimitive()->getAsBool();
+            source.second->setVisible(visible);
+        }
         return nullptr;
     }
 

@@ -13,12 +13,14 @@ class ColorHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *> {
 protected:
 
     Shape *parse(const pair<ADataObject *, Shape *> &source) const override {
-        ADataObject *color = source.first->get("color")->getAsObject();
-        source.second->setColor(Color(
-                color->get("r")->getAsPrimitive()->getAsInt(),
-                color->get("g")->getAsPrimitive()->getAsInt(),
-                color->get("b")->getAsPrimitive()->getAsInt()
-        ));
+        if(source.first->has("color")) {
+            ADataObject *color = source.first->get("color")->getAsObject();
+            source.second->setColor(Color(
+                    color->get("r")->getAsPrimitive()->getAsInt(),
+                    color->get("g")->getAsPrimitive()->getAsInt(),
+                    color->get("b")->getAsPrimitive()->getAsInt()
+            ));
+        }
         return nullptr;
     }
 

@@ -13,8 +13,10 @@ class NameHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *>{
 protected:
 
     Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
-        string name = source.first->get("name")->getAsPrimitive()->getAsString();
-        source.second->setName(name);
+        if(source.first->has("name")) {
+            string name = source.first->get("name")->getAsPrimitive()->getAsString();
+            source.second->setName(name);
+        }
         return nullptr;
     }
 

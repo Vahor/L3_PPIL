@@ -13,8 +13,11 @@ class ShowNameHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *
 protected:
 
     Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
-        bool showName = source.first->get("showName")->getAsPrimitive()->getAsBool();
-        source.second->setShowName(showName);
+
+        if(source.first->has("showName")) {
+            bool showName = source.first->get("showName")->getAsPrimitive()->getAsBool();
+            source.second->setShowName(showName);
+        }
         return nullptr;
     }
 
