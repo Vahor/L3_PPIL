@@ -6,6 +6,7 @@
 #define CLIENT_CIRCLE_H
 
 #include "api/shape/Shape.h"
+#include <cmath>
 
 class Circle : public Shape {
 
@@ -22,26 +23,30 @@ public:
             y(y),
             diameter(diameter) {}
 
-    virtual ADataElement* serialize() const {
+    ADataElement* serialize() const override {
         auto* object = new JsonObject();
-
-        object->put("type", new JsonPrimitive("CIRCLE"));
 
         Color color = getColor();
         auto* data = new JsonObject();
-        data->put("x", new JsonPrimitive(to_string(x)));
-        data->put("y", new JsonPrimitive(to_string(y)));
-        data->put("diameter", new JsonPrimitive(to_string(diameter)));
-        data->put("color", &color);
+        data->put("x", new JsonPrimitive(x));
+        data->put("y", new JsonPrimitive(y));
+        data->put("diameter", new JsonPrimitive(diameter));
 
         object->put("CIRCLE", data);
 
+        Shape::addMetaData(object);
 
         return object;
     }
 
-    virtual Circle* clone() const {
+    Circle* clone() const override {
         return new Circle(*this);
+    }
+
+    double getArea() const override {
+        // πr²
+        double radius = diameter / 2;
+        return M_PI * (radius * radius);
     }
 
 };

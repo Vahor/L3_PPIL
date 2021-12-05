@@ -6,6 +6,7 @@
 #define CLIENT_ADATAPRIMITIVE_H
 
 #include <string>
+#include <utility>
 #include "ADataElement.h"
 
 using namespace std;
@@ -18,6 +19,9 @@ protected:
 public:
 
     ADataPrimitive(string value) : value(std::move(value)) {}
+    ADataPrimitive(int value) : value(to_string(value)) {}
+    ADataPrimitive(bool value) : value(value ? "true" : "false") {}
+    ADataPrimitive(double value) : value(to_string(value)) {}
 
     int getAsInt() const { return stoi(value); }
     string getAsString() const { return value; }

@@ -1,20 +1,21 @@
 //
-// Created by Nathan David on 03/12/2021.
+// Created by Nathan David on 05/12/2021.
 //
 
-#ifndef CLIENT_SHAPEHANDLER_H
-#define CLIENT_SHAPEHANDLER_H
+#ifndef CLIENT_POLYGONHANDLER_H
+#define CLIENT_POLYGONHANDLER_H
 
 #include "shapes/Circle.h"
 #include "api/shape/Shape.h"
 #include "api/handler/ACORHandler.h"
 
-class ShapeHandler : public ACORHandler<ADataObject, Shape *> {
+class PolygonHandler : public ACORHandler<ADataObject, Shape*> {
 
 protected:
 
-    Shape *parse(const ADataObject &line) const override {
-        ADataObject *circle = line.get("CIRCLE")->getAsObject();
+    Shape *parse(const ADataObject &source) const override {
+        string type = source.get("type")->getAsPrimitive()->getAsString();
+        ADataObject *circle = source.get("CIRCLE")->getAsObject();
 
         int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
         int x = circle->get("x")->getAsPrimitive()->getAsInt();
@@ -30,7 +31,8 @@ protected:
         ));
         return res;
     }
+
 };
 
 
-#endif //CLIENT_SHAPEHANDLER_H
+#endif //CLIENT_POLYGONHANDLER_H

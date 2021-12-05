@@ -7,14 +7,17 @@
 
 #include "api/dao/Dao.h"
 #include "scene/JsonScene.h"
-#include "shapes/handler/ShapeHandler.h"
+#include "shapes/handler/PolygonHandler.h"
+#include "shapes/handler/CircleHandler.h"
+#include "meta/handler/ColorHandler.h"
 #include "data/json/JsonParser.h"
 #include <fstream>
 
 class JsonSceneDao : public Dao<JsonScene, string> {
 
 
-    Handler<ADataObject, Shape *> *handler;
+    Handler<ADataObject, Shape*> *shapeHandler;
+    Handler<pair<ADataObject *, Shape *>, Shape *> *metaHandler;
 
     static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
@@ -25,11 +28,21 @@ class JsonSceneDao : public Dao<JsonScene, string> {
         return inputFile;
     }
 
+    void initShapeHandler() {
+        shapeHandler = new PolygonHandler();
+        shapeHandler = new CircleHandler(shapeHandler);
+    }
+
+    void initMetaHandler() {
+        metaHandler = new ColorHandler();
+    }
+
 
 public:
 
     JsonSceneDao() {
-        handler = new ShapeHandler();
+        initShapeHandler();
+        initMetaHandler();
     }
 
     /**
@@ -39,14 +52,14 @@ public:
      * @return La scene correspondante si elle existe.
      *  nullptr sinon
      */
-    virtual JsonScene *get(string path) const {
+    JsonScene *get(string path) const override {
         fstream inputFile = getFileStream(path, ios::in);
         JsonParser parser;
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
         JsonObject *object = parser.parse(jsonFile);
         inputFile.close();
-        return JsonScene::parse(*object, handler);
+        return JsonScene::parse(*object, shapeHandler, metaHandler);
     }
 
     /**
@@ -56,7 +69,7 @@ public:
      * @param path Chemin vers le fichier à sauvegarder
      * @param data Donnés à sauvegarder
      */
-    virtual void save(string path, JsonScene *data) const {
+    void save(string path, JsonScene *data) const override {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();
         inputFile.close();

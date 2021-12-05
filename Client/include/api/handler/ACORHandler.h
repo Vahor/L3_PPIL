@@ -11,12 +11,12 @@ template<class In, class Out>
 class ACORHandler : public Handler<In, Out> {
 
 protected:
-    ACORHandler<In, Out> *suivant;
+    Handler<In, Out> *suivant;
 
 
 public:
-    explicit ACORHandler(ACORHandler<In, Out> *suivant) : suivant(suivant) {}
-    explicit ACORHandler() : suivant(nullptr) {}
+    explicit ACORHandler(Handler<In, Out> *suivant) : suivant(suivant) {}
+    ACORHandler() : suivant(nullptr) {}
 
 public:
 

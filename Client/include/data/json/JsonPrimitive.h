@@ -15,7 +15,10 @@ class JsonPrimitive : public ADataPrimitive {
 
 
 public:
-    JsonPrimitive(string value) : ADataPrimitive(std::move(value)) {}
+    JsonPrimitive(const string &value) : ADataPrimitive(value) {}
+    JsonPrimitive(int value) : ADataPrimitive(value) {}
+    JsonPrimitive(bool value) : ADataPrimitive(value) {}
+    JsonPrimitive(double value) : ADataPrimitive(value) {}
 
     virtual JsonPrimitive *clone() const {
         return new JsonPrimitive(*this);

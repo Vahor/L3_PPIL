@@ -14,9 +14,9 @@ protected:
 
 public:
 
-    ADataObject() {}
+    ADataObject() = default;
 
-    ADataObject(const ADataObject *copy) {
+    explicit ADataObject(const ADataObject *copy) {
         for (const auto &it: copy->children) { put(it.first, it.second); }
     }
 
@@ -25,7 +25,11 @@ public:
         // todo
     }
 
-    void put(const string &key, ADataElement *json) {
+    bool has(const string &key) const {
+        return children.count(key);
+    }
+
+    void put(const string &key, const ADataElement *json) {
         children[key] = json->clone();
     }
 

@@ -14,11 +14,15 @@ using namespace std;
 
 class AScene {
 
-protected:
     string name;
-    int height;
-    int width;
+    int height = 500;
+    int width = 900;
     vector<Shape *> shapes;
+
+protected:
+    void add2(Shape *shape) {
+        shapes.push_back(shape->clone());
+    }
 
 public:
 
@@ -31,7 +35,7 @@ public:
         this->width = copy.width;
     }
 
-    AScene() {}
+    AScene() = default;
 
     virtual ~AScene() {
         cerr << "delete AScene" << endl;
@@ -43,7 +47,7 @@ public:
     virtual ADataElement *serialize() const = 0;
 
     void add(Shape *shape) {
-        shapes.push_back(shape->clone());
+        add2(shape->clone());
     }
 
     // Setters
@@ -55,6 +59,14 @@ public:
     string getName() const { return name; }
     int getHeight() const { return height; }
     int getWidth() const { return width; }
+
+
+    // Iterator
+
+    auto begin() { return &shapes[0]; }
+    auto end() { return &shapes[shapes.size()]; }
+    auto begin() const { return &shapes[0]; }
+    auto end() const { return &shapes[shapes.size()]; }
 
 };
 

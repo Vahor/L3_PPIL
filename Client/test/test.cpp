@@ -3,14 +3,14 @@
 //
 
 #include "./lib/SimpleTest.h"
-#include "./tests/PARSER_SCENE.h"
+#include "./tests/LOAD_SCENE.h"
 
 using namespace std;
 
 SimpleTest test;
 int main()
 {
-    PARSER_SCENE::runTest(test);
+    LOAD_SCENE::runTest(test);
 
     test.stop();
 
