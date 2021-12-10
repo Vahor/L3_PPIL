@@ -18,7 +18,6 @@ class Shape {
     bool showName = false;
     bool visible = true;
 
-
 public:
 
     /**
@@ -32,7 +31,7 @@ public:
      * @param object Object dans lequel on va ajouter l'objet meta
      * @return Objet meta
      */
-    virtual ADataObject* addMetaData(ADataObject *object) const {
+    virtual ADataObject *addMetaData(ADataObject *object) const {
         ADataObject *metaObject;
 
         if (object->has("meta"))
@@ -41,9 +40,9 @@ public:
             metaObject = new DataObjectImpl();
 
         metaObject->put("color", &color);
-        metaObject->put("name", new DataElementImpl(name));
-        metaObject->put("showName", new DataElementImpl(showName));
-        metaObject->put("visible", new DataElementImpl(visible));
+        metaObject->put("name", new DataPrimitiveImpl(name));
+        metaObject->put("showName", new DataPrimitiveImpl(showName));
+        metaObject->put("visible", new DataPrimitiveImpl(visible));
 
         object->put("meta", metaObject);
         return metaObject;
@@ -56,10 +55,8 @@ public:
     }
 
     // setters
-    void setColor(const Color &color) {
-        this->color = color;
-    }
-    void setName(const string &name) { this->name = name; }
+    void setColor(const Color &v) { this->color = v; }
+    void setName(const string &v) { this->name = v; }
     void setVisible(bool b) { this->visible = b; }
     void setShowName(bool b) { this->showName = b; }
 

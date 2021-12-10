@@ -21,9 +21,9 @@ public:
     Color(): red(0), green(0), blue(0){}
 
     Color(int red, int green, int blue): red(red), green(green), blue(blue){
-        put("r", new DataElementImpl(to_string(red)));
-        put("g", new DataElementImpl(to_string(green)));
-        put("b", new DataElementImpl(to_string(blue)));
+        put("r", new DataPrimitiveImpl(to_string(red)));
+        put("g", new DataPrimitiveImpl(to_string(green)));
+        put("b", new DataPrimitiveImpl(to_string(blue)));
     }
 
     static Color BLACK;

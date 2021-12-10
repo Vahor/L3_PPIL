@@ -21,7 +21,7 @@ public:
         for (const auto &it: copy.children) { add(it); }
     }
 
-    ADataArray() {}
+    ADataArray() = default;
 
     virtual ~ADataArray(){
         std::cerr << "delete JsonArray" << std::endl;

@@ -79,7 +79,6 @@ public:
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();
         inputFile.close();
-
     }
 
 

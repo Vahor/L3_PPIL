@@ -18,19 +18,14 @@ protected:
 
 public:
 
-    ADataPrimitive(string value) : value(std::move(value)) {}
-    ADataPrimitive(int value) : value(to_string(value)) {}
-    ADataPrimitive(bool value) : value(value ? "true" : "false") {}
-    ADataPrimitive(double value) : value(to_string(value)) {}
+    explicit ADataPrimitive(string value) : value(std::move(value)) {}
+    explicit ADataPrimitive(int value) : value(to_string(value)) {}
+    explicit ADataPrimitive(bool value) : value(value ? "true" : "false") {}
+    explicit ADataPrimitive(double value) : value(to_string(value)) {}
 
     bool getAsBool() const { return value == "true"; }
     int getAsInt() const { return stoi(value); }
     string getAsString() const { return value; }
-
-
-    ADataPrimitive * getAsPrimitive() const override {
-        return (ADataPrimitive *) this;
-    }
 };
 
 

@@ -34,7 +34,6 @@ public:
         if (value != NULL)
             return value;
 
-
         if (this->suivant != nullptr) {
             return this->suivant->solve(line);
         } else {

@@ -11,7 +11,6 @@ class AParser {
 
 public:
     virtual ADataObject *parse(string input) const = 0;
-
 };
 
 

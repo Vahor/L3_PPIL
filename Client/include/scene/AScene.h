@@ -80,9 +80,9 @@ public:
         auto *window = new DataObjectImpl();
         auto *items = new DataArrayImpl();
 
-        window->put("name", new DataElementImpl(getName()));
-        window->put("height", new DataElementImpl(getHeight()));
-        window->put("width", new DataElementImpl(getWidth()));
+        window->put("name", new DataPrimitiveImpl(getName()));
+        window->put("height", new DataPrimitiveImpl(getHeight()));
+        window->put("width", new DataPrimitiveImpl(getWidth()));
 
         for (auto &shape: shapes) {
             items->add(shape->serialize());

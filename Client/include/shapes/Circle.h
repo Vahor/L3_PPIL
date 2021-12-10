@@ -29,9 +29,9 @@ public:
 
         Color color = getColor();
         auto* data = new DataObjectImpl();
-        data->put("x", new DataElementImpl(x));
-        data->put("y", new DataElementImpl(y));
-        data->put("diameter", new DataElementImpl(diameter));
+        data->put("x", new DataPrimitiveImpl(x));
+        data->put("y", new DataPrimitiveImpl(y));
+        data->put("diameter", new DataPrimitiveImpl(diameter));
 
         object->put("CIRCLE", data);
 

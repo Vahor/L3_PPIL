@@ -12,7 +12,7 @@
 
 using DataObjectImpl = JsonObject;
 using DataArrayImpl = JsonArray;
-using DataElementImpl = JsonPrimitive;
+using DataPrimitiveImpl = JsonPrimitive;
 
 
 
