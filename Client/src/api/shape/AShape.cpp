@@ -24,10 +24,6 @@ ADataObject *AShape::addMetaData(ADataObject *object) const {
         metaObject->put("borderColor", &borderColor);
     if (zIndex != 0)
         metaObject->put("zIndex", new DataPrimitiveImpl(zIndex));
-    if (!name.empty())
-        metaObject->put("name", new DataPrimitiveImpl(name));
-    if (showName)
-        metaObject->put("showName", new DataPrimitiveImpl(showName));
 
     if (!visible)
         metaObject->put("visible", new DataPrimitiveImpl(visible));

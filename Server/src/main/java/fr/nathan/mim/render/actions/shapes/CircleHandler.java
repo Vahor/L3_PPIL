@@ -3,7 +3,7 @@ package fr.nathan.mim.render.actions.shapes;
 import fr.nathan.mim.api.data.ADataObject;
 import fr.nathan.mim.api.handler.ACORHandler;
 import fr.nathan.mim.api.handler.Handler;
-import fr.nathan.mim.render.geom.Point2D;
+import fr.nathan.mim.api.geom.Point2D;
 import fr.nathan.mim.render.shapes.AShape;
 import fr.nathan.mim.render.shapes.Circle;
 

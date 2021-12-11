@@ -1,4 +1,4 @@
-package fr.nathan.mim.render.geom;
+package fr.nathan.mim.api.geom;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

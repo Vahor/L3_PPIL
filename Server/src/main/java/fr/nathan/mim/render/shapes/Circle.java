@@ -1,6 +1,6 @@
 package fr.nathan.mim.render.shapes;
 
-import fr.nathan.mim.render.geom.Point2D;
+import fr.nathan.mim.api.geom.Point2D;
 import lombok.ToString;
 
 import java.awt.*;
@@ -23,19 +23,14 @@ public class Circle extends AShape {
         int width = (int) (diameter * widthRatio);
         int height = (int) (diameter * heightRatio);
         int x = (int) (center.getX() * widthRatio - width / 2);
-        int y = (int) (center.getY() * heightRatio - width / 2);
+        int y = (int) (center.getY() * heightRatio - height / 2);
 
-        graphics2D.setColor(new Color(0,0,0,0));
-        if (getColor() != null) {
-            // fill
-            graphics2D.setColor(getColor());
-        }
+        // fill
+        graphics2D.setColor(getColor());
         graphics2D.fillOval(x, y, width, height);
 
-        if(getBorderColor() != null) {
-            // border
-            graphics2D.setColor(getBorderColor());
-            graphics2D.drawOval(x, y, width, height);
-        }
+        // border
+        graphics2D.setColor(getBorderColor());
+        graphics2D.drawOval(x, y, width, height);
     }
 }

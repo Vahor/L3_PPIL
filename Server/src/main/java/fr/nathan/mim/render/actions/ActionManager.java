@@ -10,6 +10,7 @@ import fr.nathan.mim.render.actions.meta.ColorHandler;
 import fr.nathan.mim.render.actions.meta.IdHandler;
 import fr.nathan.mim.render.actions.meta.ZIndexHandler;
 import fr.nathan.mim.render.actions.shapes.CircleHandler;
+import fr.nathan.mim.render.actions.shapes.TextHandler;
 import fr.nathan.mim.render.shapes.AShape;
 
 public class ActionManager {
@@ -26,6 +27,7 @@ public class ActionManager {
 
     void initShapeHandler() {
         shapeHandler = new CircleHandler(shapeHandler);
+        shapeHandler = new TextHandler(shapeHandler);
     }
 
     void initMetaHandler() {

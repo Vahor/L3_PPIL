@@ -16,9 +16,7 @@
 
 #include "meta/handler/VisibilityHandler.h"
 #include "meta/handler/ColorHandler.h"
-#include "meta/handler/NameHandler.h"
 #include "meta/handler/BorderColorHandler.h"
-#include "meta/handler/ShowNameHandler.h"
 #include "meta/handler/ZIndexHandler.h"
 #include "meta/handler/IdHandler.h"
 
@@ -47,8 +45,6 @@ class SceneDao : public Dao<AScene, string> {
         metaHandler = new ColorHandler(metaHandler);
         metaHandler = new BorderColorHandler(metaHandler);
         metaHandler = new VisibilityHandler(metaHandler);
-        metaHandler = new NameHandler(metaHandler);
-        metaHandler = new ShowNameHandler(metaHandler);
         metaHandler = new ZIndexHandler(metaHandler);
         metaHandler = new IdHandler(metaHandler);
     }
