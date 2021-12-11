@@ -6,16 +6,16 @@
 #define CLIENT_CIRCLEHANDLER_H
 
 #include "shapes/Circle.h"
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "api/handler/ACORHandler.h"
 
-class CircleHandler : public ACORHandler<ADataObject, Shape *> {
+class CircleHandler : public ACORHandler<ADataObject, AShape *> {
 
 
 protected:
 
-    Shape *parse(const ADataObject &source) const override {
-        if(!source.has("CIRCLE")) return nullptr;
+    AShape *parse(const ADataObject &source) const override {
+        if (!source.has("CIRCLE")) return nullptr;
 
         ADataObject *circle = source.get("CIRCLE")->getAsObject();
 
@@ -27,7 +27,7 @@ protected:
     }
 
 public:
-    explicit CircleHandler(Handler<ADataObject, Shape *> *suivant) : ACORHandler(suivant) {}
+    explicit CircleHandler(Handler<ADataObject, AShape *> *suivant) : ACORHandler(suivant) {}
 };
 
 

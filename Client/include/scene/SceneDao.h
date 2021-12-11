@@ -7,20 +7,24 @@
 
 #include "api/dao/Dao.h"
 #include "scene/AScene.h"
+#include "data/json/JsonParser.h"
+#include <fstream>
+
 #include "shapes/handler/PolygonHandler.h"
 #include "shapes/handler/CircleHandler.h"
+
 #include "meta/handler/VisibilityHandler.h"
 #include "meta/handler/ColorHandler.h"
 #include "meta/handler/NameHandler.h"
+#include "meta/handler/BorderColorHandler.h"
 #include "meta/handler/ShowNameHandler.h"
-#include "data/json/JsonParser.h"
-#include <fstream>
+#include "meta/handler/ZIndexHandler.h"
 
 class SceneDao : public Dao<AScene, string> {
 
 
-    Handler<ADataObject, Shape*> *shapeHandler = nullptr;
-    Handler<pair<ADataObject *, Shape *>, Shape *> *metaHandler  = nullptr;
+    Handler<ADataObject, AShape *> *shapeHandler = nullptr;
+    Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler = nullptr;
 
     static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
@@ -38,9 +42,11 @@ class SceneDao : public Dao<AScene, string> {
 
     void initMetaHandler() {
         metaHandler = new ColorHandler(metaHandler);
+        metaHandler = new BorderColorHandler(metaHandler);
         metaHandler = new VisibilityHandler(metaHandler);
         metaHandler = new NameHandler(metaHandler);
         metaHandler = new ShowNameHandler(metaHandler);
+        metaHandler = new ZIndexHandler(metaHandler);
     }
 
 

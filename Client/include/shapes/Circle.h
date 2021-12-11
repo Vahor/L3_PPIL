@@ -5,11 +5,11 @@
 #ifndef CLIENT_CIRCLE_H
 #define CLIENT_CIRCLE_H
 
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "data/DataImpl.h"
 #include <cmath>
 
-class Circle : public Shape {
+class Circle : public AShape {
 
 private:
 
@@ -22,25 +22,26 @@ public:
     Circle(double x, double y, double diameter) :
             x(x),
             y(y),
-            diameter(diameter) {}
+            diameter(diameter),
+            AShape() {}
 
-    ADataElement* serialize() const override {
-        auto* object = new DataObjectImpl();
+    ADataElement *serialize() const override {
+        auto *object = new DataObjectImpl();
 
         Color color = getColor();
-        auto* data = new DataObjectImpl();
+        auto *data = new DataObjectImpl();
         data->put("x", new DataPrimitiveImpl(x));
         data->put("y", new DataPrimitiveImpl(y));
         data->put("diameter", new DataPrimitiveImpl(diameter));
 
         object->put("CIRCLE", data);
 
-        Shape::addMetaData(object);
+        AShape::addMetaData(object);
 
         return object;
     }
 
-    Circle* clone() const override {
+    Circle *clone() const override {
         return new Circle(*this);
     }
 

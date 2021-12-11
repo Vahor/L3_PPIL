@@ -5,16 +5,16 @@
 #ifndef CLIENT_VISIBILITYHANDLER_H
 #define CLIENT_VISIBILITYHANDLER_H
 
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "api/handler/ACORHandler.h"
 
-class VisibilityHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *>{
+class VisibilityHandler : public ACORHandler<pair<ADataObject *, AShape *>, AShape *> {
 
 protected:
 
-    Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
-        if(source.first->has("visible")) {
-            bool visible = source.first->get("visible")->getAsPrimitive()->getAsBool();
+    AShape *parse(const pair<ADataObject *, AShape *> &source) const override {
+        if (source.first->has("visible")) {
+            bool visible = source.first->get("visible")->getAsPrimitive()->getAsBoolean();
             source.second->setVisible(visible);
         }
         return nullptr;
@@ -22,7 +22,7 @@ protected:
 
 
 public:
-    explicit VisibilityHandler(Handler<pair<ADataObject *, Shape *>, Shape *> *suivant) : ACORHandler(suivant) {}
+    explicit VisibilityHandler(Handler<pair<ADataObject *, AShape *>, AShape *> *suivant) : ACORHandler(suivant) {}
 };
 
 

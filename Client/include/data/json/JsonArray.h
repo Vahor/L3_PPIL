@@ -23,11 +23,11 @@ public:
     string toString() const override {
         string res = "[";
 
-        for (auto it = children.begin(); it != children.end(); ++it) {
-            ADataElement* element = *it;
+        for (auto it = elements.begin(); it != elements.end(); ++it) {
+            ADataElement *element = *it;
             res += element->toString();
 
-            if(std::next(it) != children.end()) {
+            if (std::next(it) != elements.end()) {
                 res += ",";
             }
         }

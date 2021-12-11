@@ -9,6 +9,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include "packet/Packet.h"
+
 using namespace std;
 
 class TCPClient {
@@ -44,7 +46,7 @@ public:
         }
     }
 
-    bool send(const string &data) const;
+    bool send(const Packet &data) const;
     void close() const {
         ::close(sock);
     }

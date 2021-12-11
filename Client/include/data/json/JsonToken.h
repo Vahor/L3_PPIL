@@ -73,10 +73,7 @@ public:
         unsigned long maxLength = str.length();
         int i;
         for (i = 0; i < maxLength; i++) {
-            char c = str[i];
-            if (c == test) {
-                break;
-            }
+            if (str[i] == test) break;
         }
         return i;
     }

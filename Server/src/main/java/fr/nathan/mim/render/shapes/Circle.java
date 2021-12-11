@@ -1,10 +1,11 @@
 package fr.nathan.mim.render.shapes;
 
 import fr.nathan.mim.render.geom.Point2D;
+import lombok.ToString;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
+@ToString(callSuper = true)
 public class Circle extends AShape {
 
     private final double diameter;
@@ -14,24 +15,27 @@ public class Circle extends AShape {
         this.diameter = diameter;
     }
 
-
     @Override
     public void draw(Graphics g, double widthRatio, double heightRatio) {
         Graphics2D graphics2D = (Graphics2D) g;
 
         Point2D center = getPoints().get(0);
-        double width = diameter * widthRatio;
-        double height = diameter * heightRatio;
-        Shape circle = new Ellipse2D.Double(
-                center.getX() * widthRatio - width/2,
-                center.getY() * heightRatio - height/2,
-                width,
-                height);
+        int width = (int) (diameter * widthRatio);
+        int height = (int) (diameter * heightRatio);
+        int x = (int) (center.getX() * widthRatio - width / 2);
+        int y = (int) (center.getY() * heightRatio - width / 2);
 
-        if(getColor() != null) {
-            graphics2D.setPaint(getColor());
-            graphics2D.fill(circle);
+        graphics2D.setColor(new Color(0,0,0,0));
+        if (getColor() != null) {
+            // fill
+            graphics2D.setColor(getColor());
         }
-        graphics2D.draw(circle);
+        graphics2D.fillOval(x, y, width, height);
+
+        if(getBorderColor() != null) {
+            // border
+            graphics2D.setColor(getBorderColor());
+            graphics2D.drawOval(x, y, width, height);
+        }
     }
 }

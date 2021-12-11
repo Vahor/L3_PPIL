@@ -1,9 +1,9 @@
 #include "client/TCPClient.h"
 
-bool TCPClient::send(const string &data) const {
+bool TCPClient::send(const Packet &data) const {
     if (sock == -1)return false;
 
-    string packet = data;
+    string packet = data.toString();
     packet += "\n";
 
     if (::send(sock, packet.c_str(), strlen(packet.c_str()), 0) < 0) {

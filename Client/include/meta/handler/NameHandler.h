@@ -5,15 +5,15 @@
 #ifndef CLIENT_NAMEHANDLER_H
 #define CLIENT_NAMEHANDLER_H
 
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "api/handler/ACORHandler.h"
 
-class NameHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *>{
+class NameHandler : public ACORHandler<pair<ADataObject *, AShape *>, AShape *> {
 
 protected:
 
-    Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
-        if(source.first->has("name")) {
+    AShape *parse(const pair<ADataObject *, AShape *> &source) const override {
+        if (source.first->has("name")) {
             string name = source.first->get("name")->getAsPrimitive()->getAsString();
             source.second->setName(name);
         }
@@ -22,7 +22,7 @@ protected:
 
 
 public:
-    explicit NameHandler(Handler<pair<ADataObject *, Shape *>, Shape *> *suivant) : ACORHandler(suivant) {}
+    explicit NameHandler(Handler<pair<ADataObject *, AShape *>, AShape *> *suivant) : ACORHandler(suivant) {}
 };
 
 

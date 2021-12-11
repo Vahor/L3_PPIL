@@ -12,20 +12,26 @@ using namespace std;
 
 class Color : public DataObjectImpl {
 
-    int red;
-    int green;
-    int blue;
+    // Utilisation du char car une couleur est entre 0 et 255, comme les char
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+    unsigned char alpha;
 
 public:
     // Default BLACK
-    Color(): red(0), green(0), blue(0){}
+    Color() : Color(0, 0, 0, 0) {}
 
-    Color(int red, int green, int blue): red(red), green(green), blue(blue){
+    Color(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : red(red), green(green),
+                                                                                             blue(blue), alpha(alpha) {
         put("r", new DataPrimitiveImpl(to_string(red)));
         put("g", new DataPrimitiveImpl(to_string(green)));
         put("b", new DataPrimitiveImpl(to_string(blue)));
+        put("a", new DataPrimitiveImpl(to_string(alpha)));
     }
 
+    static Color TRANSPARENT;
+    static Color WHITE;
     static Color BLACK;
     static Color BLUE;
     static Color RED;

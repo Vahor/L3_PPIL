@@ -15,6 +15,7 @@ class JsonPrimitive : public ADataPrimitive {
 
 
 public:
+    JsonPrimitive(const JsonPrimitive &value) : ADataPrimitive(value.value) {}
     explicit JsonPrimitive(const string &value) : ADataPrimitive(value) {}
     explicit JsonPrimitive(int value) : ADataPrimitive(value) {}
     explicit JsonPrimitive(bool value) : ADataPrimitive(value) {}

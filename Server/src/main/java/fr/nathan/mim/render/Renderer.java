@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,15 +17,17 @@ import java.util.List;
  */
 public class Renderer extends JFrame implements WindowListener {
 
-    private final List<AShape> shapes = new ArrayList<>();
+    private final HashMap<Integer, AShape> shapes = new HashMap<>();
 
     private double scale = 1;
     private double widthRatio;
     private double heightRatio;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int initialHeight = 500;
-    @Getter @Setter
+    @Getter
+    @Setter
     private int initialWidth = 900;
 
     public Renderer() {
@@ -52,8 +55,13 @@ public class Renderer extends JFrame implements WindowListener {
         });
     }
 
+    public AShape getById(int id) {
+        return shapes.get(id);
+    }
+
     public void addShape(AShape shape) {
-        shapes.add(shape);
+        shapes.put(shape.getId(), shape);
+        shape.setRendered(true);
     }
 
     @Override
@@ -61,11 +69,13 @@ public class Renderer extends JFrame implements WindowListener {
         // clear
         getGraphics().clearRect(0, 0, getWidth(), getHeight());
         // 0,0 au centre de la feuille
-        g.translate(getWidth()/2, getHeight()/2);
+        g.translate(getWidth() / 2, getHeight() / 2);
 
-        List<AShape> _shapes = new ArrayList<>(shapes);
+        List<AShape> _shapes = new ArrayList<>(shapes.values());
+        _shapes.sort(AShape::compareTo);
         for (AShape shape : _shapes) {
-            shape.draw(g, widthRatio*scale, heightRatio*scale);
+            if(!shape.isVisible()) continue;
+            shape.draw(g, widthRatio * scale, heightRatio * scale);
         }
     }
 

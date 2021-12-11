@@ -1,13 +1,8 @@
 package fr.nathan.mim.render.actions.window;
 
-import com.google.gson.JsonObject;
-import fr.nathan.mim.Constants;
+import fr.nathan.mim.api.data.ADataObject;
 import fr.nathan.mim.render.Renderer;
 import fr.nathan.mim.render.actions.IAction;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class WindowChangeSizeAction implements IAction {
 
@@ -15,9 +10,9 @@ public class WindowChangeSizeAction implements IAction {
     public String getCodeName() {return "W_SIZE";}
 
     @Override
-    public boolean execute(JsonObject data, Renderer renderer) {
-        int height = data.get("height").getAsInt();
-        int width = data.get("width").getAsInt();
+    public boolean execute(ADataObject data, Renderer renderer) {
+        int height = data.get("height").getAsPrimitive().getAsInt();
+        int width = data.get("width").getAsPrimitive().getAsInt();
         if (height != -1)
             renderer.setInitialHeight(Math.max(1, height));
         if (width != -1)

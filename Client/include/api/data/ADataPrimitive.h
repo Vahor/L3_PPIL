@@ -23,7 +23,7 @@ public:
     explicit ADataPrimitive(bool value) : value(value ? "true" : "false") {}
     explicit ADataPrimitive(double value) : value(to_string(value)) {}
 
-    bool getAsBool() const { return value == "true"; }
+    bool getAsBoolean() const { return value == "true"; }
     int getAsInt() const { return stoi(value); }
     string getAsString() const { return value; }
 };

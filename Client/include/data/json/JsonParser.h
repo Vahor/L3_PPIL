@@ -13,23 +13,6 @@
 
 class JsonParser : public AParser {
 
-    static string getTokenName(TOKEN &token) {
-        switch (token) {
-            case TOKEN::CURLY_OPEN:
-                return "CURLY_OPEN";
-            case TOKEN::CURLY_CLOSE:
-                return "CURLY_CLOSE";
-            case TOKEN::STRING:
-                return "STRING";
-            case TOKEN::ARRAY_OPEN:
-                return "ARRAY_OPEN";
-            case TOKEN::ARRAY_CLOSE:
-                return "ARRAY_CLOSE";
-            case TOKEN::UNKNOWN:
-                return "UNKNOWN";
-        }
-    }
-
     static pair<JsonArray *, int> parseArray(string input) {
         auto *array = new JsonArray;
         Token token;

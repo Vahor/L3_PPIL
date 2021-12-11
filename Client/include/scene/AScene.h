@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "api/handler/Handler.h"
 
 using namespace std;
@@ -18,10 +18,11 @@ class AScene {
     string name;
     int height = 500;
     int width = 900;
-    vector<Shape *> shapes;
+    vector<AShape *> shapes;
 
 protected:
-    void add2(Shape *shape) {
+    void add2(AShape *shape) {
+        if (shape->getId() == 0) shape->generateId();
         shapes.push_back(shape->clone());
     }
 
@@ -38,8 +39,8 @@ public:
     }
 
     static AScene *parse(const ADataObject &object,
-                         const Handler<ADataObject, Shape *> *shapeHandler,
-                         const Handler<pair<ADataObject *, Shape *>, Shape *> *metaHandler
+                         const Handler<ADataObject, AShape *> *shapeHandler,
+                         const Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler
     ) {
 
         ADataObject *window = object.get("window")->getAsObject();
@@ -52,7 +53,7 @@ public:
         ADataArray *items = object.get("items")->getAsArray();
         for (ADataElement *element: *items) {
             ADataObject *elementObject = element->getAsObject();
-            Shape *shape = shapeHandler->solve(*element->getAsObject());
+            AShape *shape = shapeHandler->solve(*element->getAsObject());
             if (shape != nullptr) {
                 if (elementObject->has("meta")) {
                     ADataObject *elementMeta = elementObject->get("meta")->getAsObject();
@@ -94,7 +95,7 @@ public:
         return object;
     };
 
-    void add(Shape *shape) {
+    void add(AShape *shape) {
         add2(shape->clone());
     }
 

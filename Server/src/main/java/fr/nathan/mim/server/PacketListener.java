@@ -1,11 +1,7 @@
 package fr.nathan.mim.server;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import fr.nathan.mim.Constants;
 import fr.nathan.mim.render.Renderer;
 import fr.nathan.mim.render.actions.ActionManager;
-import fr.nathan.mim.render.actions.IAction;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -45,26 +41,22 @@ public class PacketListener extends Thread {
 
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
-                        System.out.println("line = " + line);
-                        JsonObject object = new JsonParser().parse(line).getAsJsonObject();
-                        String action = object.get("_action").getAsString();
 
-                        // Si l'action est STOP on change le contexte
-                        if (action.equals("STOP")) {
-                            currentRenderer = null;
-                            continue;
+                        switch (line) {
+                            case "INIT": {
+                                currentRenderer = new Renderer();
+                                currentRenderer.setVisible(true);
+                                break;
+                            }
+                            case "REFRESH": {
+                                currentRenderer.repaint();
+                                break;
+                            }
+                            default: {
+                                actionManager.handleAction(line, currentRenderer);
+                            }
                         }
 
-
-                        // À chaque étape on vérifie si le contexte est encore valide. Sinon on le recrée
-                        if (currentRenderer == null || !currentRenderer.isVisible()) {
-                            currentRenderer = new Renderer();
-                            currentRenderer.setVisible(true);
-                        }
-
-                        // On execute l'action demandée dans le contexte actuel
-                        // Lance une exception si args[0] n'est pas une action valide
-                        actionManager.getActionByName(action).execute(object, currentRenderer);
                     }
                 }
             } catch (SocketTimeoutException ignored) {

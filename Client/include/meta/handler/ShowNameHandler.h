@@ -5,17 +5,17 @@
 #ifndef CLIENT_SHOWNAMEHANDLER_H
 #define CLIENT_SHOWNAMEHANDLER_H
 
-#include "api/shape/Shape.h"
+#include "api/shape/AShape.h"
 #include "api/handler/ACORHandler.h"
 
-class ShowNameHandler : public ACORHandler<pair<ADataObject *, Shape *>, Shape *>{
+class ShowNameHandler : public ACORHandler<pair<ADataObject *, AShape *>, AShape *> {
 
 protected:
 
-    Shape * parse(const pair<ADataObject*, Shape *> &source) const override {
+    AShape *parse(const pair<ADataObject *, AShape *> &source) const override {
 
-        if(source.first->has("showName")) {
-            bool showName = source.first->get("showName")->getAsPrimitive()->getAsBool();
+        if (source.first->has("showName")) {
+            bool showName = source.first->get("showName")->getAsPrimitive()->getAsBoolean();
             source.second->setShowName(showName);
         }
         return nullptr;
@@ -23,7 +23,7 @@ protected:
 
 
 public:
-    explicit ShowNameHandler(Handler<pair<ADataObject *, Shape *>, Shape *> *suivant) : ACORHandler(suivant) {}
+    explicit ShowNameHandler(Handler<pair<ADataObject *, AShape *>, AShape *> *suivant) : ACORHandler(suivant) {}
 };
 
 
