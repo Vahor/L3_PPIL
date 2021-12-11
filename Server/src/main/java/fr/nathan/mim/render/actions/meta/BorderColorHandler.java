@@ -1,5 +1,6 @@
 package fr.nathan.mim.render.actions.meta;
 
+import fr.nathan.mim.api.Constants;
 import fr.nathan.mim.api.Pair;
 import fr.nathan.mim.api.data.ADataObject;
 import fr.nathan.mim.api.handler.ACORHandler;
@@ -25,6 +26,7 @@ public class BorderColorHandler extends ACORHandler<Pair<ADataObject, AShape>, A
                     color.get("a").getAsPrimitive().getAsInt()
             ));
         }
+        else input.getSecond().setBorderColor(Constants.TRANSPARENT_COLOR);
         return null;
     }
 }

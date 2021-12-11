@@ -28,7 +28,6 @@ public:
     ADataElement *serialize() const override {
         auto *object = new DataObjectImpl();
 
-        Color color = getColor();
         auto *data = new DataObjectImpl();
         data->put("x", new DataPrimitiveImpl(x));
         data->put("y", new DataPrimitiveImpl(y));

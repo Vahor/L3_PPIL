@@ -20,8 +20,7 @@ public class Renderer extends JFrame implements WindowListener {
     private final HashMap<Integer, AShape> shapes = new HashMap<>();
 
     private double scale = 1;
-    private double widthRatio;
-    private double heightRatio;
+    private double growthRatio = 1;
 
     @Getter
     @Setter
@@ -46,7 +45,7 @@ public class Renderer extends JFrame implements WindowListener {
 
         // Ajout du zoom lorsque l'utilisateur scroll
         addMouseWheelListener((e) -> {
-            double steps = e.getWheelRotation() / 10.;
+            double steps = e.getWheelRotation() / 15.;
             scale = Math.max(.1, scale + steps);
 
             // À chaque zoom on retire les anciens elements
@@ -75,15 +74,14 @@ public class Renderer extends JFrame implements WindowListener {
         _shapes.sort(AShape::compareTo);
         for (AShape shape : _shapes) {
             if(!shape.isVisible()) continue;
-            shape.draw(g, widthRatio * scale, heightRatio * scale);
+            shape.draw(g, growthRatio * scale, growthRatio * scale);
         }
     }
 
     @Override
     public void validate() {
         super.validate();
-        widthRatio  = (double) getWidth() / initialWidth;
-        heightRatio = (double) getHeight() / initialHeight;
+        growthRatio  = Math.min((double) getHeight() / initialHeight, (double) getWidth() / initialWidth);
     }
 
     @Override
@@ -99,9 +97,12 @@ public class Renderer extends JFrame implements WindowListener {
     @Override
     public void windowIconified(WindowEvent e) {}
     @Override
-    public void windowDeiconified(WindowEvent e) {}
+    public void windowDeiconified(WindowEvent e) {
+        setVisible(true);
+    }
     @Override
-    public void windowActivated(WindowEvent e) {}
+    public void windowActivated(WindowEvent e) {
+        setVisible(true);}
     @Override
     public void windowDeactivated(WindowEvent e) {}
 }

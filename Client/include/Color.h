@@ -40,6 +40,16 @@ public:
     static Color CYAN;
     static Color ORANGE;
 
+    inline bool operator==(const Color &other) const {
+        return red == other.red &&
+               green == other.green &&
+               blue == other.blue &&
+               alpha == other.alpha;
+    }
+    inline bool operator!=(const Color &other) const {
+        return !(*this == other);
+    }
+
 
 };
 

@@ -10,6 +10,7 @@ template<class In, class Out>
 class Handler {
 
 protected:
+
     /**
      *
      * @param input

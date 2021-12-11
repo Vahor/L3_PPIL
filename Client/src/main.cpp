@@ -1,6 +1,9 @@
 #include "client/TCPClient.h"
 #include "shapes/Circle.h"
 
+#include "scene/SceneDao.h"
+#include "scene/AScene.h"
+
 #include "packet/DrawShapePacket.h"
 #include "packet/InitRendererPacket.h"
 #include "packet/RefreshRendererPacket.h"
@@ -8,6 +11,11 @@
 int main() {
 
     TCPClient client("127.0.0.1", 10000);
+
+    AScene scene;
+    scene.setName("SolarSystem");
+    scene.setHeight(500);
+    scene.setWidth(1000);
 
     Circle sun(0, 0, 150);
     sun.setColor(Color::ORANGE);
@@ -25,16 +33,15 @@ int main() {
     client.send(DrawShapePacket(earth));
     client.send(DrawShapePacket(earthPath));
 
-    int i = 0;
-    while (true) {
-        Color color;
-        color = i == 0 ? Color::ORANGE : Color::CYAN;
-        sun.setColor(color);
-        client.send(DrawShapePacket(sun));
-        client.send(RefreshRendererPacket());
-        sleep(1);
-        i = 1 - i;
-    }
+    ShapeGroup earthGroup;
+    earthGroup.addShape(&earth);
+    earthGroup.addShape(&earthPath);
+
+    scene.add(&sun);
+    scene.add(&earthGroup);
+
+    SceneDao sceneDao;
+    sceneDao.save("solarSystem.json", &scene);
 
     return 0;
 }

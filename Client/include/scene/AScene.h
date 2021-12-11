@@ -53,14 +53,8 @@ public:
         ADataArray *items = object.get("items")->getAsArray();
         for (ADataElement *element: *items) {
             ADataObject *elementObject = element->getAsObject();
-            AShape *shape = shapeHandler->solve(*element->getAsObject());
-            if (shape != nullptr) {
-                if (elementObject->has("meta")) {
-                    ADataObject *elementMeta = elementObject->get("meta")->getAsObject();
-                    metaHandler->solve({elementMeta, shape});
-                }
-                scene->add2(shape);
-            }
+            AShape *shape = AShape::parse(*elementObject, shapeHandler, metaHandler);
+            if (shape != nullptr) scene->add2(shape);
         }
 
         return scene;

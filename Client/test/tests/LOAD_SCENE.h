@@ -41,12 +41,27 @@ public:
         circle2->setShowName(true);
         testScene.add(circle2);
 
+
         SceneDao sceneDao;
         sceneDao.save("scene1.json", &testScene);
         AScene *scene = sceneDao.get("scene1.json");
         AScene *sceneClone = scene->clone();
 
         string fromCode = testScene.serialize()->toString();
+
+        AScene testGroupScene;
+        testGroupScene.setName("testGroup");
+        testGroupScene.setHeight(500);
+        testGroupScene.setWidth(1000);
+
+        ShapeGroup group;
+        group.addShape(circle1);
+        group.addShape(circle2);
+        testGroupScene.add(&group);
+
+        sceneDao.save("scene2.json", &testGroupScene);
+        AScene *groupLoad = sceneDao.get("scene2.json");
+
 
 //        cout << "fromCode.length() : " << fromCode.length() << endl;
 //        cout << fromCode << endl;
@@ -63,11 +78,16 @@ public:
 
 //        cout << testScene.serialize()->toString() << endl;
 //        cout << scene->serialize()->toString() << endl;
+//        cout << fromCode << endl;
+        cout << testGroupScene.serialize()->toString() << endl;
+        cout << groupLoad->serialize()->toString() << endl;
 
         test.assertTrue(scene->serialize()->toString().length() == fromCode.length(),
                         "Load");
         test.assertTrue(sceneClone->serialize()->toString().length() == scene->serialize()->toString().length(),
                         "Clone");
+        test.assertTrue(groupLoad->serialize()->toString().length() == testGroupScene.serialize()->toString().length(),
+                        "Group Load");
     }
 };
 

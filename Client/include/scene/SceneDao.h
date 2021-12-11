@@ -11,6 +11,7 @@
 #include <fstream>
 
 #include "shapes/handler/PolygonHandler.h"
+#include "shapes/handler/GroupHandler.h"
 #include "shapes/handler/CircleHandler.h"
 
 #include "meta/handler/VisibilityHandler.h"
@@ -19,6 +20,7 @@
 #include "meta/handler/BorderColorHandler.h"
 #include "meta/handler/ShowNameHandler.h"
 #include "meta/handler/ZIndexHandler.h"
+#include "meta/handler/IdHandler.h"
 
 class SceneDao : public Dao<AScene, string> {
 
@@ -38,6 +40,7 @@ class SceneDao : public Dao<AScene, string> {
     void initShapeHandler() {
         shapeHandler = new PolygonHandler(shapeHandler);
         shapeHandler = new CircleHandler(shapeHandler);
+        shapeHandler = new GroupHandler(shapeHandler, metaHandler);
     }
 
     void initMetaHandler() {
@@ -47,14 +50,15 @@ class SceneDao : public Dao<AScene, string> {
         metaHandler = new NameHandler(metaHandler);
         metaHandler = new ShowNameHandler(metaHandler);
         metaHandler = new ZIndexHandler(metaHandler);
+        metaHandler = new IdHandler(metaHandler);
     }
 
 
 public:
 
     SceneDao() {
-        initShapeHandler();
         initMetaHandler();
+        initShapeHandler();
     }
 
     /**
@@ -71,7 +75,11 @@ public:
 
         ADataObject *object = parser.parse(jsonFile);
         inputFile.close();
-        return AScene::parse(*object, shapeHandler, metaHandler);
+        return get(*object);
+    }
+
+    AScene *get(const ADataObject &object) const {
+        return AScene::parse(object, shapeHandler, metaHandler);
     }
 
     /**
