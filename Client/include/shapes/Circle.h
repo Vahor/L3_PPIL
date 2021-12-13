@@ -6,6 +6,7 @@
 #define CLIENT_CIRCLE_H
 
 #include "api/shape/AShape.h"
+#include "api/Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
 
@@ -13,15 +14,13 @@ class Circle : public AShape {
 
 private:
 
-    double x;
-    double y;
+    Point2D position;
     double diameter;
 
 public:
 
-    Circle(double x, double y, double diameter) :
-            x(x),
-            y(y),
+    Circle(Point2D position, double diameter) :
+            position(position),
             diameter(diameter),
             AShape() {}
 
@@ -29,8 +28,7 @@ public:
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
-        data->put("x", new DataPrimitiveImpl(x));
-        data->put("y", new DataPrimitiveImpl(y));
+        data->put("position", position.serialize());
         data->put("diameter", new DataPrimitiveImpl(diameter));
 
         object->put("CIRCLE", data);

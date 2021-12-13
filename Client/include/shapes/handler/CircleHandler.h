@@ -20,10 +20,13 @@ protected:
         ADataObject *object = input.get("CIRCLE")->getAsObject();
 
         double diameter = object->get("diameter")->getAsPrimitive()->getAsDouble();
-        double x = object->get("x")->getAsPrimitive()->getAsDouble();
-        double y = object->get("y")->getAsPrimitive()->getAsDouble();
 
-        return new Circle(x, y, diameter);
+        ADataObject *position = object->get("position")->getAsObject();
+
+        double x = position->get("x")->getAsPrimitive()->getAsDouble();
+        double y = position->get("y")->getAsPrimitive()->getAsDouble();
+
+        return new Circle({x, y}, diameter);
     }
 
 public:

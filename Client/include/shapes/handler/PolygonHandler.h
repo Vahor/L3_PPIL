@@ -15,13 +15,16 @@ protected:
 
     AShape *parse(const ADataObject &input) const override {
         if (!input.has("POLYGON")) return nullptr;
-        ADataObject *circle = input.get("POLYGON")->getAsObject();
+        ADataObject *object = input.get("POLYGON")->getAsObject();
 
-        int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
-        int x = circle->get("x")->getAsPrimitive()->getAsInt();
-        int y = circle->get("y")->getAsPrimitive()->getAsInt();
+        int diameter = object->get("diameter")->getAsPrimitive()->getAsInt();
 
-        return new Circle(x, y, diameter);
+        ADataObject *position = object->get("position")->getAsObject();
+
+        double x = position->get("x")->getAsPrimitive()->getAsDouble();
+        double y = position->get("y")->getAsPrimitive()->getAsDouble();
+
+        return new Circle({x, y}, diameter);
     }
 
 

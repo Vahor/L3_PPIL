@@ -14,16 +14,14 @@ class Text : public AShape {
 
 private:
 
-    double x;
-    double y;
+    Point2D position;
     int size;
     string value;
 
 public:
 
-    Text(double x, double y, int size, string value) :
-            x(x),
-            y(y),
+    Text(Point2D position, int size, string value) :
+            position(position),
             size(size),
             value(std::move(value)),
             AShape() {}
@@ -32,8 +30,7 @@ public:
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
-        data->put("x", new DataPrimitiveImpl(x));
-        data->put("y", new DataPrimitiveImpl(y));
+        data->put("position", position.serialize());
         data->put("size", new DataPrimitiveImpl(size));
         data->put("value", new DataPrimitiveImpl(value));
 

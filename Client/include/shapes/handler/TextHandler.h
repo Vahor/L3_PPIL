@@ -19,12 +19,16 @@ protected:
 
         ADataObject *object = input.get("TEXT")->getAsObject();
 
-        double x = object->get("x")->getAsPrimitive()->getAsDouble();
-        double y = object->get("y")->getAsPrimitive()->getAsDouble();
+
+        ADataObject *position = object->get("position")->getAsObject();
+
+        double x = position->get("x")->getAsPrimitive()->getAsDouble();
+        double y = position->get("y")->getAsPrimitive()->getAsDouble();
+
         int size = object->get("size")->getAsPrimitive()->getAsInt();
         string value = object->get("value")->getAsPrimitive()->getAsString();
 
-        return new Text(x, y, size, value);
+        return new Text({x, y}, size, value);
     }
 
 public:
