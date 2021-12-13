@@ -13,6 +13,7 @@
 #include "shapes/handler/PolygonHandler.h"
 #include "shapes/handler/GroupHandler.h"
 #include "shapes/handler/CircleHandler.h"
+#include "shapes/handler/TextHandler.h"
 
 #include "meta/handler/VisibilityHandler.h"
 #include "meta/handler/ColorHandler.h"
@@ -38,6 +39,7 @@ class SceneDao : public Dao<AScene, string> {
     void initShapeHandler() {
         shapeHandler = new PolygonHandler(shapeHandler);
         shapeHandler = new CircleHandler(shapeHandler);
+        shapeHandler = new TextHandler(shapeHandler);
         shapeHandler = new GroupHandler(shapeHandler, metaHandler);
     }
 

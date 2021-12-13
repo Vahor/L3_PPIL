@@ -16,12 +16,11 @@ protected:
 
     Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler = nullptr;
 
-    AShape *parse(const ADataObject &source) const override {
-        if (!source.has("GROUP")) return nullptr;
-
+    AShape *parse(const ADataObject &input) const override {
+        if (!input.has("GROUP")) return nullptr;
 
         auto *group = new ShapeGroup;
-        ADataArray *items = source.get("GROUP")->getAsObject()->get("items")->getAsArray();
+        ADataArray *items = input.get("GROUP")->getAsObject()->get("items")->getAsArray();
         for (ADataElement *element: *items) {
             AShape *shape = AShape::parse(*element->getAsObject(), this, metaHandler);
             if (shape != nullptr) group->addShape(shape);

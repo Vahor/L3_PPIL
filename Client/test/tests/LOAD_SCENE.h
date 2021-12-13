@@ -31,14 +31,17 @@ public:
 
         auto *circle1 = new Circle(200, 200, 50);
         circle1->setColor(Color::RED);
-        circle1->setName("Circle 1");
         circle1->setVisible(false);
         testScene.add(circle1);
 
+
+        auto *text = new Text(0, 0, 50, "Soleil");
+        text->setColor(Color::RED);
+        text->setZIndex(1);
+        testScene.add(text);
+
         auto *circle2 = new Circle(50, 50, 50);
         circle2->setColor(Color::BLUE);
-        circle2->setName("Circle 2");
-        circle2->setShowName(true);
         testScene.add(circle2);
 
 

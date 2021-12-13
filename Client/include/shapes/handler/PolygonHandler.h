@@ -13,9 +13,9 @@ class PolygonHandler : public ACORHandler<ADataObject, AShape *> {
 
 protected:
 
-    AShape *parse(const ADataObject &source) const override {
-        string type = source.get("type")->getAsPrimitive()->getAsString();
-        ADataObject *circle = source.get("CIRCLE")->getAsObject();
+    AShape *parse(const ADataObject &input) const override {
+        if (!input.has("POLYGON")) return nullptr;
+        ADataObject *circle = input.get("POLYGON")->getAsObject();
 
         int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
         int x = circle->get("x")->getAsPrimitive()->getAsInt();

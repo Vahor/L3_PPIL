@@ -23,18 +23,18 @@ public:
      * Essaie d'analyser l'entrée à l'aide de Expert::parse() sur la classe actuelle
      * Si l'implementation retourne nullptr, on essaie le suivant.
      *
-     * @param line  Source des informations à extraire
+     * @param input  Source des informations à extraire
      * @return NULL si aucun expert ne sait gérer l'information
      *  ou un pointeur sur <In>
      */
-    virtual Out solve(const In &line) const {
-        Out value = this->parse(line);
+    virtual Out solve(const In &input) const {
+        Out value = this->parse(input);
 
         if (value != NULL)
             return value;
 
         if (this->next != nullptr) {
-            return this->next->solve(line);
+            return this->next->solve(input);
         } else {
             return NULL;
         }

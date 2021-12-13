@@ -14,14 +14,14 @@ class CircleHandler : public ACORHandler<ADataObject, AShape *> {
 
 protected:
 
-    AShape *parse(const ADataObject &source) const override {
-        if (!source.has("CIRCLE")) return nullptr;
+    AShape *parse(const ADataObject &input) const override {
+        if (!input.has("CIRCLE")) return nullptr;
 
-        ADataObject *circle = source.get("CIRCLE")->getAsObject();
+        ADataObject *object = input.get("CIRCLE")->getAsObject();
 
-        int diameter = circle->get("diameter")->getAsPrimitive()->getAsInt();
-        int x = circle->get("x")->getAsPrimitive()->getAsInt();
-        int y = circle->get("y")->getAsPrimitive()->getAsInt();
+        double diameter = object->get("diameter")->getAsPrimitive()->getAsDouble();
+        double x = object->get("x")->getAsPrimitive()->getAsDouble();
+        double y = object->get("y")->getAsPrimitive()->getAsDouble();
 
         return new Circle(x, y, diameter);
     }

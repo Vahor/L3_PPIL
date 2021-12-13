@@ -25,6 +25,7 @@ public:
 
     bool getAsBoolean() const { return value == "true"; }
     int getAsInt() const { return stoi(value); }
+    double getAsDouble() const { return stod(value); }
     string getAsString() const { return value; }
 };
 
