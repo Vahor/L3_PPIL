@@ -17,4 +17,8 @@ public abstract class ADataArray extends ADataElement {
     public void add(ADataElement element) {
         elements.add(element.clone());
     }
+
+    public List<ADataElement> getElements() {
+        return elements;
+    }
 }

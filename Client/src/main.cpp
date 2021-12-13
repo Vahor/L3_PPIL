@@ -26,9 +26,18 @@ int main() {
     sunText.setColor(Color::RED);
     sunText.setZIndex(1);
 
+
+    Polygon sunPolygon;
+    sunPolygon.addPoint(new Point2D({100, 100}));
+    sunPolygon.addPoint(new Point2D({100, 50}));
+    sunPolygon.addPoint(new Point2D({50, 50}));
+    sunPolygon.setColor(Color::RED);
+    sunPolygon.setZIndex(1);
+
     ShapeGroup sunGroup;
     sunGroup.addShape(&sun);
     sunGroup.addShape(&sunText);
+    sunGroup.addShape(&sunPolygon);
 
 
     Circle earth({150, 0}, 40);
@@ -48,6 +57,7 @@ int main() {
     client.send(DrawShapePacket(earth));
     client.send(DrawShapePacket(earthPath));
     client.send(DrawShapePacket(earthText));
+    client.send(DrawShapePacket(sunPolygon));
 
 
     ShapeGroup earthGroup;

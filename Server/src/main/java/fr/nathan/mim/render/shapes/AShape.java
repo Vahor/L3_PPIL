@@ -30,7 +30,7 @@ public abstract class AShape extends JPanel implements Comparable<AShape> {
     private final List<Point2D> points = new ArrayList<>();
 
 
-    protected void addPoint(Point2D point) {points.add(point);}
+    public void addPoint(Point2D point) {points.add(point);}
     public abstract void draw(Graphics g, double widthRatio, double heightRatio);
 
     @Override
