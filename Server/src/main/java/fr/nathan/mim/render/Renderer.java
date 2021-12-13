@@ -66,7 +66,7 @@ public class Renderer extends JFrame implements WindowListener {
     @Override
     public void paint(Graphics g) {
         // clear
-        //getGraphics().clearRect(0, 0, getWidth(), getHeight());
+        getGraphics().clearRect(0, 0, getWidth(), getHeight());
         // 0,0 au centre de la feuille
         g.translate(getWidth() / 2, getHeight() / 2);
 

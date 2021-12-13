@@ -19,8 +19,11 @@ public class TextHandler extends ACORHandler<ADataObject, AShape> {
 
         String value = object.get("value").getAsPrimitive().getAsString();
         int size = object.get("size").getAsPrimitive().getAsInt();
-        double x = object.get("x").getAsPrimitive().getAsDouble();
-        double y = object.get("y").getAsPrimitive().getAsDouble();
+
+        ADataObject position = object.get("position").getAsObject();
+
+        double x = position.get("x").getAsPrimitive().getAsDouble();
+        double y = position.get("y").getAsPrimitive().getAsDouble();
 
         return new Text(new Point2D(x, y), value, size);
     }
