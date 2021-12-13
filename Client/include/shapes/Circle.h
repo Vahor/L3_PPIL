@@ -12,8 +12,6 @@
 
 class Circle : public AShape {
 
-private:
-
     Point2D position;
     double diameter;
 

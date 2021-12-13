@@ -19,10 +19,10 @@ int main() {
     scene.setWidth(1000);
 
 
-    Circle sun(0, 0, 150);
+    Circle sun({0, 0}, 150);
     sun.setColor(Color::ORANGE);
 
-    Text sunText(0,0,50,"Soleil");
+    Text sunText({0, 0}, 50, "Soleil");
     sunText.setColor(Color::RED);
     sunText.setZIndex(1);
 
@@ -31,14 +31,14 @@ int main() {
     sunGroup.addShape(&sunText);
 
 
-    Circle earth(150, 0, 40);
+    Circle earth({150, 0}, 40);
     earth.setColor(Color::CYAN);
 
-    Circle earthPath(0, 0, 315);
+    Circle earthPath({0, 0}, 315);
     earthPath.setBorderColor(Color::WHITE);
     earthPath.setZIndex(-1);
 
-    Text earthText(150,0,20,"Terre");
+    Text earthText({150, 0}, 20, "Terre");
     earthText.setColor(Color::GREEN);
     earthText.setZIndex(1);
 

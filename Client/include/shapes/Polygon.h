@@ -7,24 +7,55 @@
 
 
 #include "api/shape/AShape.h"
+#include "api/Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
+#include <vector>
 
-class PolyGon : public AShape {
+class Polygon : public AShape {
 
-private:
-
-    double x;
-    double y;
-    double diameter;
+    std::vector<Point2D *> points;
 
 public:
 
-    PolyGon(double x, double y, double diameter) :
-            x(x),
-            y(y),
-            diameter(diameter),
-            AShape() {}
+    Polygon() : AShape() {}
+    ~Polygon() {
+        cerr << "Todo PolyGon destruct" << endl;
+    }
+
+    void addPoint(const Point2D *point) {
+        points.push_back(point->clone());
+    }
+
+    void removePoint(const Point2D *point) {
+        points.erase(std::find(points.begin(), points.end(), point));
+    }
+
+    ADataElement *serialize() const override {
+        auto *object = new DataObjectImpl();
+
+        auto *data = new DataObjectImpl();
+        auto *pointsArray = new DataArrayImpl();
+
+        for (Point2D *point: points) {
+            pointsArray->add(point->serialize());
+        }
+
+        data->put("points", pointsArray);
+        object->put("POLYGON", data);
+
+        AShape::addMetaData(object);
+
+        return object;
+    }
+
+    Polygon *clone() const override {
+        return new Polygon(*this);
+    }
+
+    double getArea() const override {
+        return 0;
+    }
 };
 
 #endif //CLIENT_POLYGON_H

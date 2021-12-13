@@ -12,8 +12,6 @@
 
 class Text : public AShape {
 
-private:
-
     Point2D position;
     int size;
     string value;

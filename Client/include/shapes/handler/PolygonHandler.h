@@ -5,7 +5,7 @@
 #ifndef CLIENT_POLYGONHANDLER_H
 #define CLIENT_POLYGONHANDLER_H
 
-#include "shapes/Circle.h"
+#include "shapes/Polygon.h"
 #include "api/shape/AShape.h"
 #include "api/handler/ACORHandler.h"
 
@@ -17,14 +17,17 @@ protected:
         if (!input.has("POLYGON")) return nullptr;
         ADataObject *object = input.get("POLYGON")->getAsObject();
 
-        int diameter = object->get("diameter")->getAsPrimitive()->getAsInt();
+        auto *polygon = new Polygon();
 
-        ADataObject *position = object->get("position")->getAsObject();
+        ADataArray *points = object->get("points")->getAsArray();
 
-        double x = position->get("x")->getAsPrimitive()->getAsDouble();
-        double y = position->get("y")->getAsPrimitive()->getAsDouble();
+        for (ADataElement *element: *points) {
+            double x = element->getAsObject()->get("x")->getAsPrimitive()->getAsDouble();
+            double y = element->getAsObject()->get("y")->getAsPrimitive()->getAsDouble();
+            polygon->addPoint(new Point2D(x, y));
+        }
 
-        return new Circle({x, y}, diameter);
+        return polygon;
     }
 
 

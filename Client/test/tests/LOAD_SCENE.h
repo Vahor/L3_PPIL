@@ -45,6 +45,13 @@ public:
         testScene.add(circle2);
 
 
+        auto *polygon = new Polygon();
+        polygon->setColor(Color::RED);
+        polygon->addPoint(new Point2D({100, 100}));
+        polygon->addPoint(new Point2D({100, 50}));
+        polygon->addPoint(new Point2D({50, 50}));
+        testScene.add(polygon);
+
         SceneDao sceneDao;
         sceneDao.save("scene1.json", &testScene);
         AScene *scene = sceneDao.get("scene1.json");

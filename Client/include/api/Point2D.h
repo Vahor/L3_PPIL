@@ -21,6 +21,10 @@ public:
         object->put("y", new DataPrimitiveImpl(y));
         return object;
     }
+
+    Point2D *clone() const {
+        return new Point2D(*this);
+    }
 };
 
 #endif //CLIENT_POINT2D_H
