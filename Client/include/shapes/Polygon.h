@@ -2,24 +2,23 @@
 // Created by Nathan David on 13/12/2021.
 //
 
-#ifndef CLIENT_POLYGON_H
-#define CLIENT_POLYGON_H
+#pragma once
 
 
-#include "api/shape/AShape.h"
+#include "api/shape/Shape.h"
 #include "api/Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
 #include <vector>
 
-class Polygon : public AShape {
+class Polygon : public Shape {
 
     std::vector<Point2D *> points;
 
 public:
 
-    Polygon() : AShape() {}
-    ~Polygon() {
+    Polygon() : Shape() {}
+    ~Polygon() override {
         cerr << "Todo PolyGon destruct" << endl;
     }
 
@@ -31,7 +30,7 @@ public:
         points.erase(std::find(points.begin(), points.end(), point));
     }
 
-    ADataElement *serialize() const override {
+    DataElement *serialize() const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
@@ -44,7 +43,7 @@ public:
         data->put("points", pointsArray);
         object->put("POLYGON", data);
 
-        AShape::addMetaData(object);
+        Shape::addMetaData(object);
 
         return object;
     }
@@ -53,9 +52,37 @@ public:
         return new Polygon(*this);
     }
 
+    Point2D *getCenter() const override {
+        double sumX = 0;
+        double sumY = 0;
+        auto size = (double) points.size();
+        for (Point2D *point: points) {
+            sumX += point->getX();
+            sumY += point->getY();
+        }
+        return new Point2D(sumX / size, sumY / size);
+    }
+
     double getArea() const override {
         return 0;
     }
+
+    void scale(int scale) override {
+        // todo
+    }
+
+    void translate(double x, double y) override {
+        for (Point2D *point: points) {
+            point->setX(point->getX() + x);
+            point->setY(point->getY() + y);
+        }
+    }
+
+    void rotate(const Point2D &center, double deg) override {
+        for (Point2D *point: points) {
+            point->rotate(center, deg);
+        }
+    }
 };
 
-#endif //CLIENT_POLYGON_H
+

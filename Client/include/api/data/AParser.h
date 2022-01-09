@@ -1,17 +1,13 @@
 //
 // Created by Nathan David on 04/12/2021.
 //
+#pragma once
 
-#ifndef CLIENT_APARSER_H
-#define CLIENT_APARSER_H
-
-#include "ADataObject.h"
+#include "DataObject.h"
 
 class AParser {
 
 public:
-    virtual ADataObject *parse(string input) const = 0;
+    virtual DataObject *parse(string input) const = 0;
 };
 
-
-#endif //CLIENT_APARSER_H

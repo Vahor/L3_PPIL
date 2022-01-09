@@ -2,26 +2,25 @@
 // Created by Nathan David on 03/12/2021.
 //
 
-#ifndef CLIENT_CIRCLEHANDLER_H
-#define CLIENT_CIRCLEHANDLER_H
+#pragma once
 
 #include "shapes/Circle.h"
-#include "api/shape/AShape.h"
-#include "api/handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/CORHandler.h"
 
-class CircleHandler : public ACORHandler<ADataObject, AShape *> {
+class CircleHandler : public CORHandler<DataObject, Shape *> {
 
 
 protected:
 
-    AShape *parse(const ADataObject &input) const override {
+    Shape *parse(const DataObject &input) const override {
         if (!input.has("CIRCLE")) return nullptr;
 
-        ADataObject *object = input.get("CIRCLE")->getAsObject();
+        DataObject *object = input.get("CIRCLE")->getAsObject();
 
         double diameter = object->get("diameter")->getAsPrimitive()->getAsDouble();
 
-        ADataObject *position = object->get("position")->getAsObject();
+        DataObject *position = object->get("position")->getAsObject();
 
         double x = position->get("x")->getAsPrimitive()->getAsDouble();
         double y = position->get("y")->getAsPrimitive()->getAsDouble();
@@ -30,8 +29,8 @@ protected:
     }
 
 public:
-    explicit CircleHandler(Handler<ADataObject, AShape *> *suivant) : ACORHandler(suivant) {}
+    explicit CircleHandler(Handler<DataObject, Shape *> *suivant) : CORHandler(suivant) {}
 };
 
 
-#endif //CLIENT_CIRCLEHANDLER_H
+

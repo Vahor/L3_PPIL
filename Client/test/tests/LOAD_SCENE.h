@@ -6,7 +6,7 @@
 
 #include "scene/SceneDao.h"
 #include "data/json/JsonParser.h"
-#include "scene/AScene.h"
+#include "scene/Scene.h"
 #include <string>
 #include <algorithm>
 
@@ -24,7 +24,7 @@ public:
     static void runTest(SimpleTest &test) {
         SimpleTest::divider("PARSER_SCENE");
 
-        AScene testScene;
+        Scene testScene;
         testScene.setName("Truc");
         testScene.setHeight(500);
         testScene.setWidth(1000);
@@ -54,12 +54,12 @@ public:
 
         SceneDao sceneDao;
         sceneDao.save("scene1.json", &testScene);
-        AScene *scene = sceneDao.get("scene1.json");
-        AScene *sceneClone = scene->clone();
+        Scene *scene = sceneDao.get("scene1.json");
+        Scene *sceneClone = scene->clone();
 
         string fromCode = testScene.serialize()->toString();
 
-        AScene testGroupScene;
+        Scene testGroupScene;
         testGroupScene.setName("testGroup");
         testGroupScene.setHeight(500);
         testGroupScene.setWidth(1000);
@@ -70,7 +70,7 @@ public:
         testGroupScene.add(&group);
 
         sceneDao.save("scene2.json", &testGroupScene);
-        AScene *groupLoad = sceneDao.get("scene2.json");
+        Scene *groupLoad = sceneDao.get("scene2.json");
 
 
 //        cout << "fromCode.length() : " << fromCode.length() << endl;

@@ -2,5 +2,5 @@ package fr.nathan.mim.api.data;
 
 public abstract class AParser {
 
-    abstract public ADataObject parse(String input);
+    abstract public DataObject parse(String input);
 }

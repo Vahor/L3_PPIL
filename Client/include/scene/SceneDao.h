@@ -2,11 +2,10 @@
 // Created by Nathan David on 04/12/2021.
 //
 
-#ifndef CLIENT_SCENEDAO_H
-#define CLIENT_SCENEDAO_H
+#pragma once
 
 #include "api/dao/Dao.h"
-#include "scene/AScene.h"
+#include "scene/Scene.h"
 #include "data/json/JsonParser.h"
 #include <fstream>
 
@@ -21,11 +20,11 @@
 #include "meta/handler/ZIndexHandler.h"
 #include "meta/handler/IdHandler.h"
 
-class SceneDao : public Dao<AScene, string> {
+class SceneDao : public Dao<Scene, string> {
 
 
-    Handler<ADataObject, AShape *> *shapeHandler = nullptr;
-    Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler = nullptr;
+    Handler<DataObject, Shape *> *shapeHandler = nullptr;
+    Handler<pair<DataObject *, Shape *>, Shape *> *metaHandler = nullptr;
 
     static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
@@ -66,18 +65,18 @@ public:
      * @return La scene correspondante si elle existe.
      *  nullptr sinon
      */
-    AScene *get(string path) const override {
+    Scene *get(string path) const override {
         fstream inputFile = getFileStream(path, ios::in);
         JsonParser parser;
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
-        ADataObject *object = parser.parse(jsonFile);
+        DataObject *object = parser.parse(jsonFile);
         inputFile.close();
         return get(*object);
     }
 
-    AScene *get(const ADataObject &object) const {
-        return AScene::parse(object, shapeHandler, metaHandler);
+    Scene *get(const DataObject &object) const {
+        return Scene::parse(object, shapeHandler, metaHandler);
     }
 
     /**
@@ -87,7 +86,7 @@ public:
      * @param path Chemin vers le fichier à sauvegarder
      * @param data Donnés à sauvegarder
      */
-    void save(string path, AScene *data) const override {
+    void save(string path, Scene *data) const override {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();
         inputFile.close();
@@ -97,4 +96,4 @@ public:
 };
 
 
-#endif //CLIENT_SCENEDAO_H
+

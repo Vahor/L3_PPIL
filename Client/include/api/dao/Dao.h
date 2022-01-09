@@ -1,14 +1,13 @@
 //
 // Created by Nathan David on 04/12/2021.
 //
+#pragma once
 
-#ifndef CLIENT_DAO_H
-#define CLIENT_DAO_H
 
 #include <vector>
 
 /*
- * Classe template pour le DAO.
+ * Classe modèle pour le DAO.
  */
 template <class Data, class Identifier>
 class Dao {
@@ -22,5 +21,3 @@ public:
 
 };
 
-
-#endif //CLIENT_DAO_H

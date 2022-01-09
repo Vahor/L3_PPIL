@@ -1,5 +1,5 @@
-#ifndef CLIENT_TCPCLIENT_H
-#define CLIENT_TCPCLIENT_H
+#pragma once
+
 
 #include <string>
 #include <iostream>
@@ -9,11 +9,12 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include "packet/Packet.h"
+#include "client/Client.h"
+#include "actions/Action.h"
 
 using namespace std;
 
-class TCPClient {
+class TCPClient : public Client {
 
     int sock;
 
@@ -23,21 +24,19 @@ class TCPClient {
 
 public:
 
-    TCPClient(const string& address, int port) :port(port), address(address)
-    {
+    TCPClient(const string &address, int port) : port(port), address(address) {
         sock = socket(AF_INET, SOCK_STREAM, 0);
-        if(sock == -1){
+        if (sock == -1) {
             cerr << "Could not create socket" << endl;
             return;
         }
 
-        struct sockaddr_in server;
+        struct sockaddr_in server{};
         inet_pton(AF_INET, address.c_str(), &server.sin_addr.s_addr);
         server.sin_family = AF_INET;
         server.sin_port = htons(port);
 
-        if (connect(sock, (const sockaddr*)&server, sizeof(server)) != 0)
-        {
+        if (connect(sock, (const sockaddr *) &server, sizeof(server)) != 0) {
 
             cerr << "Connection failed: " << to_string(errno) << endl;
             cerr << "address: " << address << endl;
@@ -46,12 +45,12 @@ public:
         }
     }
 
-    bool send(const Packet &data) const;
-    void close() const {
+    bool send(const string &data) const override;
+    void close() const override {
         ::close(sock);
     }
 
 };
 
 
-#endif //CLIENT_TCPCLIENT_H
+

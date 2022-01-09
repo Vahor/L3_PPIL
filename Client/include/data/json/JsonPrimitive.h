@@ -2,24 +2,22 @@
 // Created by Nathan David on 01/12/2021.
 //
 
-#ifndef CLIENT_JSONPRIMITIVE_H
-#define CLIENT_JSONPRIMITIVE_H
+#pragma once
 
-
-#include "api/data/ADataPrimitive.h"
+#include "api/data/DataPrimitive.h"
 
 using namespace std;
 
 
-class JsonPrimitive : public ADataPrimitive {
+class JsonPrimitive : public DataPrimitive {
 
 
 public:
-    JsonPrimitive(const JsonPrimitive &value) : ADataPrimitive(value.value) {}
-    explicit JsonPrimitive(const string &value) : ADataPrimitive(value) {}
-    explicit JsonPrimitive(int value) : ADataPrimitive(value) {}
-    explicit JsonPrimitive(bool value) : ADataPrimitive(value) {}
-    explicit JsonPrimitive(double value) : ADataPrimitive(value) {}
+    JsonPrimitive(const JsonPrimitive &value) : DataPrimitive(value.value) {}
+    explicit JsonPrimitive(const string &value) : DataPrimitive(value) {}
+    explicit JsonPrimitive(int value) : DataPrimitive(value) {}
+    explicit JsonPrimitive(bool value) : DataPrimitive(value) {}
+    explicit JsonPrimitive(double value) : DataPrimitive(value) {}
 
     JsonPrimitive *clone() const override {
         return new JsonPrimitive(*this);
@@ -32,4 +30,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONPRIMITIVE_H
+

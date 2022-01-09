@@ -2,19 +2,18 @@
 // Created by Nathan David on 05/12/2021.
 //
 
-#ifndef CLIENT_COLORHANDLER_H
-#define CLIENT_COLORHANDLER_H
+#pragma once
 
-#include "api/shape/AShape.h"
-#include "api/handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/CORHandler.h"
 
-class ColorHandler : public ACORHandler<pair<ADataObject *, AShape *>, AShape *> {
+class ColorHandler : public CORHandler<pair<DataObject *, Shape *>, Shape *> {
 
 protected:
 
-    AShape *parse(const pair<ADataObject *, AShape *> &source) const override {
+    Shape *parse(const pair<DataObject *, Shape *> &source) const override {
         if (source.first->has("color")) {
-            ADataObject *color = source.first->get("color")->getAsObject();
+            DataObject *color = source.first->get("color")->getAsObject();
             source.second->setColor(Color(
                     color->get("r")->getAsPrimitive()->getAsInt(),
                     color->get("g")->getAsPrimitive()->getAsInt(),
@@ -27,9 +26,9 @@ protected:
 
 
 public:
-    explicit ColorHandler(Handler<pair<ADataObject *, AShape *>, AShape *> *suivant) : ACORHandler(suivant) {}
+    explicit ColorHandler(Handler<pair<DataObject *, Shape *>, Shape *> *suivant) : CORHandler(suivant) {}
 
 };
 
 
-#endif //CLIENT_COLORHANDLER_H
+

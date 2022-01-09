@@ -1,15 +1,15 @@
 package fr.nathan.mim.api.data.json;
 
-import fr.nathan.mim.api.data.ADataElement;
-import fr.nathan.mim.api.data.ADataPrimitive;
+import fr.nathan.mim.api.data.DataElement;
+import fr.nathan.mim.api.data.DataPrimitive;
 
-public class JsonPrimitive extends ADataPrimitive {
+public class JsonPrimitive extends DataPrimitive {
 
     public JsonPrimitive(JsonPrimitive jsonPrimitive) {super(jsonPrimitive);}
     public JsonPrimitive(String value)                {super(value);}
 
     @Override
-    public ADataElement clone() {
+    public DataElement clone() {
         return new JsonPrimitive(this);
     }
     @Override

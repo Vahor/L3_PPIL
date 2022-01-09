@@ -2,18 +2,17 @@
 // Created by Nathan David on 11/12/2021.
 //
 
-#ifndef CLIENT_ZINDEXHANDLER_H
-#define CLIENT_ZINDEXHANDLER_H
+#pragma once
 
 
-#include "api/shape/AShape.h"
-#include "api/handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/CORHandler.h"
 
-class ZIndexHandler : public ACORHandler<pair<ADataObject *, AShape *>, AShape *> {
+class ZIndexHandler : public CORHandler<pair<DataObject *, Shape *>, Shape *> {
 
 protected:
 
-    AShape *parse(const pair<ADataObject *, AShape *> &source) const override {
+    Shape *parse(const pair<DataObject *, Shape *> &source) const override {
         if (source.first->has("zIndex")) {
             source.second->setZIndex(source.first->get("zIndex")->getAsPrimitive()->getAsInt());
         }
@@ -22,10 +21,10 @@ protected:
 
 
 public:
-    explicit ZIndexHandler(Handler<pair<ADataObject *, AShape *>, AShape *> *suivant) : ACORHandler(suivant) {}
+    explicit ZIndexHandler(Handler<pair<DataObject *, Shape *>, Shape *> *suivant) : CORHandler(suivant) {}
 
 
 };
 
 
-#endif //CLIENT_ZINDEXHANDLER_H
+

@@ -2,8 +2,7 @@
 // Created by Nathan David on 02/12/2021.
 //
 
-#ifndef CLIENT_JSONTOKEN_H
-#define CLIENT_JSONTOKEN_H
+#pragma once
 
 enum class TOKEN {
     CURLY_OPEN,
@@ -80,4 +79,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONTOKEN_H
+

@@ -1,9 +1,7 @@
 //
 // Created by Nathan David on 04/12/2021.
 //
-
-#ifndef CLIENT_HANDLER_H
-#define CLIENT_HANDLER_H
+#pragma once
 
 
 template<class In, class Out>
@@ -32,6 +30,3 @@ public:
     virtual Out solve(const In &input) const = 0;
 
 };
-
-
-#endif //CLIENT_HANDLER_H

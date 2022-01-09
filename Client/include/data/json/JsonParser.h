@@ -1,9 +1,8 @@
 //
 // Created by Nathan David on 02/12/2021.
 //
+#pragma once
 
-#ifndef CLIENT_JSONPARSER_H
-#define CLIENT_JSONPARSER_H
 
 #include "data/json/JsonObject.h"
 #include "data/json/JsonArray.h"
@@ -119,4 +118,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONPARSER_H
+

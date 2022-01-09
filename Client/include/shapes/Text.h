@@ -2,39 +2,43 @@
 // Created by Nathan David on 11/12/2021.
 //
 
-#ifndef CLIENT_TEXT_H
-#define CLIENT_TEXT_H
+#pragma once
 
 #include <utility>
 
-#include "api/shape/AShape.h"
+#include "api/shape/Shape.h"
 #include "data/DataImpl.h"
+#include <cmath>
 
-class Text : public AShape {
+class Text : public Shape {
 
     Point2D position;
     int size;
     string value;
+    double angle;
 
 public:
 
-    Text(Point2D position, int size, string value) :
+
+    Text(Point2D position, int size, string value, double angle = 0) :
             position(position),
             size(size),
             value(std::move(value)),
-            AShape() {}
+            angle(angle),
+            Shape() {}
 
-    ADataElement *serialize() const override {
+    DataElement *serialize() const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
         data->put("position", position.serialize());
         data->put("size", new DataPrimitiveImpl(size));
         data->put("value", new DataPrimitiveImpl(value));
+        data->put("angle", new DataPrimitiveImpl(angle));
 
         object->put("TEXT", data);
 
-        AShape::addMetaData(object);
+        Shape::addMetaData(object);
 
         return object;
     }
@@ -43,10 +47,34 @@ public:
         return new Text(*this);
     }
 
+    double getAngle() const {
+        return angle;
+    }
+
+    void setAngle(double v) { this->angle = v; }
+
+    Point2D *getCenter() const override {
+        return position.clone();
+    }
+
     double getArea() const override {
         return 0;
     }
 
+    void scale(int scale) override {
+        size *= scale;
+    }
+
+    void translate(double x, double y) override {
+        position.setX(position.getX() + x);
+        position.setY(position.getY() + y);
+    }
+
+    void rotate(const Point2D &center, double deg) override {
+        this->angle = deg;
+        //position.rotate(center, deg);
+    }
+
 };
 
-#endif //CLIENT_TEXT_H
+

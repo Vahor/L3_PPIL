@@ -1,24 +1,24 @@
 package fr.nathan.mim.api.data.json;
 
-import fr.nathan.mim.api.data.ADataElement;
-import fr.nathan.mim.api.data.ADataObject;
+import fr.nathan.mim.api.data.DataElement;
+import fr.nathan.mim.api.data.DataObject;
 
 import java.util.Map;
 
-public class JsonObject extends ADataObject {
+public class JsonObject extends DataObject {
 
     public JsonObject(JsonObject jsonObject) {super(jsonObject);}
     public JsonObject()                      {}
 
     @Override
-    public ADataElement clone() {return new JsonObject(this);}
+    public DataElement clone() {return new JsonObject(this);}
 
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder("{");
 
         int i = 0;
-        for (Map.Entry<String, ADataElement> entry : children.entrySet()) {
+        for (Map.Entry<String, DataElement> entry : children.entrySet()) {
 
             res.append('"').append(entry.getKey()).append("\":");
             res.append(entry.getValue().toString());

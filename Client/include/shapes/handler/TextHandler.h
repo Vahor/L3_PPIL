@@ -2,25 +2,24 @@
 // Created by Nathan David on 03/12/2021.
 //
 
-#ifndef CLIENT_TEXTHANDLER_H
-#define CLIENT_TEXTHANDLER_H
+#pragma once
 
 #include "shapes/Text.h"
-#include "api/shape/AShape.h"
-#include "api/handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/CORHandler.h"
 
-class TextHandler : public ACORHandler<ADataObject, AShape *> {
+class TextHandler : public CORHandler<DataObject, Shape *> {
 
 
 protected:
 
-    AShape *parse(const ADataObject &input) const override {
+    Shape *parse(const DataObject &input) const override {
         if (!input.has("TEXT")) return nullptr;
 
-        ADataObject *object = input.get("TEXT")->getAsObject();
+        DataObject *object = input.get("TEXT")->getAsObject();
 
 
-        ADataObject *position = object->get("position")->getAsObject();
+        DataObject *position = object->get("position")->getAsObject();
 
         double x = position->get("x")->getAsPrimitive()->getAsDouble();
         double y = position->get("y")->getAsPrimitive()->getAsDouble();
@@ -28,12 +27,15 @@ protected:
         int size = object->get("size")->getAsPrimitive()->getAsInt();
         string value = object->get("value")->getAsPrimitive()->getAsString();
 
-        return new Text({x, y}, size, value);
+
+        double angle = object->get("angle")->getAsPrimitive()->getAsDouble();
+
+        return new Text({x, y}, size, value, angle);
     }
 
 public:
-    explicit TextHandler(Handler<ADataObject, AShape *> *suivant) : ACORHandler(suivant) {}
+    explicit TextHandler(Handler<DataObject, Shape *> *suivant) : CORHandler(suivant) {}
 };
 
 
-#endif //CLIENT_TEXTHANDLER_H
+

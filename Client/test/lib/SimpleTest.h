@@ -1,8 +1,4 @@
-// Copyright 2020 Nicholas J. Kinar
-// https://github.com/nkinar/SimpleTest
-
-#ifndef CLIENT_SIMPLETEST_H
-#define CLIENT_SIMPLETEST_H
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -19,7 +15,6 @@ private:
     }
     size_t pass;        // number of passes
     size_t fail;        // number of fails
-    size_t maxFail;    // max number of fails
     size_t n;            // number of tests
 
 public:
@@ -34,4 +29,4 @@ public:
 }; // end
 
 
-#endif //CLIENT_SIMPLETEST_H
+

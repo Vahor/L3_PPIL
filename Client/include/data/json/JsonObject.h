@@ -1,9 +1,8 @@
 //
 // Created by Nathan David on 01/12/2021.
 //
+#pragma once
 
-#ifndef CLIENT_JSONOBJECT_H
-#define CLIENT_JSONOBJECT_H
 
 #include <iostream>
 #include <map>
@@ -11,7 +10,7 @@
 
 using namespace std;
 
-#include "api/data/ADataObject.h"
+#include "api/data/DataObject.h"
 
 /**
  * Création de Json simples pour l'envoie de packets
@@ -24,7 +23,7 @@ using namespace std;
  *
  *  }
  */
-class JsonObject : public ADataObject {
+class JsonObject : public DataObject {
 
 
 public:
@@ -37,7 +36,7 @@ public:
         string res = "{";
 
         for (auto it = children.begin(); it != children.end(); ++it) {
-            ADataElement *element = it->second;
+            DataElement *element = it->second;
             res += '"' + it->first + "\":";
             res += element->toString();
 
@@ -53,4 +52,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONOBJECT_H
+

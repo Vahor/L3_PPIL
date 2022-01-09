@@ -2,17 +2,16 @@
 // Created by Nathan David on 02/12/2021.
 //
 
-#ifndef CLIENT_JSONARRAY_H
-#define CLIENT_JSONARRAY_H
+#pragma once
 
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-#include "api/data/ADataArray.h"
+#include "api/data/DataArray.h"
 
-class JsonArray : public ADataArray {
+class JsonArray : public DataArray {
 
 public:
 
@@ -24,7 +23,7 @@ public:
         string res = "[";
 
         for (auto it = elements.begin(); it != elements.end(); ++it) {
-            ADataElement *element = *it;
+            DataElement *element = *it;
             res += element->toString();
 
             if (std::next(it) != elements.end()) {
@@ -40,4 +39,4 @@ public:
 };
 
 
-#endif //CLIENT_JSONARRAY_H
+

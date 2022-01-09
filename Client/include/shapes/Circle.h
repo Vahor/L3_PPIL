@@ -2,15 +2,14 @@
 // Created by Nathan David on 01/12/2021.
 //
 
-#ifndef CLIENT_CIRCLE_H
-#define CLIENT_CIRCLE_H
+#pragma once
 
-#include "api/shape/AShape.h"
+#include "api/shape/Shape.h"
 #include "api/Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
 
-class Circle : public AShape {
+class Circle : public Shape {
 
     Point2D position;
     double diameter;
@@ -20,9 +19,9 @@ public:
     Circle(Point2D position, double diameter) :
             position(position),
             diameter(diameter),
-            AShape() {}
+            Shape() {}
 
-    ADataElement *serialize() const override {
+    DataElement *serialize() const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
@@ -31,7 +30,7 @@ public:
 
         object->put("CIRCLE", data);
 
-        AShape::addMetaData(object);
+        Shape::addMetaData(object);
 
         return object;
     }
@@ -40,13 +39,30 @@ public:
         return new Circle(*this);
     }
 
+    Point2D *getCenter() const override {
+        return position.clone();
+    }
+
     double getArea() const override {
         // πr²
         double radius = diameter / 2;
         return M_PI * (radius * radius);
     }
 
+    void scale(int scale) override {
+        diameter *= scale;
+    }
+
+    void translate(double x, double y) override {
+        position.setX(position.getX() + x);
+        position.setY(position.getY() + y);
+    }
+
+    void rotate(const Point2D &center, double deg) override {
+        position.rotate(center, deg);
+    }
+
 };
 
 
-#endif //CLIENT_CIRCLE_H
+

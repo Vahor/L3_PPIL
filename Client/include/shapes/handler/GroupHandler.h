@@ -2,27 +2,26 @@
 // Created by Nathan David on 11/12/2021.
 //
 
-#ifndef CLIENT_GROUPHANDLER_H
-#define CLIENT_GROUPHANDLER_H
+#pragma once
 
 #include "shapes/Circle.h"
-#include "api/shape/AShape.h"
-#include "api/handler/ACORHandler.h"
+#include "api/shape/Shape.h"
+#include "api/handler/CORHandler.h"
 
-class GroupHandler : public ACORHandler<ADataObject, AShape *> {
+class GroupHandler : public CORHandler<DataObject, Shape *> {
 
 
 protected:
 
-    Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler = nullptr;
+    Handler<pair<DataObject *, Shape *>, Shape *> *metaHandler = nullptr;
 
-    AShape *parse(const ADataObject &input) const override {
+    Shape *parse(const DataObject &input) const override {
         if (!input.has("GROUP")) return nullptr;
 
         auto *group = new ShapeGroup;
-        ADataArray *items = input.get("GROUP")->getAsObject()->get("items")->getAsArray();
-        for (ADataElement *element: *items) {
-            AShape *shape = AShape::parse(*element->getAsObject(), this, metaHandler);
+        DataArray *items = input.get("GROUP")->getAsObject()->get("items")->getAsArray();
+        for (DataElement *element: *items) {
+            Shape *shape = Shape::parse(*element->getAsObject(), this, metaHandler);
             if (shape != nullptr) group->addShape(shape);
         }
 
@@ -31,9 +30,9 @@ protected:
     }
 
 public:
-    explicit GroupHandler(Handler<ADataObject, AShape *> *suivant,
-                          Handler<pair<ADataObject *, AShape *>, AShape *> *metaHandler
-    ) : ACORHandler(suivant), metaHandler(metaHandler) {}
+    explicit GroupHandler(Handler<DataObject, Shape *> *suivant,
+                          Handler<pair<DataObject *, Shape *>, Shape *> *metaHandler
+    ) : CORHandler(suivant), metaHandler(metaHandler) {}
 };
 
-#endif //CLIENT_GROUPHANDLER_H
+

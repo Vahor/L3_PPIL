@@ -1,9 +1,7 @@
 //
 // Created by Nathan David on 01/12/2021.
 //
-
-#ifndef CLIENT_COLOR_H
-#define CLIENT_COLOR_H
+#pragma once
 
 #include <string>
 #include "data/DataImpl.h"
@@ -12,7 +10,7 @@ using namespace std;
 
 class Color : public DataObjectImpl {
 
-    // Utilisation du char car une couleur est entre 0 et 255, comme les char
+    // Utilisation du char, car une couleur est entre 0 et 255, comme le char
     unsigned char red;
     unsigned char green;
     unsigned char blue;
@@ -52,6 +50,3 @@ public:
 
 
 };
-
-
-#endif //CLIENT_COLOR_H
