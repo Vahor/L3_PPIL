@@ -14,9 +14,8 @@ class Dao {
 
 public:
 
-    virtual Data* get(Identifier id) const = 0;
-    virtual void save(Identifier id, Data* data) const = 0;
-
+    virtual Data *get(Identifier id) = 0;
+    virtual void save(Identifier id, Data *data) = 0;
 
 
 };

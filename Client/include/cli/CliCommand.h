@@ -16,7 +16,7 @@ class CliCommand {
 public:
     virtual ~CliCommand() = default;
 
-    virtual void execute(Cli *cli, list <string> args) const = 0;
+    virtual void execute(Cli *cli, vector<string> args) const = 0;
 
     virtual string showHelp() const = 0;
 

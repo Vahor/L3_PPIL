@@ -13,6 +13,7 @@
 #include "actions/renderer/RefreshRendererAction.h"
 #include "cli/commands/ExitCommand.h"
 #include "cli/commands/HelpCommand.h"
+#include "cli/commands/LoadCommand.h"
 
 
 // test stuffs
@@ -48,12 +49,10 @@ void groupSolar(TCPClient &client) {
 
     scene.add(&solarSystemGroup);
 
-
     DrawSceneAction(scene).execute(&client);
     RefreshRendererAction().execute(&client);
 
-    SceneDao sceneDao;
-    sceneDao.save("solarSystemGroup.json", &scene);
+    SceneDao::getInstance()->save("solarSystemGroup.json", &scene);
 }
 
 void solar(TCPClient &client) {
@@ -122,8 +121,7 @@ void solar(TCPClient &client) {
     scene.add(&sun);
     scene.add(&earthGroup);
 
-    SceneDao sceneDao;
-    sceneDao.save("solarSystem.json", &scene);
+    SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
 
 int main() {
@@ -134,9 +132,10 @@ int main() {
     cli->setPrefix("\033[32mtruc > \033[37m");
     cli->addCommand("exit", new ExitCommand());
     cli->addCommand("help", new HelpCommand());
+    cli->addCommand("load", new LoadCommand(&client));
     cli->init();
 
-    groupSolar(client);
+    //groupSolar(client);
 
     return 0;
 }

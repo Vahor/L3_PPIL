@@ -5,9 +5,10 @@
 
 #include "DataObject.h"
 
-class AParser {
+class Parser {
 
 public:
     virtual DataObject *parse(string input) const = 0;
+    virtual string supportedExtensions() const = 0;
 };
 

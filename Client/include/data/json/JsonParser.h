@@ -8,9 +8,9 @@
 #include "data/json/JsonArray.h"
 #include "data/json/JsonPrimitive.h"
 #include "data/json/JsonToken.h"
-#include "data/AParser.h"
+#include "data/Parser.h"
 
-class JsonParser : public AParser {
+class JsonParser : public Parser {
 
     static pair<JsonArray *, int> parseArray(string input) {
         auto *array = new JsonArray;
@@ -111,8 +111,12 @@ class JsonParser : public AParser {
 
 public:
 
-    virtual JsonObject *parse(string input) const {
+    JsonObject *parse(string input) const override {
         return parseObject(input.substr(1)).first;  // racine à JsonObject de base
+    }
+
+    string supportedExtensions() const override {
+        return "json";
     }
 
 };

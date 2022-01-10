@@ -23,15 +23,15 @@
 
 class SceneDao : public Dao<Scene, string> {
 
-
+    Parser *parser = nullptr;
     Handler<DataObject, Shape *> *shapeHandler = nullptr;
     Handler<pair<DataObject *, Shape *>, Shape *> *metaHandler = nullptr;
+    Scene *currentScene = nullptr;
 
     static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
         if (!inputFile.is_open()) {
-            // todo exception
-            cerr << "Le fichier " << path << " n'existe pas" << endl;
+            throw std::runtime_error("Le fichier " + path + " n'existe pas");
         }
         return inputFile;
     }
@@ -52,28 +52,43 @@ class SceneDao : public Dao<Scene, string> {
     }
 
 
-public:
+    static SceneDao *instance_;
+
+    bool isParserAlreadyActive(const string &format) {
+        return parser != nullptr && parser->supportedExtensions() == format;
+    }
+
+
+protected:
+    ~SceneDao() = default;
 
     SceneDao() {
         initMetaHandler();
         initShapeHandler();
     }
 
+
+public:
+
+    SceneDao(SceneDao &o) = delete;
+    void operator=(const SceneDao &) = delete;
+
     /**
-     *  Récumère le fichier depuis {path} et le transforme en un JsonScene
+     *  Récupère le fichier depuis {path} et le transforme en un JsonScene
      *
      * @param id nom de la scene a charger dans le dossier
      * @return La scene correspondante si elle existe.
      *  nullptr sinon
      */
-    Scene *get(string path) const override {
+    Scene *get(string path) override {
         fstream inputFile = getFileStream(path, ios::in);
-        JsonParser parser;
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
-        DataObject *object = parser.parse(jsonFile);
+        DataObject *object = parser->parse(jsonFile);
         inputFile.close();
-        return get(*object);
+        Scene *scene = get(*object);
+        currentScene = scene;
+        return scene;
     }
 
     Scene *get(const DataObject &object) const {
@@ -87,14 +102,43 @@ public:
      * @param path Chemin vers le fichier à sauvegarder
      * @param data Donnés à sauvegarder
      */
-    void save(string path, Scene *data) const override {
+    void save(string path, Scene *data) override {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize()->toString();
         inputFile.close();
     }
 
+    /**
+     * Modifie le type de parser à utiliser
+     *
+     * @param format Extension de fichier qui doit être supportée par le parser
+     */
+    void setParser(const string &format) {
+        if (isParserAlreadyActive(format)) return;
+
+        // On sait qu'il n'y aura pas une infinité de formats,
+        // un simple if else est suffisant ici
+        if (format == "json") {
+            parser = new JsonParser();
+        } else {
+            throw std::runtime_error("Unknown format '" + format + "'");
+        }
+    }
+
+    Scene *getCurrentScene() const { return currentScene; };
+
+    static SceneDao *getInstance();
 
 };
+
+SceneDao *SceneDao::instance_ = {nullptr};
+
+SceneDao *SceneDao::getInstance() {
+    if (instance_ == nullptr) {
+        instance_ = new SceneDao();
+    }
+    return instance_;
+}
 
 
 

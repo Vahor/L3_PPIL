@@ -8,8 +8,10 @@
 #include <iostream>
 #include "handler/Handler.h"
 #include "cli/CliCommand.h"
+#include "utils.h"
 #include <map>
 #include <list>
+#include <vector>
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -23,25 +25,6 @@ class Cli {
 
     map<string, CliCommand *> commands;
 
-    static list<string> splitAgs(const string &input) {
-        list<string> args;
-        string current;
-
-        for (auto x: input) {
-            if (x != ' ')
-                current += x;
-            else {
-                args.push_back(current);
-                cout << "arg : " << current << endl;
-                current = "";
-            }
-        }
-
-        if (!current.empty())
-            args.push_back(current);
-
-        return args;
-    }
 
     static Cli *instance_;
 
@@ -69,11 +52,15 @@ public:
             line = readline(prefix);
             if (*line) {
                 add_history(line);
-                list<string> args = splitAgs(line);
+                vector<string> args = split(line, ' ');
 
                 // La liste n'est pas vide à ce moment
                 string command = args.front();
                 if (commands.count(command)) {
+
+                    // On retire la commande dans la liste des arguments
+                    args.erase(args.begin());
+
                     CliCommand *cliCommand = commands[command];
                     cliCommand->execute(this, args);
                 } else {

@@ -10,7 +10,7 @@ class ExitCommand : public CliCommand {
 
 public:
 
-    void execute(Cli *cli, list<string> args) const override {
+    void execute(Cli *cli, vector<string> args) const override {
         cli->setEnabled(false);
     }
 
