@@ -14,46 +14,7 @@
 #include "cli/commands/ExitCommand.h"
 #include "cli/commands/HelpCommand.h"
 #include "cli/commands/LoadCommand.h"
-
-
-// test stuffs
-void groupSolar(TCPClient &client) {
-
-    Scene scene;
-    scene.setName("SolarSystemGroup");
-    scene.setHeight(500);
-    scene.setWidth(1000);
-
-    Circle sun({0, 0}, 150);
-    sun.setColor(Color::ORANGE);
-
-    Circle earth({150, 0}, 40);
-    earth.setColor(Color::CYAN);
-
-    Circle moon({150, 25}, 5);
-    moon.setColor(Color::WHITE);
-
-    Circle earthPath({0, 0}, 315);
-    earthPath.setBorderColor(Color::WHITE);
-    earthPath.setZIndex(-1);
-
-    ShapeGroup earthGroup;
-    earthGroup.addShape(&earth);
-    earthGroup.addShape(&moon);
-    earthGroup.addShape(&earthPath);
-
-
-    ShapeGroup solarSystemGroup;
-    solarSystemGroup.addShape(&earthGroup);
-    solarSystemGroup.addShape(&sun);
-
-    scene.add(&solarSystemGroup);
-
-    DrawSceneAction(scene).execute(&client);
-    RefreshRendererAction().execute(&client);
-
-    SceneDao::getInstance()->save("solarSystemGroup.json", &scene);
-}
+#include "cli/commands/SaveCommand.h"
 
 void solar(TCPClient &client) {
 
@@ -135,6 +96,7 @@ int main() {
     cli->addCommand("exit", new ExitCommand());
     cli->addCommand("help", new HelpCommand());
     cli->addCommand("load", new LoadCommand(&client));
+    cli->addCommand("save", new SaveCommand());
     cli->init();
 
 

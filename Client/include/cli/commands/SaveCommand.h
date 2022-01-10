@@ -6,13 +6,11 @@
 
 #include "cli/CliCommand.h"
 #include "actions/DrawSceneAction.h"
+#include "scene/SceneDao.h"
 
-class LoadCommand : public CliCommand {
-
-    const Client *client;
+class SaveCommand : public CliCommand {
 
 public:
-    explicit LoadCommand(const Client *client) : client(client) {}
 
     void execute(Cli *cli, vector<string> args) const override {
         if (args.empty()) {
@@ -33,16 +31,24 @@ public:
         try {
             SceneDao *dao = SceneDao::getInstance();
             dao->setParser(format);
-            Scene *scene = dao->get(path);
 
-            DrawSceneAction(*scene).execute(client);
+            Scene *scene = dao->getCurrentScene();
+            if (scene == nullptr) {
+                cerr << "Nothing to save" << endl;
+                return;
+            }
+
+            dao->save(path, dao->getCurrentScene());
+
+            cout << "Current scene saved to " << path << endl;
         } catch (const std::exception &e) {
             cerr << e.what() << endl;
         }
+
     }
 
     string showHelp() const override {
-        return "Load scene\n"
-               "\tUsage: load <path>  [format]";
+        return "Save current Scene\n"
+               "\tUsage: save <path> [format]";
     }
 };
