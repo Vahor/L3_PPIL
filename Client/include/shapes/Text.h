@@ -6,7 +6,7 @@
 
 #include <utility>
 
-#include "api/shape/Shape.h"
+#include "shapes/Shape.h"
 #include "data/DataImpl.h"
 #include <cmath>
 

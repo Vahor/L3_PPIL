@@ -6,19 +6,17 @@
 
 #include <string>
 #include <vector>
-#include "api/shape/Shape.h"
-#include "api/handler/Handler.h"
+#include "shapes/Shape.h"
+#include "handler/Handler.h"
 #include "client/Client.h"
-
-using namespace std;
 
 class Scene {
 
 
-    string name;
+    std::string name;
     int height = 500;
     int width = 900;
-    vector<Shape *> shapes;
+    std::vector<Shape *> shapes;
 
 protected:
     void add2(Shape *shape) {
@@ -96,10 +94,10 @@ public:
     // Setters
     void setHeight(int _height) { this->height = _height; }
     void setWidth(int _width) { this->width = _width; }
-    void setName(const string &_name) { this->name = _name; }
+    void setName(const std::string &_name) { this->name = _name; }
 
     // Getters
-    string getName() const { return name; }
+    std::string getName() const { return name; }
     int getHeight() const { return height; }
     int getWidth() const { return width; }
 

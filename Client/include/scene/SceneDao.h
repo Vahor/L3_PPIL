@@ -4,11 +4,12 @@
 
 #pragma once
 
-#include "api/dao/Dao.h"
+#include "dao/Dao.h"
 #include "scene/Scene.h"
 #include "data/json/JsonParser.h"
 #include <fstream>
 
+#include "shapes/Shape.h"
 #include "shapes/handler/PolygonHandler.h"
 #include "shapes/handler/GroupHandler.h"
 #include "shapes/handler/CircleHandler.h"

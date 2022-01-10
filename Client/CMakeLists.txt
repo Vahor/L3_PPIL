@@ -19,7 +19,7 @@ set(SOURCE_FILES_TEST
         src/Color.cpp
         src/api/Point2D.cpp
         src/api/shape/Shape.cpp
-        include/api/dao/Dao.h)
+        include/dao/Dao.h)
 
 
 add_executable(run-test ${SOURCE_FILES_TEST})

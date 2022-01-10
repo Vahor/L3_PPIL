@@ -5,7 +5,7 @@
 
 
 #include "actions/Action.h"
-#include "api/shape/Shape.h"
+#include "shapes/Shape.h"
 
 class DrawShapeAction : public Action {
 

@@ -5,8 +5,8 @@
 #pragma once
 
 #include "shapes/Polygon.h"
-#include "api/shape/Shape.h"
-#include "api/handler/CORHandler.h"
+#include "shapes/Shape.h"
+#include "handler/CORHandler.h"
 
 class PolygonHandler : public CORHandler<DataObject, Shape *> {
 

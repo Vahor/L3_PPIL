@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "api/shape/Shape.h"
-#include "api/Point2D.h"
+#include "shapes/Shape.h"
+#include "Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
 

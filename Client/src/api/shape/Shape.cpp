@@ -2,7 +2,7 @@
 // Created by Nathan David on 11/12/2021.
 //
 
-#include "api/shape/Shape.h"
+#include "shapes/Shape.h"
 
 int Shape::previousId = 1;
 DataObject *Shape::addMetaData(DataObject *object) const {

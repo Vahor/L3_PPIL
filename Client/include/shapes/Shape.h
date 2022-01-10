@@ -8,8 +8,8 @@
 #include "data/json/JsonPrimitive.h"
 #include "Color.h"
 #include "data/DataImpl.h"
-#include "api/handler/Handler.h"
-#include "api/Point2D.h"
+#include "handler/Handler.h"
+#include "Point2D.h"
 
 class ShapeGroup;
 

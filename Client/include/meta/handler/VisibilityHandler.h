@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "api/shape/Shape.h"
-#include "api/handler/CORHandler.h"
+#include "shapes/Shape.h"
+#include "handler/CORHandler.h"
 
 class VisibilityHandler : public CORHandler<pair<DataObject *, Shape *>, Shape *> {
 
