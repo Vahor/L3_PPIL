@@ -9,6 +9,7 @@
 #include "actions/renderer/UpdateRendererNameAction.h"
 #include "actions/renderer/UpdateRendererSizeAction.h"
 #include "actions/renderer/InitRendererAction.h"
+#include "DrawShapeAction.h"
 
 class DrawSceneAction : public Action {
 
@@ -21,6 +22,10 @@ public:
         InitRendererAction().execute(client);
         UpdateRendererNameAction(scene->getName()).execute(client);
         UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute(client);
+
+        for (auto shape: *scene) {
+            DrawShapeAction(*shape).execute(client);
+        }
     }
 
 };

@@ -115,10 +115,11 @@ void solar(TCPClient &client) {
     RefreshRendererAction().execute(&client);
 
     ShapeGroup earthGroup;
-    earthGroup.addShape(&earth);
     earthGroup.addShape(&earthPath);
+    earthGroup.addShape(&earth);
+    earthGroup.addShape(&earthText);
 
-    scene.add(&sun);
+    scene.add(&sunGroup);
     scene.add(&earthGroup);
 
     SceneDao::getInstance()->save("solarSystem.json", &scene);
@@ -128,6 +129,7 @@ int main() {
 
     TCPClient client("127.0.0.1", 10000);
 
+    //solar(client);
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
     cli->addCommand("exit", new ExitCommand());
@@ -135,7 +137,6 @@ int main() {
     cli->addCommand("load", new LoadCommand(&client));
     cli->init();
 
-    //groupSolar(client);
 
     return 0;
 }

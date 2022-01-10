@@ -167,6 +167,14 @@ public:
         }
     }
 
+
+    // Iterator
+
+    auto begin() { return &elements[0]; }
+    auto end() { return &elements[elements.size()]; }
+    auto begin() const { return &elements[0]; }
+    auto end() const { return &elements[elements.size()]; }
+
 };
 
 

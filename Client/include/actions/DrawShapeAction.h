@@ -15,7 +15,13 @@ public:
     explicit DrawShapeAction(Shape &shape) : shape(&shape) {}
 
     void execute(const Client *client) const override {
-        client->send(shape->serialize()->toString());
+        if (auto *group = dynamic_cast<ShapeGroup *>(shape)) {
+            for (auto s: *group) {
+                DrawShapeAction(*s).execute(client);
+            }
+        } else {
+            client->send(shape->serialize()->toString());
+        }
     }
 
 

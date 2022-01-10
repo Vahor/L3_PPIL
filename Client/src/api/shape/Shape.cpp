@@ -20,8 +20,10 @@ DataObject *Shape::addMetaData(DataObject *object) const {
 
     if (color != Color::TRANSPARENT)
         metaObject->put("color", &color);
+
     if (borderColor != Color::TRANSPARENT)
         metaObject->put("borderColor", &borderColor);
+
     if (zIndex != 0)
         metaObject->put("zIndex", new DataPrimitiveImpl(zIndex));
 

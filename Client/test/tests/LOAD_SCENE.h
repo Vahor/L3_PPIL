@@ -31,6 +31,7 @@ public:
 
         auto *circle1 = new Circle({200, 200}, 50);
         circle1->setColor(Color::RED);
+        circle1->setBorderColor(Color::YELLOW);
         circle1->setVisible(false);
         testScene.add(circle1);
 
@@ -52,9 +53,10 @@ public:
         polygon->addPoint(new Point2D({50, 50}));
         testScene.add(polygon);
 
-        SceneDao sceneDao;
-        sceneDao.save("scene1.json", &testScene);
-        Scene *scene = sceneDao.get("scene1.json");
+        SceneDao *sceneDao = SceneDao::getInstance();
+        sceneDao->setParser("json");
+        sceneDao->save("scene1.json", &testScene);
+        Scene *scene = sceneDao->get("scene1.json");
         Scene *sceneClone = scene->clone();
 
         string fromCode = testScene.serialize()->toString();
@@ -69,8 +71,8 @@ public:
         group.addShape(circle2);
         testGroupScene.add(&group);
 
-        sceneDao.save("scene2.json", &testGroupScene);
-        Scene *groupLoad = sceneDao.get("scene2.json");
+        sceneDao->save("scene2.json", &testGroupScene);
+        Scene *groupLoad = sceneDao->get("scene2.json");
 
 
 //        cout << "fromCode.length() : " << fromCode.length() << endl;
