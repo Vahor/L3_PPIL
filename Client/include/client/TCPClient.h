@@ -27,8 +27,7 @@ public:
     TCPClient(const string &address, int port) : port(port), address(address) {
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if (sock == -1) {
-            cerr << "Could not create socket" << endl;
-            return;
+            throw std::runtime_error("Could not create socket");
         }
 
         struct sockaddr_in server{};
@@ -41,7 +40,7 @@ public:
             cerr << "Connection failed: " << to_string(errno) << endl;
             cerr << "address: " << address << endl;
             cerr << "port: " << to_string(port) << endl;
-            return;
+            throw std::runtime_error("Connection failed");
         }
     }
 

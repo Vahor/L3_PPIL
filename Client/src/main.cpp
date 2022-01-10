@@ -1,4 +1,6 @@
 #include "client/TCPClient.h"
+#include "cli/Cli.h"
+
 #include "shapes/Circle.h"
 #include "shapes/Text.h"
 
@@ -9,6 +11,8 @@
 #include "actions/DrawShapeAction.h"
 #include "actions/renderer/InitRendererAction.h"
 #include "actions/renderer/RefreshRendererAction.h"
+#include "cli/commands/ExitCommand.h"
+#include "cli/commands/HelpCommand.h"
 
 
 // test stuffs
@@ -125,6 +129,12 @@ void solar(TCPClient &client) {
 int main() {
 
     TCPClient client("127.0.0.1", 10000);
+
+    Cli *cli = Cli::getInstance();
+    cli->setPrefix("\033[32mtruc > \033[37m");
+    cli->addCommand("exit", new ExitCommand());
+    cli->addCommand("help", new HelpCommand());
+    cli->init();
 
     groupSolar(client);
 

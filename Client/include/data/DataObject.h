@@ -3,7 +3,6 @@
 //
 #pragma once
 
-
 #include "DataElement.h"
 
 class DataObject : public DataElement {
