@@ -17,7 +17,7 @@ public:
         auto *data = new DataObjectImpl();
 
         data->put("meta", getMetaData());
-        object->put("RENDERER", data);
+        object->put("WINDOW", data);
 
         client->send(object->toString());
     }

@@ -9,6 +9,7 @@
 #include "actions/renderer/UpdateRendererNameAction.h"
 #include "actions/renderer/UpdateRendererSizeAction.h"
 #include "actions/renderer/InitRendererAction.h"
+#include "actions/renderer/DisposeRendererAction.h"
 #include "DrawShapeAction.h"
 
 class DrawSceneAction : public Action {
@@ -20,12 +21,17 @@ public:
 
     void execute(const Client *client) const override {
         InitRendererAction().execute(client);
+        usleep(400 * 1000);
         UpdateRendererNameAction(scene->getName()).execute(client);
         UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute(client);
 
         for (auto shape: *scene) {
             DrawShapeAction(*shape).execute(client);
         }
+
+        usleep(400 * 1000);
+
+        DisposeRendererAction().execute(client);
     }
 
 };
