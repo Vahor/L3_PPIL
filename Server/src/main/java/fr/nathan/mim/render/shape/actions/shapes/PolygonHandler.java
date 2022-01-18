@@ -4,22 +4,27 @@ import fr.nathan.mim.api.data.DataArray;
 import fr.nathan.mim.api.data.DataElement;
 import fr.nathan.mim.api.data.DataObject;
 import fr.nathan.mim.api.geom.Point2D;
-import fr.nathan.mim.api.handler.ACORHandler;
-import fr.nathan.mim.api.handler.Handler;
-import fr.nathan.mim.render.shape.shapes.AShape;
 import fr.nathan.mim.render.shape.shapes.Polygon;
+import fr.nathan.mim.render.shape.shapes.Shape;
 
-public class PolygonHandler extends ACORHandler<DataObject, AShape> {
+public class PolygonHandler extends ShapeHandler {
 
-    public PolygonHandler(Handler<DataObject, AShape> shapeHandler) {        super(shapeHandler);    }
+    public PolygonHandler(ShapeHandler shapeHandler) {super(shapeHandler);}
 
+    /**
+     * @param input
+     *  Source des informations à extraire
+     * @return
+     *  nullptr si cette classe ne sait pas gérer l'information
+     *  ou un pointeur sur <In>
+     */
     @Override
-    protected AShape parse(DataObject input) {
-        if (!input.has("POLYGON")) return null;
+    protected Shape parse(Parameters input) {
+        if (!input.getObject().has("POLYGON")) return null;
 
-        DataObject object = input.get("POLYGON").getAsObject();
+        DataObject object = input.getObject().get("POLYGON").getAsObject();
 
-        Polygon polygon = new Polygon();
+        Polygon polygon = new Polygon(input.getMeta());
 
         DataArray points = object.get("points").getAsArray();
 

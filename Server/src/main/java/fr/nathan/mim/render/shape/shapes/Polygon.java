@@ -1,29 +1,37 @@
 package fr.nathan.mim.render.shape.shapes;
 
+import fr.nathan.mim.api.geom.Point2D;
+import fr.nathan.mim.render.shape.Meta;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @ToString(callSuper = true)
-public class Polygon extends AShape {
+public class Polygon extends Shape {
 
+    @Getter
+    private final Set<Point2D> points = new HashSet<>();
 
-    public Polygon() {}
+    public Polygon(Meta meta)           {super(meta);}
+
+    public void addPoint(Point2D point) {points.add(point);}
 
     @Override
-    public void draw(Graphics g, double widthRatio, double heightRatio) {
-        Graphics2D graphics2D = (Graphics2D) g;
+    public void draw(Graphics graphics) {
 
-        int[] xPoints = getPoints().stream().mapToInt(p -> (int) (p.getX() * widthRatio)).toArray();
-        int[] yPoints = getPoints().stream().mapToInt(p -> (int) (p.getY() * heightRatio)).toArray();
+        int[] xPoints = getPoints().stream().mapToInt(p -> (int) p.getX()).toArray();
+        int[] yPoints = getPoints().stream().mapToInt(p -> (int) p.getY()).toArray();
 
         // fill
-        graphics2D.setColor(getColor());
-        graphics2D.fillPolygon(xPoints, yPoints, getPoints().size());
+        graphics.setColor(meta.getColor());
+        graphics.fillPolygon(xPoints, yPoints, getPoints().size());
 
         // border
-        graphics2D.setColor(getBorderColor());
-        graphics2D.drawPolygon(xPoints, yPoints, getPoints().size());
+        graphics.setColor(meta.getBorderColor());
+        graphics.drawPolygon(xPoints, yPoints, getPoints().size());
 
     }
 }

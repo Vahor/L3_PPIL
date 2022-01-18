@@ -5,20 +5,23 @@ import fr.nathan.mim.api.data.DataObject;
 import fr.nathan.mim.api.handler.Handler;
 import fr.nathan.mim.render.renderer.actions.meta.UpdateRendererNameAction;
 import fr.nathan.mim.render.renderer.actions.meta.UpdateRendererSizeAction;
+import fr.nathan.mim.render.renderer.actions.renderer.DisposeRendererAction;
 import fr.nathan.mim.render.renderer.actions.renderer.InitRendererAction;
+import fr.nathan.mim.render.renderer.actions.renderer.RendererHandler;
 
-public class RendererActionManager {
+public class WindowActionManager {
 
-    private Handler<DataObject, Renderer> rendererHandler;
-    private Handler<Pair<DataObject, Renderer>, Renderer> metaHandler;
+    private RendererHandler rendererHandler;
+    private Handler<Pair<DataObject, Renderable>, Renderable> metaHandler;
 
-    public RendererActionManager() {
+    public WindowActionManager() {
         initShapeHandler();
         initMetaHandler();
     }
 
     void initShapeHandler() {
         rendererHandler = new InitRendererAction(rendererHandler);
+        rendererHandler = new DisposeRendererAction(rendererHandler);
     }
 
     void initMetaHandler() {
@@ -26,21 +29,17 @@ public class RendererActionManager {
         metaHandler = new UpdateRendererSizeAction(metaHandler);
     }
 
-    public Renderer handleAction(DataObject object, Renderer currentRenderer) {
-        System.out.println("RendererActionManager.handleAction");
-        System.out.println("object = " + object);
+    public Renderable handleAction(DataObject object, Renderable currentDrawing) {
+        DataObject elementMeta = object.get("meta").getAsObject();
 
         // Si les informations de l'action ne demandent pas à créer un nouveau renderer.
         // On utilise celui existant.
-        Renderer renderer = rendererHandler.solve(object);
-        if (renderer == null)
-            renderer = currentRenderer;
+        Renderable drawing = rendererHandler.solve(new RendererHandler.Parameters(elementMeta, currentDrawing));
+        if (drawing == null)
+            drawing = currentDrawing;
 
-        if (object.has("meta")) {
-            DataObject elementMeta = object.get("meta").getAsObject();
-            metaHandler.solve(new Pair<>(elementMeta, renderer));
-        }
+        metaHandler.solve(new Pair<>(elementMeta, drawing));
 
-        return renderer;
+        return drawing;
     }
 }

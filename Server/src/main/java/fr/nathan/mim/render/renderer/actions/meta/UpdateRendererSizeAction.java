@@ -4,16 +4,16 @@ import fr.nathan.mim.api.Pair;
 import fr.nathan.mim.api.data.DataObject;
 import fr.nathan.mim.api.handler.ACORHandler;
 import fr.nathan.mim.api.handler.Handler;
-import fr.nathan.mim.render.renderer.Renderer;
+import fr.nathan.mim.render.renderer.Renderable;
 
-public class UpdateRendererSizeAction extends ACORHandler<Pair<DataObject, Renderer>, Renderer> {
+public class UpdateRendererSizeAction extends ACORHandler<Pair<DataObject, Renderable>, Renderable> {
 
-    public UpdateRendererSizeAction(Handler<Pair<DataObject, Renderer>, Renderer> next) {
+    public UpdateRendererSizeAction(Handler<Pair<DataObject, Renderable>, Renderable> next) {
         super(next);
     }
 
     @Override
-    protected Renderer parse(Pair<DataObject, Renderer> input) {
+    protected Renderable parse(Pair<DataObject, Renderable> input) {
         if (input.getFirst().has("size")) {
 
             DataObject size = input.getFirst().get("size").getAsObject();
@@ -21,6 +21,7 @@ public class UpdateRendererSizeAction extends ACORHandler<Pair<DataObject, Rende
             int height = size.get("height").getAsPrimitive().getAsInt();
 
             input.getSecond().setSize(width, height);
+            input.getSecond().resetGraphics();
         }
         return null;
     }

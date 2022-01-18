@@ -1,36 +1,36 @@
 package fr.nathan.mim.render.shape.shapes;
 
 import fr.nathan.mim.api.geom.Point2D;
+import fr.nathan.mim.render.shape.Meta;
 import lombok.ToString;
 
 import java.awt.*;
 
 @ToString(callSuper = true)
-public class Circle extends AShape {
+public class Circle extends Shape {
 
     private final double diameter;
+    private final Point2D center;
 
-    public Circle(Point2D point, double diameter) {
-        addPoint(point);
+    public Circle(Point2D center, double diameter, Meta meta) {
+        super(meta);
+        this.center   = center;
         this.diameter = diameter;
     }
 
     @Override
-    public void draw(Graphics g, double widthRatio, double heightRatio) {
-        Graphics2D graphics2D = (Graphics2D) g;
+    public void draw(Graphics graphics) {
 
-        Point2D center = getPoints().get(0);
-        int width = (int) (diameter * widthRatio);
-        int height = (int) (diameter * heightRatio);
-        int x = (int) (center.getX() * widthRatio - width / 2);
-        int y = (int) (center.getY() * heightRatio - height / 2);
+        // On retire la moitié du diamètre pour centrer le cercle sur sa position
+        int xPosition = (int) (center.getX() - diameter / 2);
+        int yPosition = (int) (center.getY() - diameter / 2);
 
         // fill
-        graphics2D.setColor(getColor());
-        graphics2D.fillOval(x, y, width, height);
+        graphics.setColor(meta.getColor());
+        graphics.fillOval(xPosition, yPosition, (int) diameter, (int) diameter);
 
         // border
-        graphics2D.setColor(getBorderColor());
-        graphics2D.drawOval(x, y, width, height);
+        graphics.setColor(meta.getBorderColor());
+        graphics.drawOval(xPosition, yPosition, (int) diameter, (int) diameter);
     }
 }

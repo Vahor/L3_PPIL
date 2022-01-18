@@ -2,8 +2,8 @@ package fr.nathan.mim.server;
 
 import fr.nathan.mim.api.data.DataObject;
 import fr.nathan.mim.api.data.json.JsonParser;
-import fr.nathan.mim.render.renderer.Renderer;
-import fr.nathan.mim.render.renderer.RendererActionManager;
+import fr.nathan.mim.render.renderer.Renderable;
+import fr.nathan.mim.render.renderer.WindowActionManager;
 import fr.nathan.mim.render.shape.actions.ActionManager;
 
 import java.io.BufferedReader;
@@ -18,15 +18,16 @@ public class PacketListener extends Thread {
     private final ServerSocket serverSocket;
 
     private final ActionManager actionManager;
-    private final RendererActionManager rendererActionManager;
+    private final WindowActionManager windowActionManager;
 
-    private Renderer currentRenderer;
+    private Renderable currentRenderable;
     private final JsonParser parser = new JsonParser();
 
     public PacketListener(int port) throws IOException {
         serverSocket = new ServerSocket(port); serverSocket.setSoTimeout(5000);
 
-        actionManager = new ActionManager(); rendererActionManager = new RendererActionManager();
+        actionManager       = new ActionManager();
+        windowActionManager = new WindowActionManager();
     }
 
     @Override
@@ -43,17 +44,14 @@ public class PacketListener extends Thread {
 
                         DataObject object = parser.parse(line).getAsObject();
 
-                        // On fait une différence avec RENDERER
+                        // On fait une différence avec WINDOW
                         // pour savoir quel manager utiliser.
                         // On pourrait en utiliser qu'un seul, mais de cette manière le code est plus lisible
-                        if (object.has("RENDERER")) {
-                            currentRenderer = rendererActionManager.handleAction(object.get("RENDERER").getAsObject(), currentRenderer);
-                        }
-                        else if (currentRenderer != null) {
-                            actionManager.handleAction(object, currentRenderer);
-                        }
+                        if (object.has("WINDOW")) currentRenderable = windowActionManager.handleAction(object.get("WINDOW").getAsObject(), currentRenderable);
+                        else if (currentRenderable != null) actionManager.handleAction(object, currentRenderable);
+
                         else {
-                            throw new RuntimeException("Rendered not initialized");
+                            throw new RuntimeException("Window not initialized");
                         }
 
                     }

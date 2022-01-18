@@ -1,49 +1,46 @@
 package fr.nathan.mim.render.shape.shapes;
 
 import fr.nathan.mim.api.geom.Point2D;
-import lombok.Setter;
+import fr.nathan.mim.render.shape.Meta;
 import lombok.ToString;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 @ToString(callSuper = true)
-public class Text extends AShape {
+public class Text extends Shape {
 
-    @Setter
-    private int size;
-    @Setter
-    private String value;
-    @Setter
-    double angle;
+    private final int size;
+    private final Point2D center;
+    private final String value;
+    private final double angleDeg;
 
-    public Text(Point2D point, String value, int size, double angle) {
-        addPoint(point);
-        this.value = value;
-        this.size  = size;
-        this.angle = angle;
+    public Text(Point2D center, String value, int size, double angleDeg, Meta meta) {
+        super(meta);
+        this.center   = center;
+        this.value    = value;
+        this.size     = size;
+        this.angleDeg = angleDeg;
     }
 
     @Override
-    public void draw(Graphics g, double widthRatio, double heightRatio) {
-        Point2D center = getPoints().get(0);
+    public void draw(Graphics graphics) {
 
-        Graphics2D graphics2D = (Graphics2D) g;
         AffineTransform affineTransform = new AffineTransform();
-        // todo voir si on a besoin d'ajouter un point d'ancrage pour la rotation
-        affineTransform.rotate(Math.toRadians(angle));
+        affineTransform.rotate(Math.toRadians(angleDeg));
 
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, (int) (size * heightRatio));
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, size);
         font = font.deriveFont(affineTransform);
-        graphics2D.setFont(font);
+        graphics.setFont(font);
 
-        int width = graphics2D.getFontMetrics().stringWidth(value);
-        int height = graphics2D.getFontMetrics().getHeight();
-        int x = (int) (center.getX() * widthRatio - width / 2);
-        int y = (int) (center.getY() * heightRatio - height / 2);
+        // On retire la moitié de la taille/largeur pour centrer le texte sur sa position
+        int width = graphics.getFontMetrics().stringWidth(value);
+        int height = graphics.getFontMetrics().getHeight();
 
-        graphics2D.setColor(getColor());
+        int xPosition = (int) (center.getX() - width / 2);
+        int yPosition = (int) (center.getY() - height / 2);
 
-        graphics2D.drawString(value, x, y);
+        graphics.setColor(meta.getColor());
+        graphics.drawString(value, xPosition, yPosition);
     }
 }
