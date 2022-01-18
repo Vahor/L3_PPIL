@@ -25,7 +25,7 @@ protected:
         double x = position->get("x")->getAsPrimitive()->getAsDouble();
         double y = position->get("y")->getAsPrimitive()->getAsDouble();
 
-        return new Circle({x, y}, diameter);
+        return new Circle(Point2D(x, y), diameter);
     }
 
 public:

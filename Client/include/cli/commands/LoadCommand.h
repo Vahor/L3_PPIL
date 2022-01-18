@@ -20,7 +20,7 @@ public:
             return;
         }
 
-        string path = args[0];
+        string path = "solarSystem.json";//args[0];
         string format;
 
         if (args.size() == 1) {

@@ -10,11 +10,12 @@
 #include "actions/DrawSceneAction.h"
 #include "actions/DrawShapeAction.h"
 #include "actions/renderer/InitRendererAction.h"
-#include "actions/renderer/RefreshRendererAction.h"
+#include "actions/renderer/DisposeRendererAction.h"
 #include "cli/commands/ExitCommand.h"
 #include "cli/commands/HelpCommand.h"
 #include "cli/commands/LoadCommand.h"
 #include "cli/commands/SaveCommand.h"
+#include "cli/commands/ListCommand.h"
 
 void solar(TCPClient &client) {
 
@@ -40,7 +41,6 @@ void solar(TCPClient &client) {
     sunPolygon.setColor(Color::RED);
     sunPolygon.setZIndex(1);
 
-
     Text polygonText({100, 100}, 10, "polygonText");
     polygonText.setColor(Color::YELLOW);
     polygonText.setZIndex(1);
@@ -49,8 +49,9 @@ void solar(TCPClient &client) {
     ShapeGroup sunGroup;
     sunGroup.addShape(&sun);
     sunGroup.addShape(&sunText);
-    sunGroup.addShape(&sunPolygon);
 
+    sunGroup.addShape(&sunPolygon);
+    sunGroup.addShape(&polygonText);
 
     Circle earth({150, 0}, 40);
     earth.setColor(Color::CYAN);
@@ -64,39 +65,33 @@ void solar(TCPClient &client) {
     earthText.setZIndex(1);
     earthText.rotateSelf(45);
 
-
-    InitRendererAction().execute(&client);
-    DrawShapeAction(sun).execute(&client);
-    DrawShapeAction(sunText).execute(&client);
-    DrawShapeAction(earth).execute(&client);
-    DrawShapeAction(earthPath).execute(&client);
-    DrawShapeAction(earthText).execute(&client);
-    DrawShapeAction(sunPolygon).execute(&client);
-    DrawShapeAction(polygonText).execute(&client);
-    RefreshRendererAction().execute(&client);
-
     ShapeGroup earthGroup;
     earthGroup.addShape(&earthPath);
     earthGroup.addShape(&earth);
     earthGroup.addShape(&earthText);
 
+
+    earthGroup.setColor(Color::RED);
     scene.add(&sunGroup);
     scene.add(&earthGroup);
 
-    SceneDao::getInstance()->save("solarSystem.json", &scene);
+    DrawSceneAction(scene).execute(&client);
+
+//    SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
 
 int main() {
 
     TCPClient client("127.0.0.1", 10000);
 
-    //solar(client);
+    solar(client);
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
     cli->addCommand("exit", new ExitCommand());
     cli->addCommand("help", new HelpCommand());
     cli->addCommand("load", new LoadCommand(&client));
     cli->addCommand("save", new SaveCommand());
+    cli->addCommand("list", new ListCommand());
     cli->init();
 
 

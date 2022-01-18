@@ -30,7 +30,7 @@ protected:
 
         double angle = object->get("angle")->getAsPrimitive()->getAsDouble();
 
-        return new Text({x, y}, size, value, angle);
+        return new Text(Point2D(x, y), size, value, angle);
     }
 
 public:

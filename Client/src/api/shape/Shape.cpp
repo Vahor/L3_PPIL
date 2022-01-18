@@ -18,6 +18,9 @@ DataObject *Shape::addMetaData(DataObject *object) const {
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
 
+    // TODO : Utiliser les propriétés du groupe si il y en a un :
+    //   seulement pour l'envoie au client, pas lors de la sauvegarde
+
     if (color != Color::TRANSPARENT)
         metaObject->put("color", &color);
 
