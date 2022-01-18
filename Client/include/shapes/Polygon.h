@@ -48,6 +48,15 @@ public:
         return object;
     }
 
+    string toString() const override {
+        string res = "Polygon[";
+        for (auto *point: points) {
+            res += point->toString();
+        }
+        res += "]";
+        return res;
+    }
+
     Polygon *clone() const override {
         return new Polygon(*this);
     }

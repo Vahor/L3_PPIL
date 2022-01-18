@@ -8,6 +8,7 @@
 #include "Point2D.h"
 #include "data/DataImpl.h"
 #include <cmath>
+#include <utility>
 
 class Circle : public Shape {
 
@@ -17,7 +18,7 @@ class Circle : public Shape {
 public:
 
     Circle(Point2D position, double diameter) :
-            position(position),
+            position(std::move(position)),
             diameter(diameter),
             Shape() {}
 
@@ -33,6 +34,10 @@ public:
         Shape::addMetaData(object);
 
         return object;
+    }
+
+    string toString() const override {
+        return "Circle[position=" + position.toString() + ",diameter=" + to_string(diameter) + "]";
     }
 
     Circle *clone() const override {

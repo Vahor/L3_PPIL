@@ -35,6 +35,8 @@ public:
      */
     virtual DataElement *serialize() const = 0;
 
+    virtual string toString() const = 0;
+
     /**
      * Ajoutes les variables metas communes à chaque formes
      * @param object Object dans lequel on va ajouter l'objet meta
@@ -131,6 +133,15 @@ public:
         Shape::addMetaData(object);
 
         return object;
+    }
+
+    string toString() const override {
+        string res = "ShapeGroup[";
+        for (auto *shape: elements) {
+            res += shape->toString();
+        }
+        res += "]";
+        return res;
     }
 
     Shape *clone() const override {

@@ -44,6 +44,10 @@ public:
         return {(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
     }
 
+    virtual string toString() const {
+        return "(" + to_string(x) + "," + to_string(y) + ")";
+    }
+
     inline bool operator==(const Point2D &other) const {
         return x == other.x && y == other.y;
     }

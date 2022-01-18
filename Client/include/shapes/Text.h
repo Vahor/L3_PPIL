@@ -21,7 +21,7 @@ public:
 
 
     Text(Point2D position, int size, string value, double angle = 0) :
-            position(position),
+            position(std::move(position)),
             size(size),
             value(std::move(value)),
             angle(angle),
@@ -43,9 +43,18 @@ public:
         return object;
     }
 
+    string toString() const override {
+        return "Text[position=" + position.toString()
+               + ",size=" + to_string(size) +
+               +",value=" + value +
+               +",angle=" + to_string(angle) +
+               "]";
+    }
+
     Text *clone() const override {
         return new Text(*this);
     }
+
 
     double getAngle() const {
         return angle;
