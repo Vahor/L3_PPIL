@@ -138,8 +138,11 @@ public:
     string toString() const override {
         string res = "ShapeGroup[";
         for (auto *shape: elements) {
+            res += "\n\t\t";
             res += shape->toString();
         }
+        if (!elements.empty())
+            res += "\n\t";
         res += "]";
         return res;
     }

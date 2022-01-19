@@ -77,14 +77,14 @@ void solar(TCPClient &client) {
 
     DrawSceneAction(scene).execute(&client);
 
-//    SceneDao::getInstance()->save("solarSystem.json", &scene);
+    SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
 
 int main() {
 
     TCPClient client("127.0.0.1", 10000);
 
-    solar(client);
+    //solar(client);
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
     cli->addCommand("exit", new ExitCommand());
