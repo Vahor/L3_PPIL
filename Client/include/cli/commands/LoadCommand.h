@@ -9,11 +9,8 @@
 
 class LoadCommand : public CliCommand {
 
-    const Client *client;
 
 public:
-    explicit LoadCommand(const Client *client) : client(client) {}
-
     void execute(Cli *cli, vector<string> args) const override {
         if (args.empty()) {
             cerr << "No arguments" << endl;
@@ -35,7 +32,7 @@ public:
             dao->setParser(format);
             Scene *scene = dao->get(path);
 
-            DrawSceneAction(*scene).execute(client);
+            DrawSceneAction(*scene).execute(TCPClient::getInstance());
         } catch (const std::exception &e) {
             cerr << e.what() << endl;
         }

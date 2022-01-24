@@ -1,6 +1,8 @@
 #include "client/TCPClient.h"
 
-bool TCPClient::send(const std::string &data) const {
+TCPClient *TCPClient::instance_ = {nullptr};
+
+bool TCPClient::send(const string &data) const {
     if (sock == -1) return false;
 
     string packet = data;
@@ -12,4 +14,12 @@ bool TCPClient::send(const std::string &data) const {
     }
 
     return true;
+}
+
+
+TCPClient *TCPClient::getInstance() {
+    if (instance_ == nullptr) {
+        instance_ = new TCPClient();
+    }
+    return instance_;
 }
