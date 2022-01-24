@@ -16,6 +16,7 @@
 #include "cli/commands/LoadCommand.h"
 #include "cli/commands/SaveCommand.h"
 #include "cli/commands/ListCommand.h"
+#include "cli/commands/ReconnectCommand.h"
 
 void solar(TCPClient &client) {
 
@@ -88,11 +89,13 @@ int main() {
     //solar(client);
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
+
     cli->addCommand("exit", new ExitCommand());
     cli->addCommand("help", new HelpCommand());
     cli->addCommand("load", new LoadCommand());
     cli->addCommand("save", new SaveCommand());
     cli->addCommand("list", new ListCommand());
+    cli->addCommand("reconnect", new ReconnectCommand());
     cli->init();
 
 

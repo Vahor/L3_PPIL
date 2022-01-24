@@ -74,12 +74,12 @@ public:
 
         auto *object = new DataObjectImpl();
         auto *window = new DataObjectImpl();
-        auto *items = new DataArrayImpl();
 
         window->put("name", new DataPrimitiveImpl(getName()));
         window->put("height", new DataPrimitiveImpl(getHeight()));
         window->put("width", new DataPrimitiveImpl(getWidth()));
 
+        auto *items = new DataArrayImpl();
         for (auto &shape: shapes) {
             items->add(shape->serialize(ignoreGroup));
         }

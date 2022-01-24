@@ -21,9 +21,9 @@ class TCPClient : public Client {
 
 protected:
     ~TCPClient() {
-        if (sock != -1)
-            ::close(sock);
+        this->disconnect();
     };
+
     TCPClient() = default;
 
 public:
@@ -52,8 +52,9 @@ public:
     }
 
     bool send(const string &data) const override;
-    void close() const override {
-        ::close(sock);
+    void disconnect() const override {
+        if (sock != -1)
+            ::close(sock);
     }
 
     static TCPClient *getInstance();

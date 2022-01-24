@@ -21,22 +21,27 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
 
     bool useGroup = group != nullptr && !ignoreGroup;
 
+    // Color
     Color metaColor = (useGroup && group->color != Color::TRANSPARENT) ? group->color : color;
     if (metaColor != Color::TRANSPARENT)
         metaObject->put("color", &metaColor);
 
+    // BorderColor
     Color metaBorderColor = (useGroup && group->color != Color::TRANSPARENT) ? group->borderColor : borderColor;
     if (metaBorderColor != Color::TRANSPARENT)
         metaObject->put("borderColor", &metaBorderColor);
 
+    // zIndex
     int metaZIndex = (useGroup) ? group->zIndex + zIndex : zIndex;
     if (metaZIndex != 0)
         metaObject->put("zIndex", new DataPrimitiveImpl(metaZIndex));
 
+    // vsible
     bool metaVisible = (useGroup) ? group->visible : visible;
     if (!metaVisible)
         metaObject->put("visible", new DataPrimitiveImpl(metaVisible));
 
+    // groupId
     if (useGroup)
         metaObject->put("group", new DataPrimitiveImpl(group->getId()));
 
