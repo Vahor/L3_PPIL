@@ -30,7 +30,7 @@ public:
         points.erase(std::find(points.begin(), points.end(), point));
     }
 
-    DataElement *serialize() const override {
+    DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
@@ -42,8 +42,6 @@ public:
 
         data->put("points", pointsArray);
         object->put("POLYGON", data);
-
-        Shape::addMetaData(object);
 
         return object;
     }

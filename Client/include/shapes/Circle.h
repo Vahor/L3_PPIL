@@ -22,7 +22,7 @@ public:
             diameter(diameter),
             Shape() {}
 
-    DataElement *serialize() const override {
+    DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
@@ -30,8 +30,6 @@ public:
         data->put("diameter", new DataPrimitiveImpl(diameter));
 
         object->put("CIRCLE", data);
-
-        Shape::addMetaData(object);
 
         return object;
     }

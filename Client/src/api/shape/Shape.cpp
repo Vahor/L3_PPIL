@@ -5,7 +5,8 @@
 #include "shapes/Shape.h"
 
 int Shape::previousId = 1;
-DataObject *Shape::addMetaData(DataObject *object) const {
+
+DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     DataObject *metaObject;
 
     if (object->has("meta"))
@@ -18,22 +19,25 @@ DataObject *Shape::addMetaData(DataObject *object) const {
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
 
-    // TODO : Utiliser les propriétés du groupe si il y en a un :
-    //   seulement pour l'envoie au client, pas lors de la sauvegarde
+    bool useGroup = group != nullptr && !ignoreGroup;
 
-    if (color != Color::TRANSPARENT)
-        metaObject->put("color", &color);
+    Color metaColor = (useGroup && group->color != Color::TRANSPARENT) ? group->color : color;
+    if (metaColor != Color::TRANSPARENT)
+        metaObject->put("color", &metaColor);
 
-    if (borderColor != Color::TRANSPARENT)
-        metaObject->put("borderColor", &borderColor);
+    Color metaBorderColor = (useGroup && group->color != Color::TRANSPARENT) ? group->borderColor : borderColor;
+    if (metaBorderColor != Color::TRANSPARENT)
+        metaObject->put("borderColor", &metaBorderColor);
 
-    if (zIndex != 0)
-        metaObject->put("zIndex", new DataPrimitiveImpl(zIndex));
+    int metaZIndex = (useGroup) ? group->zIndex + zIndex : zIndex;
+    if (metaZIndex != 0)
+        metaObject->put("zIndex", new DataPrimitiveImpl(metaZIndex));
 
-    if (!visible)
-        metaObject->put("visible", new DataPrimitiveImpl(visible));
+    bool metaVisible = (useGroup) ? group->visible : visible;
+    if (!metaVisible)
+        metaObject->put("visible", new DataPrimitiveImpl(metaVisible));
 
-    if (group != nullptr)
+    if (useGroup)
         metaObject->put("group", new DataPrimitiveImpl(group->getId()));
 
     object->put("meta", metaObject);

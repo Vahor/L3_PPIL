@@ -15,12 +15,14 @@ add_executable(Client
 
 set(SOURCE_FILES_TEST
         test/test.cpp
+        include/Serializable.h
         test/lib/SimpleTest.cpp test/lib/SimpleTest.h
         test/tests/LOAD_SCENE.h
         src/Color.cpp
         src/api/Point2D.cpp
         src/api/shape/Shape.cpp
-        include/dao/Dao.h)
+        include/dao/Dao.h
+        )
 
 
 target_link_libraries(Client readline)

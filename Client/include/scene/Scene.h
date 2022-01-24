@@ -10,13 +10,16 @@
 #include "handler/Handler.h"
 #include "client/Client.h"
 
-class Scene {
+using std::string;
+using std::vector;
+
+class Scene : public Serializable {
 
 
-    std::string name;
+    string name;
     int height = 500;
     int width = 900;
-    std::vector<Shape *> shapes;
+    vector<Shape *> shapes;
 
 protected:
     void add2(Shape *shape) {
@@ -67,7 +70,7 @@ public:
         return new Scene(*this);
     }
 
-    virtual DataElement *serialize() const {
+    DataElement *serialize0(bool ignoreGroup) const override {
 
         auto *object = new DataObjectImpl();
         auto *window = new DataObjectImpl();
@@ -78,7 +81,7 @@ public:
         window->put("width", new DataPrimitiveImpl(getWidth()));
 
         for (auto &shape: shapes) {
-            items->add(shape->serialize());
+            items->add(shape->serialize(ignoreGroup));
         }
 
         object->put("window", window);
@@ -94,10 +97,10 @@ public:
     // Setters
     void setHeight(int _height) { this->height = _height; }
     void setWidth(int _width) { this->width = _width; }
-    void setName(const std::string &_name) { this->name = _name; }
+    void setName(const string &_name) { this->name = _name; }
 
     // Getters
-    std::string getName() const { return name; }
+    const string &getName() const { return name; }
     int getHeight() const { return height; }
     int getWidth() const { return width; }
 

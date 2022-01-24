@@ -3,7 +3,7 @@
 //
 #pragma once
 
-
+#include "Serializable.h"
 #include "data/json/JsonObject.h"
 #include "data/json/JsonPrimitive.h"
 #include "Color.h"
@@ -13,11 +13,11 @@
 
 class ShapeGroup;
 
-class Shape {
+class Shape : public Serializable {
 
     // Meta
     Color color = Color::TRANSPARENT;
-    Color borderColor = Color::TRANSPARENT;
+    Color borderColor = Color::TRANSPARENT; // transparent ≠ invisible
     int id;
     int zIndex = 0;
     bool visible = true;
@@ -29,31 +29,33 @@ public:
 
     Shape() : id(nextId()) {}
 
-    /**
-     * Méthode appelée lorsqu'on veut enregistrer une forme en un objet neutre.
-     * @return L'objet actuel sous forme ADataElement
-     */
-    virtual DataElement *serialize() const = 0;
-
     virtual string toString() const = 0;
+    explicit operator std::string() const { return toString(); }
 
     /**
      * Ajoutes les variables metas communes à chaque formes
      * @param object Object dans lequel on va ajouter l'objet meta
      * @return Objet meta
      */
-    virtual DataObject *addMetaData(DataObject *object) const;
+    virtual DataObject *addMetaData(DataObject *object, bool ignoreGroup) const;
 
     virtual Shape *clone() const = 0;
 
     virtual ~Shape();
+
+    DataElement *serialize(bool ignoreGroup) const override {
+        DataElement *element = serialize0(ignoreGroup);
+
+        addMetaData(element->getAsObject(), ignoreGroup);
+        return element;
+    }
 
     // setters
     void setColor(const Color &v) { this->color = v; }
     void setBorderColor(const Color &v) { this->borderColor = v; }
     void setId(const int v) {
         // Les nombres positifs seront ceux générés automatiquement.
-        // Pour ceux chargés depuis un fichier, on ne veut pas de superposition,`
+        // Pour ceux chargés depuis un fichier, on ne veut pas de superposition,
         //  pour éviter ça, on va utiliser les nombres négatifs
         if (v > 0) cerr << "Utilisation d'un id positif, l'id n'est pas garanti d'être unique" << endl;
         this->id = v;
@@ -116,21 +118,19 @@ public:
         elements.erase(std::find(elements.begin(), elements.end(), shape));
     }
 
-    DataElement *serialize() const override {
+    DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
         auto *items = new DataArrayImpl();
 
         for (Shape *shape: elements) {
-            items->add(shape->serialize());
+            items->add(shape->serialize(ignoreGroup));
         }
 
         data->put("items", items);
 
         object->put("GROUP", data);
-
-        Shape::addMetaData(object);
 
         return object;
     }

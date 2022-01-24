@@ -104,7 +104,7 @@ public:
      */
     void save(string path, Scene *data) override {
         fstream inputFile = getFileStream(path, ios::out);
-        inputFile << data->serialize()->toString();
+        inputFile << data->serialize(true)->toString();
         inputFile.close();
     }
 

@@ -59,7 +59,7 @@ public:
         Scene *scene = sceneDao->get("scene1.json");
         Scene *sceneClone = scene->clone();
 
-        string fromCode = testScene.serialize()->toString();
+        string fromCode = testScene.serialize(false)->toString();
 
         Scene testGroupScene;
         testGroupScene.setName("testGroup");
@@ -68,7 +68,9 @@ public:
 
         ShapeGroup group;
         group.addShape(circle1);
+        group.addShape(polygon);
         group.addShape(circle2);
+        group.setColor(Color::BLUE);
         testGroupScene.add(&group);
 
         sceneDao->save("scene2.json", &testGroupScene);
@@ -88,18 +90,25 @@ public:
 //
 //        cout << text << endl;
 
-//        cout << testScene.serialize()->toString() << endl;
-//        cout << scene->serialize()->toString() << endl;
+//        cout << testScene.serialize(false)->toString() << endl;
+//        cout << scene->serialize(false)->toString() << endl;
 //        cout << fromCode << endl;
-        cout << testGroupScene.serialize()->toString() << endl;
-        cout << groupLoad->serialize()->toString() << endl;
 
-        test.assertTrue(scene->serialize()->toString().length() == fromCode.length(),
+        cout << groupLoad->serialize(true)->toString() << endl;
+        cout << testGroupScene.serialize(false)->toString() << endl;
+        cout << groupLoad->serialize(false)->toString() << endl;
+
+        test.assertTrue(scene->serialize(false)->toString().length() == fromCode.length(),
                         "Load");
-        test.assertTrue(sceneClone->serialize()->toString().length() == scene->serialize()->toString().length(),
-                        "Clone");
-        test.assertTrue(groupLoad->serialize()->toString().length() == testGroupScene.serialize()->toString().length(),
+        test.assertTrue(
+                sceneClone->serialize(false)->toString().length() == scene->serialize(false)->toString().length(),
+                "Clone");
+        test.assertTrue(groupLoad->serialize(false)->toString().length() ==
+                        testGroupScene.serialize(false)->toString().length(),
                         "Group Load");
+        test.assertTrue(
+                groupLoad->serialize(true)->toString().length() == testGroupScene.serialize(true)->toString().length(),
+                "Group ignore Load");
     }
 };
 

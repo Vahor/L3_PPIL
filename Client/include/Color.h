@@ -17,7 +17,7 @@ class Color : public DataObjectImpl {
     unsigned char alpha;
 
 public:
-    // Default BLACK
+    // Default TRANSPARENT
     Color() : Color(0, 0, 0, 0) {}
 
     Color(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : red(red), green(green),

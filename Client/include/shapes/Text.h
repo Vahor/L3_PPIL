@@ -27,7 +27,7 @@ public:
             angle(angle),
             Shape() {}
 
-    DataElement *serialize() const override {
+    DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObjectImpl();
 
         auto *data = new DataObjectImpl();
@@ -37,8 +37,6 @@ public:
         data->put("angle", new DataPrimitiveImpl(angle));
 
         object->put("TEXT", data);
-
-        Shape::addMetaData(object);
 
         return object;
     }
