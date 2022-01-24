@@ -25,6 +25,7 @@ public class Circle extends Shape {
         int xPosition = (int) (center.getX() - diameter / 2);
         int yPosition = (int) (center.getY() - diameter / 2);
 
+
         // fill
         graphics.setColor(meta.getColor());
         graphics.fillOval(xPosition, yPosition, (int) diameter, (int) diameter);

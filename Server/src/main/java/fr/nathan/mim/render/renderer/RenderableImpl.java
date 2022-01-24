@@ -8,15 +8,11 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class RenderableImpl extends JFrame implements WindowListener, Renderable {
 
     private final ArrayList<Shape> shapes = new ArrayList<>();
-
-    private final BufferedImage bufferedImage;
-    private Graphics2D graphics;
 
     private double scaleBoost = 0;
 
@@ -24,6 +20,12 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
     private double initialHeight;
     @Getter
     private double initialWidth;
+
+    private boolean drawing;
+
+
+    private BufferStrategy bufferStrategy;
+    private Graphics2D graphics2D;
 
     public RenderableImpl(int initialWidth, int initialHeight) throws InterruptedException {
         super();
@@ -34,13 +36,6 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
         setIgnoreRepaint(true);
         createBufferStrategy(2);
         Thread.sleep(250);
-
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        GraphicsConfiguration graphicsConfiguration = gd.getDefaultConfiguration();
-        // todo peut être recréer le bufferedImage lorsqu'on change d'écran ?
-        this.bufferedImage = graphicsConfiguration.createCompatibleImage((int) screenSize.getWidth(), (int) screenSize.getHeight());
 
         setBackground(Color.BLACK);
 
@@ -66,37 +61,49 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
             System.out.println("scaleBoost = " + scaleBoost);
 
             // Redraw
-            resetGraphics();
-            shapes.forEach(s -> s.draw(getGraphics2D()));
-            disposeBuffer();
+            redraw();
         });
 
         addComponentListener(new ResizeEndListener() {
             @Override
             public void onResizeEnd() {
-                resetGraphics();
-                shapes.forEach(s -> s.draw(getGraphics2D()));
-                disposeBuffer();
+                redraw();
             }
         });
 
     }
 
     @Override
+    public void redraw() {
+        if (drawing || !isVisible()) return;
+        try {
+            drawing = true;
+            resetGraphics();
+            Graphics2D graphics2D = getGraphics2D();
+            shapes.forEach(s -> s.draw(graphics2D));
+            disposeBuffer();
+            drawing = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void resetGraphics() {
+        bufferStrategy = getBufferStrategy();
         // Graphics
-        graphics = bufferedImage.createGraphics();
+        graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
 
         // Clear
-        graphics.clearRect(0, 0, getWidth(), getHeight());
+        graphics2D.clearRect(0, 0, getWidth(), getHeight());
 
         // Move origin to center
-        graphics.translate(getWidth() / 2., getHeight() / 2.);
+        graphics2D.translate(getWidth() / 2., getHeight() / 2.);
 
         // Adapt to screen size
         double currentFactor = Math.min((double) getHeight() / initialHeight, (double) getWidth() / initialWidth)
                 + scaleBoost;
-        graphics.scale(currentFactor, currentFactor);
+        graphics2D.scale(currentFactor, currentFactor);
     }
 
     @Override
@@ -114,17 +121,14 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
 
     @Override
     public Graphics2D getGraphics2D() {
-        return graphics;
+        return graphics2D;
     }
 
     @Override
     public void disposeBuffer() {
-        BufferStrategy bufferStrategy = getBufferStrategy();
-        Graphics drawGraphics = bufferStrategy.getDrawGraphics();
-
-        drawGraphics.drawImage(bufferedImage, 0, 0, null);
+        graphics2D.dispose();
         bufferStrategy.show();
-        graphics.dispose();
+        Toolkit.getDefaultToolkit().sync();
     }
 
     @Override

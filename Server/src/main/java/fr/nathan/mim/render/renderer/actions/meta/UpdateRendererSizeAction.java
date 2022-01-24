@@ -21,7 +21,6 @@ public class UpdateRendererSizeAction extends ACORHandler<Pair<DataObject, Rende
             int height = size.get("height").getAsPrimitive().getAsInt();
 
             input.getSecond().setSize(width, height);
-            input.getSecond().resetGraphics();
         }
         return null;
     }

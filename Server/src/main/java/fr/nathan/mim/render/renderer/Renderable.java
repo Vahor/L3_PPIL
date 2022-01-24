@@ -5,6 +5,7 @@ import java.awt.*;
 
 public interface Renderable {
 
+    void redraw();
     Graphics2D getGraphics2D();
     void resetGraphics();
     void disposeBuffer();
