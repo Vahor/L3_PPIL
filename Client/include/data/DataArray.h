@@ -9,10 +9,12 @@
 
 #include "DataElement.h"
 
+using std::vector;
+
 class DataArray : public DataElement {
 
 protected:
-    std::vector<DataElement *> elements;
+    vector<DataElement *> elements;
 
 public:
     DataArray(const DataArray &copy) {

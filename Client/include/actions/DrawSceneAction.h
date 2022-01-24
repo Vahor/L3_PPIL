@@ -15,21 +15,23 @@
 class DrawSceneAction : public Action {
 
     Scene *scene;
+
 public:
 
     explicit DrawSceneAction(Scene &scene) : scene(&scene) {}
 
     void execute(const Client *client) const override {
         InitRendererAction().execute(client);
-        usleep(400 * 1000);
+        usleep(300 * 1000);
         UpdateRendererNameAction(scene->getName()).execute(client);
         UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute(client);
+        usleep(100 * 1000);
 
         for (auto shape: *scene) {
             DrawShapeAction(*shape).execute(client);
         }
 
-        usleep(400 * 1000);
+        usleep(200 * 1000);
 
         DisposeRendererAction().execute(client);
     }

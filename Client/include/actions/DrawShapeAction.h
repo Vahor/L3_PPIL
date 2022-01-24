@@ -10,6 +10,7 @@
 class DrawShapeAction : public Action {
 
     Shape *shape;
+
 public:
 
     explicit DrawShapeAction(Shape &shape) : shape(&shape) {}
@@ -20,7 +21,7 @@ public:
                 DrawShapeAction(*s).execute(client);
             }
         } else {
-            client->send(shape->serialize()->toString());
+            client->send(shape->serialize(false)->toString());
         }
     }
 

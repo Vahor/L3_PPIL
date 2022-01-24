@@ -3,7 +3,6 @@
 //
 #pragma once
 
-
 #include "data/DataImpl.h"
 #include <cmath>
 
@@ -47,6 +46,8 @@ public:
     virtual string toString() const {
         return "(" + to_string(x) + "," + to_string(y) + ")";
     }
+
+    explicit operator string() const { return toString(); }
 
     inline bool operator==(const Point2D &other) const {
         return x == other.x && y == other.y;

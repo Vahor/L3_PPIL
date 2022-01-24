@@ -7,10 +7,10 @@
 #include <utility>
 
 class UpdateRendererNameAction : public RendererAction {
-    const std::string name;
+    const string name;
 
 public:
-    explicit UpdateRendererNameAction(std::string name) : name(std::move(name)) {}
+    explicit UpdateRendererNameAction(string name) : name(std::move(name)) {}
 
     DataObjectImpl *getMetaData() const override {
         auto *meta = new DataObjectImpl();
