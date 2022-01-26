@@ -29,7 +29,6 @@ void solar(TCPClient &client) {
 
     Text sunText({0, 0}, 50, "Soleil");
     sunText.setColor(Color::RED);
-    sunText.setZIndex(1);
     sunText.rotateSelf(45);
 
 
@@ -38,11 +37,9 @@ void solar(TCPClient &client) {
     sunPolygon.addPoint(new Point2D({100, 50}));
     sunPolygon.addPoint(new Point2D({50, 50}));
     sunPolygon.setColor(Color::RED);
-    sunPolygon.setZIndex(1);
 
     Text polygonText({100, 100}, 10, "polygonText");
     polygonText.setColor(Color::YELLOW);
-    polygonText.setZIndex(1);
     polygonText.rotateSelf(0);
 
     ShapeGroup sunGroup;
@@ -57,11 +54,9 @@ void solar(TCPClient &client) {
 
     Circle earthPath({0, 0}, 315);
     earthPath.setBorderColor(Color::WHITE);
-    earthPath.setZIndex(-1);
 
     Text earthText({150, 0}, 20, "Terre");
     earthText.setColor(Color::GREEN);
-    earthText.setZIndex(1);
     earthText.rotateSelf(45);
 
     ShapeGroup earthGroup;
@@ -83,7 +78,7 @@ void solar(TCPClient &client) {
 int main() {
 
     Client *client = TCPClient::getInstance();
-//    client->connect("127.0.0.1", 10000);
+    client->connect("127.0.0.1", 10000);
 
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");

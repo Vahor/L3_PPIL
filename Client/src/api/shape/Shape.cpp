@@ -4,8 +4,6 @@
 
 #include "shapes/Shape.h"
 
-int Shape::previousId = 1;
-
 DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     DataObject *metaObject;
 
@@ -14,36 +12,20 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     else
         metaObject = new DataObjectImpl();
 
-    metaObject->put("id", new DataPrimitiveImpl(id));
-
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
 
     bool useGroup = group != nullptr && !ignoreGroup;
 
     // Color
-    Color metaColor = (useGroup && group->color != Color::TRANSPARENT) ? group->color : color;
-    if (metaColor != Color::TRANSPARENT)
-        metaObject->put("color", &metaColor);
+    Color *metaColor = (useGroup && group->color != nullptr) ? group->color : color;
+    if (metaColor != nullptr)
+        metaObject->put("color", metaColor);
 
     // BorderColor
-    Color metaBorderColor = (useGroup && group->color != Color::TRANSPARENT) ? group->borderColor : borderColor;
-    if (metaBorderColor != Color::TRANSPARENT)
-        metaObject->put("borderColor", &metaBorderColor);
-
-    // zIndex
-    int metaZIndex = (useGroup) ? group->zIndex + zIndex : zIndex;
-    if (metaZIndex != 0)
-        metaObject->put("zIndex", new DataPrimitiveImpl(metaZIndex));
-
-    // vsible
-    bool metaVisible = (useGroup) ? group->visible : visible;
-    if (!metaVisible)
-        metaObject->put("visible", new DataPrimitiveImpl(metaVisible));
-
-    // groupId
-    if (useGroup)
-        metaObject->put("group", new DataPrimitiveImpl(group->getId()));
+    Color *metaBorderColor = (useGroup && group->color != nullptr) ? group->borderColor : borderColor;
+    if (metaBorderColor != nullptr)
+        metaObject->put("borderColor", metaBorderColor);
 
     object->put("meta", metaObject);
     return metaObject;
@@ -53,4 +35,20 @@ Shape::~Shape() {
     cout << "Delete AShape" << endl;
     if (group != nullptr)
         group->removeShape(this);
+}
+string Shape::_toString() const {
+    string res = "Meta[";
+    if (color)
+        res += "color=" + color->toString() + ",";
+    if (borderColor)
+        res += "borderColor=" + borderColor->toString() + ",";
+    if (group)
+        res += "group=true,"; // todo afficher un id ?
+
+    if (res.length() > 5)
+        res.pop_back(); // On retire la dernière virgule
+
+    res += "]";
+
+    return res;
 }
