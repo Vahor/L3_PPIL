@@ -17,19 +17,14 @@ class ShapeGroup;
 class Shape : public Serializable {
 
     // Meta
-    Color color = Color::TRANSPARENT;
-    Color borderColor = Color::TRANSPARENT; // transparent ≠ invisible
-    int id;
-    int zIndex = 0;
-    bool visible = true;
+    Color *color = nullptr;
+    Color *borderColor = nullptr;
     ShapeGroup *group = nullptr;
 
 public:
 
-    static int previousId;
 
-    Shape() : id(nextId()) {}
-
+    string _toString() const;
     virtual string toString() const = 0;
     explicit operator std::string() const { return toString(); }
 
@@ -56,25 +51,15 @@ public:
     }
 
     // setters
-    void setColor(const Color &v) { this->color = v; }
-    void setBorderColor(const Color &v) { this->borderColor = v; }
-    void setId(const int v) {
-        // Les nombres positifs seront ceux générés automatiquement.
-        // Pour ceux chargés depuis un fichier, on ne veut pas de superposition,
-        //  pour éviter ça, on va utiliser les nombres négatifs
-        if (v > 0) cerr << "Utilisation d'un id positif, l'id n'est pas garanti d'être unique" << endl;
-        this->id = v;
-    }
-    static int nextId() { return previousId++; }
-    void setVisible(bool b) { this->visible = b; }
-    void setZIndex(int v) { this->zIndex = v; }
+    void setColor(Color *v) { this->color = v; }
+    void setBorderColor(Color *v) { this->borderColor = v; }
     void setGroup(ShapeGroup *v) { this->group = v; }
 
     // getters
     virtual Point2D *getCenter() const = 0;
-    Color getColor() const { return color; }
-    int getId() const { return id; }
-    bool getVisible() const { return visible; }
+    Color *getColor() const { return color; }
+    ShapeGroup *getGroup() const { return group; }
+    bool isInGroup() const { return group != nullptr; }
 
     virtual void scale(int scale) = 0;
     virtual void translate(double x, double y) = 0;

@@ -28,15 +28,15 @@ public:
         put("a", new DataPrimitiveImpl(to_string(alpha)));
     }
 
-    static Color TRANSPARENT;
-    static Color WHITE;
-    static Color BLACK;
-    static Color BLUE;
-    static Color RED;
-    static Color GREEN;
-    static Color YELLOW;
-    static Color CYAN;
-    static Color ORANGE;
+    static Color *TRANSPARENT;
+    static Color *WHITE;
+    static Color *BLACK;
+    static Color *BLUE;
+    static Color *RED;
+    static Color *GREEN;
+    static Color *YELLOW;
+    static Color *CYAN;
+    static Color *ORANGE;
 
     inline bool operator==(const Color &other) const {
         return red == other.red &&

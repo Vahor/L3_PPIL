@@ -14,7 +14,7 @@ protected:
     Shape *parse(const pair<DataObject *, Shape *> &source) const override {
         if (source.first->has("color")) {
             DataObject *color = source.first->get("color")->getAsObject();
-            source.second->setColor(Color(
+            source.second->setColor(new Color(
                     color->get("r")->getAsPrimitive()->getAsInt(),
                     color->get("g")->getAsPrimitive()->getAsInt(),
                     color->get("b")->getAsPrimitive()->getAsInt(),
