@@ -21,13 +21,6 @@ class Scene : public Serializable {
     int height = 500;
     int width = 900;
     vector<Shape *> shapes;
-
-protected:
-    void add2(Shape *shape) {
-        if (shape->getId() == 0) shape->setId(Shape::nextId());
-        shapes.push_back(shape->clone());
-    }
-
 public:
     Scene() = default;
 
@@ -56,7 +49,7 @@ public:
         for (DataElement *element: *items) {
             DataObject *elementObject = element->getAsObject();
             Shape *shape = Shape::parse(*elementObject, shapeHandler, metaHandler);
-            if (shape != nullptr) scene->add2(shape);
+            if (shape != nullptr) scene->add(shape);
         }
 
         return scene;
@@ -92,7 +85,7 @@ public:
     };
 
     void add(Shape *shape) {
-        add2(shape->clone());
+        shapes.push_back(shape->clone());
     }
 
     virtual void draw(Visitor &visitor) const {

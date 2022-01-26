@@ -20,10 +20,11 @@ public:
         }
 
         cout << "CurrentScene:" << endl;
-        cout << scene->getName() << endl;
-        cout << "Width:" << scene->getWidth() << endl;
-        cout << "Height:" << scene->getHeight() << endl;
+        cout << "Name: " << scene->getName() << endl;
+        cout << "Width: " << scene->getWidth() << endl;
+        cout << "Height: " << scene->getHeight() << endl;
         for (auto &shape: *scene) {
+            if (shape->isInGroup())continue;
             cout << "\t" << shape->toString() << endl;
         }
     }

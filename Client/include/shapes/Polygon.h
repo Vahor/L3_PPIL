@@ -50,7 +50,10 @@ public:
         string res = "Polygon[";
         for (auto *point: points) {
             res += point->toString();
+            res += ","; // On garde la dernière "," pour le Shape::_toString()
         }
+
+        res += Shape::_toString();
         res += "]";
         return res;
     }

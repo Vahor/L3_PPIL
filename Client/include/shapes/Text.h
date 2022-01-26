@@ -46,6 +46,7 @@ public:
                + ",size=" + to_string(size) +
                +",value=" + value +
                +",angle=" + to_string(angle) +
+               Shape::_toString() +
                "]";
     }
 

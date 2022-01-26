@@ -35,7 +35,10 @@ public:
     }
 
     string toString() const override {
-        return "Circle[position=" + position.toString() + ",diameter=" + to_string(diameter) + "]";
+        return "Circle[position=" + position.toString() +
+               ",diameter=" + to_string(diameter)
+               + "," + Shape::_toString() +
+               +"]";
     }
 
     Circle *clone() const override {
