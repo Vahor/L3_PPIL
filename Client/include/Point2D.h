@@ -13,8 +13,6 @@ class Point2D {
 
 public:
 
-    static Point2D EMPTY;
-
     Point2D(double x, double y) : x(x), y(y) {}
 
     DataElement *serialize() const {
@@ -34,12 +32,12 @@ public:
     void setX(double x) { this->x = x; }
     void setY(double y) { this->y = y; }
 
-    void rotate(Point2D center, double degrees) {
+    void rotate(const Point2D &center, double degrees) {
         x = cos(degrees) * (center.x - x) - sin(degrees) * (center.y - y);
         y = sin(degrees) * (center.x - x) + cos(degrees) * (center.y - y);
     }
 
-    static Point2D center(Point2D p1, Point2D p2) {
+    static Point2D center(const Point2D &p1, const Point2D &p2) {
         return {(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
     }
 
