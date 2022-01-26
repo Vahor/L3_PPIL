@@ -3,22 +3,24 @@
 //
 #pragma once
 
-#include "actions/Action.h"
-#include "data/DataImpl.h"
-#include <utility>
 
-class InitRendererAction : public RendererAction {
+#include "actions/Action.h"
+#include "actions/java/renderer/RendererAction.h"
+
+
+class DisposeRendererAction : public RendererAction {
 
 public:
-    explicit InitRendererAction() = default;
+    explicit DisposeRendererAction() = default;
 
     DataObjectImpl *getMetaData() const override {
         auto *meta = new DataObjectImpl();
 
-        meta->put("INIT", new DataPrimitiveImpl(true));
+        meta->put("DISPOSE", new DataPrimitiveImpl(true));
 
         return meta;
     }
-
 };
+
+
 

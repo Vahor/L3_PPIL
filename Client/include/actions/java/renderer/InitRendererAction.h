@@ -3,22 +3,22 @@
 //
 #pragma once
 
-
 #include "actions/Action.h"
+#include "data/DataImpl.h"
+#include "RendererAction.h"
 
-class DisposeRendererAction : public RendererAction {
+class InitRendererAction : public RendererAction {
 
 public:
-    explicit DisposeRendererAction() = default;
+    explicit InitRendererAction() = default;
 
     DataObjectImpl *getMetaData() const override {
         auto *meta = new DataObjectImpl();
 
-        meta->put("DISPOSE", new DataPrimitiveImpl(true));
+        meta->put("INIT", new DataPrimitiveImpl(true));
 
         return meta;
     }
+
 };
-
-
 

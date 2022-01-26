@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "actions/renderer/RendererAction.h"
+#include "RendererAction.h"
 #include <utility>
 
 class UpdateRendererNameAction : public RendererAction {

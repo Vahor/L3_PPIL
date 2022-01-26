@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include "actions/Visitor.h"
 #include "shapes/Shape.h"
 #include "handler/Handler.h"
 #include "client/Client.h"
@@ -92,6 +93,10 @@ public:
 
     void add(Shape *shape) {
         add2(shape->clone());
+    }
+
+    virtual void draw(Visitor &visitor) const {
+        visitor.drawScene(this);
     }
 
     // Setters

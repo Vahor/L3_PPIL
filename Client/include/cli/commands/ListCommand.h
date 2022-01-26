@@ -5,7 +5,6 @@
 #pragma once
 
 #include "cli/CliCommand.h"
-#include "actions/DrawSceneAction.h"
 #include "scene/SceneDao.h"
 
 class ListCommand : public CliCommand {

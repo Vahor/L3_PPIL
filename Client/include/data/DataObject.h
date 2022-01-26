@@ -19,6 +19,9 @@ public:
     }
 
     virtual ~DataObject() {
+        for (const auto &it: children) {
+            cout << it.first << ":" << it.second << endl;
+        }
         cerr << "delete ADataObject" << endl;
         // todo
     }
@@ -34,7 +37,6 @@ public:
     DataElement *get(const string &key) const {
         return children.at(key);
     }
-
 
 
 };

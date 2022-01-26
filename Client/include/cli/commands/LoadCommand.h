@@ -5,7 +5,6 @@
 #pragma once
 
 #include "cli/CliCommand.h"
-#include "actions/DrawSceneAction.h"
 
 class LoadCommand : public CliCommand {
 
@@ -31,8 +30,10 @@ public:
             SceneDao *dao = SceneDao::getInstance();
             dao->setParser(format);
             Scene *scene = dao->get(path);
+            dao->setCurrentScene(scene);
 
-            DrawSceneAction(*scene).execute(TCPClient::getInstance());
+            cout << "La scene " << scene->getName() << " a été chargée " << endl;
+
         } catch (const std::exception &e) {
             cerr << e.what() << endl;
         }

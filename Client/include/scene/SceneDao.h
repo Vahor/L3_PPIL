@@ -87,7 +87,6 @@ public:
         DataObject *object = parser->parse(jsonFile);
         inputFile.close();
         Scene *scene = get(*object);
-        currentScene = scene;
         return scene;
     }
 
@@ -126,6 +125,9 @@ public:
     }
 
     Scene *getCurrentScene() const { return currentScene; };
+    void setCurrentScene(Scene *currentScene) {
+        this->currentScene = currentScene;
+    }
 
     static SceneDao *getInstance();
 

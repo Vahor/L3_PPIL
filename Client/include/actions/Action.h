@@ -10,7 +10,7 @@
 class Action {
 
 public:
-    virtual void execute(const Client *client) const = 0;
+    virtual void execute() const = 0;
 };
 
 

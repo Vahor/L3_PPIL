@@ -7,16 +7,14 @@
 #include "scene/SceneDao.h"
 #include "scene/Scene.h"
 
-#include "actions/DrawSceneAction.h"
-#include "actions/DrawShapeAction.h"
-#include "actions/renderer/InitRendererAction.h"
-#include "actions/renderer/DisposeRendererAction.h"
 #include "cli/commands/ExitCommand.h"
 #include "cli/commands/HelpCommand.h"
 #include "cli/commands/LoadCommand.h"
 #include "cli/commands/SaveCommand.h"
 #include "cli/commands/ListCommand.h"
 #include "cli/commands/ReconnectCommand.h"
+#include "actions/java/DrawOverJavaTcp.h"
+#include "cli/commands/DrawCommand.h"
 
 void solar(TCPClient &client) {
 
@@ -76,7 +74,8 @@ void solar(TCPClient &client) {
     scene.add(&sunGroup);
     scene.add(&earthGroup);
 
-    DrawSceneAction(scene).execute(&client);
+    DrawOverJavaTcp visitor;
+    scene.draw(visitor);
 
     SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
@@ -84,9 +83,8 @@ void solar(TCPClient &client) {
 int main() {
 
     Client *client = TCPClient::getInstance();
-    client->connect("127.0.0.1", 10000);
+//    client->connect("127.0.0.1", 10000);
 
-    //solar(client);
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
 
@@ -95,6 +93,7 @@ int main() {
     cli->addCommand("load", new LoadCommand());
     cli->addCommand("save", new SaveCommand());
     cli->addCommand("list", new ListCommand());
+    cli->addCommand("draw", new DrawCommand());
     cli->addCommand("reconnect", new ReconnectCommand());
     cli->init();
 

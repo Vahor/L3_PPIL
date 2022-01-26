@@ -10,6 +10,7 @@
 #include "data/DataImpl.h"
 #include "handler/Handler.h"
 #include "Point2D.h"
+#include "actions/Visitor.h"
 
 class ShapeGroup;
 
@@ -48,6 +49,10 @@ public:
 
         addMetaData(element->getAsObject(), ignoreGroup);
         return element;
+    }
+
+    virtual void draw(Visitor &visitor) const {
+        visitor.drawShape(this);
     }
 
     // setters
