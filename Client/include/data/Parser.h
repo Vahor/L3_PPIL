@@ -10,5 +10,9 @@ class Parser {
 public:
     virtual DataObject *parse(string input) const = 0;
     virtual string supportedExtensions() const = 0;
+
+    virtual string toString(const DataObject *object) const = 0;
+    virtual string toString(const DataArray *array) const = 0;
+    virtual string toString(const DataPrimitive *primitive) const = 0;
 };
 

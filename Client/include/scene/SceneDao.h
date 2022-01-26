@@ -118,23 +118,17 @@ public:
         }
     }
 
-    Scene *getCurrentScene() const { return currentScene; };
-    void setCurrentScene(Scene *currentScene) {
-        this->currentScene = currentScene;
+    Parser *getParser() const {
+        return parser;
     }
+
+    Scene *getCurrentScene() const { return currentScene; };
+    void setCurrentScene(Scene *v) { this->currentScene = v; }
 
     static SceneDao *getInstance();
 
 };
 
-SceneDao *SceneDao::instance_ = {nullptr};
-
-SceneDao *SceneDao::getInstance() {
-    if (instance_ == nullptr) {
-        instance_ = new SceneDao();
-    }
-    return instance_;
-}
 
 
 

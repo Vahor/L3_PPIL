@@ -7,7 +7,6 @@
 #include <utility>
 
 #include "shapes/Shape.h"
-#include "data/DataImpl.h"
 #include <cmath>
 
 class Text : public Shape {
@@ -28,13 +27,13 @@ public:
             Shape() {}
 
     DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObjectImpl();
+        auto *object = new DataObject();
 
-        auto *data = new DataObjectImpl();
+        auto *data = new DataObject();
         data->put("position", position.serialize());
-        data->put("size", new DataPrimitiveImpl(size));
-        data->put("value", new DataPrimitiveImpl(value));
-        data->put("angle", new DataPrimitiveImpl(angle));
+        data->put("size", new DataPrimitive(size));
+        data->put("value", new DataPrimitive(value));
+        data->put("angle", new DataPrimitive(angle));
 
         object->put("TEXT", data);
 

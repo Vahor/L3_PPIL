@@ -6,7 +6,6 @@
 
 #include "shapes/Shape.h"
 #include "Point2D.h"
-#include "data/DataImpl.h"
 #include <cmath>
 #include <utility>
 
@@ -23,11 +22,11 @@ public:
             Shape() {}
 
     DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObjectImpl();
+        auto *object = new DataObject();
 
-        auto *data = new DataObjectImpl();
+        auto *data = new DataObject();
         data->put("position", position.serialize());
-        data->put("diameter", new DataPrimitiveImpl(diameter));
+        data->put("diameter", new DataPrimitive(diameter));
 
         object->put("CIRCLE", data);
 

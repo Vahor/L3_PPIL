@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include <string>
 
 class DataObject;
 
@@ -10,7 +11,7 @@ class DataArray;
 
 class DataPrimitive;
 
-#include <string>
+using std::string;
 
 class DataElement {
 
@@ -18,15 +19,13 @@ public:
 
     virtual DataElement *clone() const = 0;
 
-    virtual DataObject *getAsObject() const { return (DataObject *) this; }
+    virtual DataObject *getAsObject() const;
+    virtual DataArray *getAsArray() const;
+    virtual DataPrimitive *getAsPrimitive() const;
 
-    virtual DataArray *getAsArray() const { return (DataArray *) this; }
+    virtual string toString() const = 0;
 
-    virtual DataPrimitive *getAsPrimitive() const { return (DataPrimitive *) this; }
-
-    virtual std::string toString() const = 0;
-
-    explicit operator std::string() const { return toString(); }
+    explicit operator string() const { return toString(); }
 };
 
 

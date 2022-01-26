@@ -11,8 +11,11 @@
 #include "handler/Handler.h"
 #include "client/Client.h"
 
-using std::string;
-using std::vector;
+#include "data/DataObject.h"
+#include "data/DataArray.h"
+#include "data/DataPrimitive.h"
+
+using namespace std;
 
 class Scene : public Serializable {
 
@@ -66,14 +69,14 @@ public:
 
     DataElement *serialize0(bool ignoreGroup) const override {
 
-        auto *object = new DataObjectImpl();
-        auto *window = new DataObjectImpl();
+        auto *object = new DataObject();
+        auto *window = new DataObject();
 
-        window->put("name", new DataPrimitiveImpl(getName()));
-        window->put("height", new DataPrimitiveImpl(getHeight()));
-        window->put("width", new DataPrimitiveImpl(getWidth()));
+        window->put("name", new DataPrimitive(getName()));
+        window->put("height", new DataPrimitive(getHeight()));
+        window->put("width", new DataPrimitive(getWidth()));
 
-        auto *items = new DataArrayImpl();
+        auto *items = new DataArray();
         for (auto &shape: shapes) {
             items->add(shape->serialize(ignoreGroup));
         }

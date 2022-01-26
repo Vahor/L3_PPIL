@@ -6,6 +6,7 @@
 
 #include "shapes/Circle.h"
 #include "shapes/Shape.h"
+#include "shapes/ShapeGroup.h"
 #include "handler/CORHandler.h"
 
 class GroupHandler : public CORHandler<DataObject, Shape *> {

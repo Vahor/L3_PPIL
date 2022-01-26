@@ -4,6 +4,10 @@
 #pragma once
 
 #include "DataElement.h"
+#include <map>
+#include <iostream>
+
+using namespace std;
 
 class DataObject : public DataElement {
 
@@ -16,6 +20,10 @@ public:
 
     explicit DataObject(const DataObject *copy) {
         for (const auto &it: copy->children) { put(it.first, it.second); }
+    }
+
+    DataObject *clone() const override {
+        return new DataObject(*this);
     }
 
     virtual ~DataObject() {
@@ -36,6 +44,12 @@ public:
 
     DataElement *get(const string &key) const {
         return children.at(key);
+    }
+
+    string toString() const override;
+
+    const map<string, DataElement *> &getChildren() const {
+        return children;
     }
 
 

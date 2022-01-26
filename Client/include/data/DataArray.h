@@ -17,21 +17,28 @@ protected:
     vector<DataElement *> elements;
 
 public:
+
+    DataArray() = default;
+
     DataArray(const DataArray &copy) {
         //cout << "copy ADataArray" << endl;
         for (const auto &it: copy.elements) { add(it); }
     }
-
-    DataArray() = default;
 
     virtual ~DataArray() {
         std::cerr << "delete DataArray" << std::endl;
         // todo
     }
 
+    DataArray *clone() const override {
+        return new DataArray(*this);
+    }
+
     void add(DataElement *element) {
         elements.push_back(element->clone());
     }
+
+    string toString() const override;
 
 
     auto begin() { return &elements[0]; }

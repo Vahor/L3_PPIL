@@ -3,8 +3,9 @@
 //
 #pragma once
 
-#include "data/DataImpl.h"
 #include <cmath>
+#include "data/DataObject.h"
+#include "data/DataPrimitive.h"
 
 class Point2D {
 
@@ -16,9 +17,9 @@ public:
     Point2D(double x, double y) : x(x), y(y) {}
 
     DataElement *serialize() const {
-        auto *object = new DataObjectImpl();
-        object->put("x", new DataPrimitiveImpl(x));
-        object->put("y", new DataPrimitiveImpl(y));
+        auto *object = new DataObject();
+        object->put("x", new DataPrimitive(x));
+        object->put("y", new DataPrimitive(y));
         return object;
     }
 

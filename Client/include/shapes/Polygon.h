@@ -7,7 +7,6 @@
 
 #include "shapes/Shape.h"
 #include "Point2D.h"
-#include "data/DataImpl.h"
 #include <cmath>
 #include <vector>
 
@@ -31,10 +30,10 @@ public:
     }
 
     DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObjectImpl();
+        auto *object = new DataObject();
 
-        auto *data = new DataObjectImpl();
-        auto *pointsArray = new DataArrayImpl();
+        auto *data = new DataObject();
+        auto *pointsArray = new DataArray();
 
         for (Point2D *point: points) {
             pointsArray->add(point->serialize());

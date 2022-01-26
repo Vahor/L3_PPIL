@@ -4,11 +4,10 @@
 #pragma once
 
 #include <string>
-#include "data/DataImpl.h"
+#include "data/DataObject.h"
+#include "data/DataPrimitive.h"
 
-using namespace std;
-
-class Color : public DataObjectImpl {
+class Color : public DataObject {
 
     // Utilisation du char, car une couleur est entre 0 et 255, comme le char
     unsigned char red;
@@ -22,10 +21,10 @@ public:
 
     Color(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : red(red), green(green),
                                                                                              blue(blue), alpha(alpha) {
-        put("r", new DataPrimitiveImpl(to_string(red)));
-        put("g", new DataPrimitiveImpl(to_string(green)));
-        put("b", new DataPrimitiveImpl(to_string(blue)));
-        put("a", new DataPrimitiveImpl(to_string(alpha)));
+        put("r", new DataPrimitive(to_string(red)));
+        put("g", new DataPrimitive(to_string(green)));
+        put("b", new DataPrimitive(to_string(blue)));
+        put("a", new DataPrimitive(to_string(alpha)));
     }
 
     static Color *TRANSPARENT;

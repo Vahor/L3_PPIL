@@ -90,6 +90,10 @@ int main() {
     cli->addCommand("list", new ListCommand());
     cli->addCommand("draw", new DrawCommand());
     cli->addCommand("reconnect", new ReconnectCommand());
+
+    // TODO : Ajouter une commande pour le calcul d'aire
+    // TODO : Ajouter une commande pour initialiser le parser
+
     cli->init();
 
 
