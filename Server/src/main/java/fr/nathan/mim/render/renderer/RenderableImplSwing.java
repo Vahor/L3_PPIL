@@ -1,16 +1,20 @@
 package fr.nathan.mim.render.renderer;
 
+import fr.nathan.mim.render.shape.shapes.Circle;
 import fr.nathan.mim.render.shape.shapes.Shape;
+import fr.nathan.mim.render.shape.shapes.Text;
+import fr.nathan.mim.render.shape.shapes.Polygon;
 import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-public class RenderableImpl extends JFrame implements WindowListener, Renderable {
+public class RenderableImplSwing extends JFrame implements WindowListener, Renderable {
 
     private final ArrayList<Shape> shapes = new ArrayList<>();
 
@@ -27,7 +31,7 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
     private BufferStrategy bufferStrategy;
     private Graphics2D graphics2D;
 
-    public RenderableImpl(int initialWidth, int initialHeight) throws InterruptedException {
+    public RenderableImplSwing(int initialWidth, int initialHeight) throws InterruptedException {
         super();
 
         setVisible(true);
@@ -48,12 +52,12 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
         requestFocusInWindow();
 
         addWindowListener(this);
-//
+
 //        // Ajout du zoom lorsque l'utilisateur scroll
         addMouseWheelListener((e) -> {
-//            int direction = e.getWheelRotation() > 0 ? 1 : -1;
             double steps = e.getWheelRotation() / 15.;
             double prev = scaleBoost;
+
             // [0,2]
             scaleBoost = Math.min(2, Math.max(0, scaleBoost + steps));
             if (scaleBoost == prev) return;
@@ -79,8 +83,7 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
         try {
             drawing = true;
             resetGraphics();
-            Graphics2D graphics2D = getGraphics2D();
-            shapes.forEach(s -> s.draw(graphics2D));
+            shapes.forEach(s -> s.draw(this));
             disposeBuffer();
             drawing = false;
         } catch (Exception e) {
@@ -115,7 +118,7 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
 
     @Override
     public void drawShape(Shape shape) {
-        shape.draw(getGraphics2D());
+        shape.draw(this);
         shapes.add(shape);
     }
 
@@ -129,6 +132,57 @@ public class RenderableImpl extends JFrame implements WindowListener, Renderable
         graphics2D.dispose();
         bufferStrategy.show();
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void drawCircle(Circle circle) {
+
+        // On retire la moitié du diamètre pour centrer le cercle sur sa position
+        int xPosition = (int) (circle.getCenter().getX() - circle.getDiameter() / 2);
+        int yPosition = (int) (circle.getCenter().getY() - circle.getDiameter() / 2);
+
+        // fill
+        graphics2D.setColor(circle.getMeta().getColor());
+        graphics2D.fillOval(xPosition, yPosition, (int) circle.getDiameter(), (int) circle.getDiameter());
+
+        // border
+        graphics2D.setColor(circle.getMeta().getBorderColor());
+        graphics2D.drawOval(xPosition, yPosition, (int) circle.getDiameter(), (int) circle.getDiameter());
+    }
+
+    @Override
+    public void drawText(Text text) {
+
+        AffineTransform affineTransform = new AffineTransform();
+        affineTransform.rotate(Math.toRadians(text.getAngleDeg()));
+
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, text.getSize());
+        font = font.deriveFont(affineTransform);
+        graphics2D.setFont(font);
+
+        // On retire la moitié de la taille/largeur pour centrer le texte sur sa position
+        int width = graphics2D.getFontMetrics().stringWidth(text.getValue());
+        int height = graphics2D.getFontMetrics().getHeight();
+
+        int xPosition = (int) (text.getCenter().getX() - width / 2);
+        int yPosition = (int) (text.getCenter().getY() - height / 2);
+
+        graphics2D.setColor(text.getMeta().getColor());
+        graphics2D.drawString(text.getValue(), xPosition, yPosition);
+    }
+
+    @Override
+    public void drawPolygon(Polygon polygon) {
+        int[] xPoints = polygon.getPoints().stream().mapToInt(p -> (int) p.getX()).toArray();
+        int[] yPoints = polygon.getPoints().stream().mapToInt(p -> (int) p.getY()).toArray();
+
+        // fill
+        graphics2D.setColor(polygon.getMeta().getColor());
+        graphics2D.fillPolygon(xPoints, yPoints, polygon.getPoints().size());
+
+        // border
+        graphics2D.setColor(polygon.getMeta().getBorderColor());
+        graphics2D.drawPolygon(xPoints, yPoints, polygon.getPoints().size());
     }
 
     @Override

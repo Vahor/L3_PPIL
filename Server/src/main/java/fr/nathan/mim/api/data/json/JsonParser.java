@@ -102,6 +102,8 @@ public class JsonParser extends Parser {
         return new Pair<>(object, (int) length - input.length());
     }
 
+    //////
+
     @Override
     public String toString(DataObject object) {
         StringBuilder res = new StringBuilder("{");

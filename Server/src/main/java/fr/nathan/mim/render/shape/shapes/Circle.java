@@ -1,11 +1,12 @@
 package fr.nathan.mim.render.shape.shapes;
 
 import fr.nathan.mim.api.geom.Point2D;
+import fr.nathan.mim.render.renderer.Renderable;
 import fr.nathan.mim.render.shape.Meta;
+import lombok.Getter;
 import lombok.ToString;
 
-import java.awt.*;
-
+@Getter
 @ToString(callSuper = true)
 public class Circle extends Shape {
 
@@ -19,19 +20,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void draw(Graphics graphics) {
-
-        // On retire la moitié du diamètre pour centrer le cercle sur sa position
-        int xPosition = (int) (center.getX() - diameter / 2);
-        int yPosition = (int) (center.getY() - diameter / 2);
-
-
-        // fill
-        graphics.setColor(meta.getColor());
-        graphics.fillOval(xPosition, yPosition, (int) diameter, (int) diameter);
-
-        // border
-        graphics.setColor(meta.getBorderColor());
-        graphics.drawOval(xPosition, yPosition, (int) diameter, (int) diameter);
+    public void draw(Renderable renderable) {
+        renderable.drawCircle(this);
     }
 }

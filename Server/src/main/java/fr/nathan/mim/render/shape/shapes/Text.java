@@ -1,12 +1,12 @@
 package fr.nathan.mim.render.shape.shapes;
 
 import fr.nathan.mim.api.geom.Point2D;
+import fr.nathan.mim.render.renderer.Renderable;
 import fr.nathan.mim.render.shape.Meta;
+import lombok.Getter;
 import lombok.ToString;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-
+@Getter
 @ToString(callSuper = true)
 public class Text extends Shape {
 
@@ -24,23 +24,7 @@ public class Text extends Shape {
     }
 
     @Override
-    public void draw(Graphics graphics) {
-
-        AffineTransform affineTransform = new AffineTransform();
-        affineTransform.rotate(Math.toRadians(angleDeg));
-
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, size);
-        font = font.deriveFont(affineTransform);
-        graphics.setFont(font);
-
-        // On retire la moitié de la taille/largeur pour centrer le texte sur sa position
-        int width = graphics.getFontMetrics().stringWidth(value);
-        int height = graphics.getFontMetrics().getHeight();
-
-        int xPosition = (int) (center.getX() - width / 2);
-        int yPosition = (int) (center.getY() - height / 2);
-
-        graphics.setColor(meta.getColor());
-        graphics.drawString(value, xPosition, yPosition);
+    public void draw(Renderable renderable) {
+        renderable.drawText(this);
     }
 }

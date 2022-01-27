@@ -1,12 +1,12 @@
 package fr.nathan.mim.render.shape.shapes;
 
+import fr.nathan.mim.render.renderer.Renderable;
 import fr.nathan.mim.render.shape.Meta;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.awt.*;
-
+@Getter
 @ToString(of = {"meta"})
 public abstract class Shape {
 
@@ -14,5 +14,5 @@ public abstract class Shape {
     protected Meta meta;
     protected Shape(Meta meta) {this.meta = meta;}
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Renderable renderable);
 }

@@ -7,7 +7,7 @@ public abstract class ACORHandler<In, Out> extends Handler<In, Out> {
     public ACORHandler(Handler<In, Out> next) {this.next = next;}
 
     /**
-     * Essaie d'analyser l'entrée à l'aide de Expert::parse() sur la classe actuelle
+     * Essaie d'analyser l'entrée à l'aide de Handler::parse() sur la classe actuelle
      * Si l'implementation retourne nullptr, on essaie le suivant.
      *
      * @param line  Source des informations à extraire

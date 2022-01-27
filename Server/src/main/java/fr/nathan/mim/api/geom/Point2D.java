@@ -1,6 +1,5 @@
 package fr.nathan.mim.api.geom;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
