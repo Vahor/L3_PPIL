@@ -13,6 +13,11 @@ class DrawCommand : public CliCommand {
 public:
 
     void execute(Cli *cli, vector<string> args) const override {
+        if (args.empty()) {
+            cerr << "No framework specified" << endl;
+            return;
+        }
+
         SceneDao *dao = SceneDao::getInstance();
         Scene *scene = dao->getCurrentScene();
 
@@ -21,7 +26,9 @@ public:
             return;
         }
 
-        Visitor *visitor = new DrawOverJavaTcp();
+        string framework = args[0];
+
+        Visitor *visitor = new DrawOverJavaTcp(framework);
         scene->draw(*visitor);
         cout << scene->getName() << " has been drawn" << endl;
     }

@@ -69,7 +69,7 @@ void solar(TCPClient &client) {
     scene.add(&sunGroup);
     scene.add(&earthGroup);
 
-    DrawOverJavaTcp visitor;
+    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing");
     scene.draw(visitor);
 
     SceneDao::getInstance()->save("solarSystem.json", &scene);

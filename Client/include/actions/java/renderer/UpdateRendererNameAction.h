@@ -12,10 +12,10 @@ class UpdateRendererNameAction : public RendererAction {
 public:
     explicit UpdateRendererNameAction(string name) : name(std::move(name)) {}
 
-    DataObjectImpl *getMetaData() const override {
-        auto *meta = new DataObjectImpl();
+    DataObject *getMetaData() const override {
+        auto *meta = new DataObject();
 
-        meta->put("name", new DataPrimitiveImpl(name));
+        meta->put("name", new DataPrimitive(name));
 
         return meta;
     }

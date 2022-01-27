@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <utility>
+
 #include "scene/Scene.h"
 #include "shapes/Shape.h"
 
@@ -15,11 +17,14 @@
 
 class DrawOverJavaTcp : public Visitor {
 
+    string framework;
+
 public:
+    explicit DrawOverJavaTcp(string framework) : framework(std::move(framework)) {}
 
     void drawScene(const Scene *scene) const override {
         cout << "DrawOverJavaTcp" << endl;
-        InitRendererAction().execute();
+        InitRendererAction(framework).execute();
         usleep(300 * 1000);
         UpdateRendererNameAction(scene->getName()).execute();
         UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute();

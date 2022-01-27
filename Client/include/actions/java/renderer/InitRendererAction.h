@@ -4,18 +4,21 @@
 #pragma once
 
 #include "actions/Action.h"
-#include "data/DataImpl.h"
 #include "RendererAction.h"
+
+#include <utility>
 
 class InitRendererAction : public RendererAction {
 
+    string framework;
+
 public:
-    explicit InitRendererAction() = default;
+    explicit InitRendererAction(string framework) : framework(std::move(framework)) {}
 
-    DataObjectImpl *getMetaData() const override {
-        auto *meta = new DataObjectImpl();
+    DataObject *getMetaData() const override {
+        auto *meta = new DataObject();
 
-        meta->put("INIT", new DataPrimitiveImpl(true));
+        meta->put("INIT", new DataPrimitive(framework));
 
         return meta;
     }

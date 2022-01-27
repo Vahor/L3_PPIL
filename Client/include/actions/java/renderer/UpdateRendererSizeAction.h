@@ -13,12 +13,12 @@ class UpdateRendererSizeAction : public RendererAction {
 public:
     explicit UpdateRendererSizeAction(int width, int height) : width(width), height(height) {}
 
-    DataObjectImpl *getMetaData() const override {
-        auto *meta = new DataObjectImpl();
-        auto *size = new DataObjectImpl();
+    DataObject *getMetaData() const override {
+        auto *meta = new DataObject();
+        auto *size = new DataObject();
 
-        size->put("width", new DataPrimitiveImpl(width));
-        size->put("height", new DataPrimitiveImpl(height));
+        size->put("width", new DataPrimitive(width));
+        size->put("height", new DataPrimitive(height));
         meta->put("size", size);
 
         return meta;

@@ -13,10 +13,10 @@ class DisposeRendererAction : public RendererAction {
 public:
     explicit DisposeRendererAction() = default;
 
-    DataObjectImpl *getMetaData() const override {
-        auto *meta = new DataObjectImpl();
+    DataObject *getMetaData() const override {
+        auto *meta = new DataObject();
 
-        meta->put("DISPOSE", new DataPrimitiveImpl(true));
+        meta->put("DISPOSE", new DataPrimitive(true));
 
         return meta;
     }
