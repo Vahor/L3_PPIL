@@ -1,6 +1,6 @@
 package fr.nathan.mim.api.data;
 
-public abstract class DataPrimitive extends DataElement {
+public class DataPrimitive extends DataElement {
 
     protected String value;
 
@@ -11,4 +11,14 @@ public abstract class DataPrimitive extends DataElement {
     public int getAsInt()                              {return Integer.parseInt(value);}
     public double getAsDouble()                        {return Double.parseDouble(value);}
     public String getAsString()                        {return value;}
+
+    @Override
+    public DataElement clone() {
+        return new DataPrimitive(value);
+    }
+
+    @Override
+    public String toString() {
+        return null; // todo visitor
+    }
 }

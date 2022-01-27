@@ -1,17 +1,19 @@
 package fr.nathan.mim.api.data.json;
 
 import fr.nathan.mim.api.Pair;
-import fr.nathan.mim.api.data.AParser;
+import fr.nathan.mim.api.data.*;
 
-public class JsonParser extends AParser {
+import java.util.Map;
+
+public class JsonParser extends Parser {
 
     @Override
-    public JsonObject parse(String input) {
+    public DataObject parse(String input) {
         return parseObject(input.substring(1)).getFirst();
     }
 
-    private Pair<JsonArray, Integer> parseArray(String input) {
-        JsonArray array = new JsonArray();
+    private Pair<DataArray, Integer> parseArray(String input) {
+        DataArray array = new DataArray();
         JsonTokenParser token;
         long length = input.length();
         do {
@@ -24,14 +26,14 @@ public class JsonParser extends AParser {
 
             switch (token.getType()) {
                 case STRING: {
-                    array.add(new JsonPrimitive(token.getValue()));
+                    array.add(new DataPrimitive(token.getValue()));
                     input = input.substring(token.getPosition()); // On avance à la fin de la valeur
                     break;
                 }
                 case CURLY_OPEN: {
                     input = input.substring(
                             JsonTokenParser.getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
-                    Pair<JsonObject, Integer> res = parseObject(input);
+                    Pair<DataObject, Integer> res = parseObject(input);
                     array.add(res.getFirst());
                     input = input.substring(res.getSecond() + 1); // On avance à la fin de l'objet
 
@@ -39,7 +41,7 @@ public class JsonParser extends AParser {
                 }
                 case ARRAY_OPEN: {
                     input = input.substring(JsonTokenParser.getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
-                    Pair<JsonArray, Integer> res = parseArray(input);
+                    Pair<DataArray, Integer> res = parseArray(input);
                     array.add(res.getFirst());
                     input = input.substring(res.getSecond() + 1); // On avance à la fin de la liste
 
@@ -47,14 +49,14 @@ public class JsonParser extends AParser {
                 }
             }
 
-        } while (token.getType() != JsonToken.ARRAY_CLOSE && token.getType()  != JsonToken.UNKNOWN);
+        } while (token.getType() != JsonToken.ARRAY_CLOSE && token.getType() != JsonToken.UNKNOWN);
 
         return new Pair<>(array, (int) length - input.length());
     }
 
-    private Pair<JsonObject, Integer> parseObject(String input) {
+    private Pair<DataObject, Integer> parseObject(String input) {
 
-        JsonObject object = new JsonObject();
+        DataObject object = new DataObject();
         JsonTokenParser token;
         long length = input.length();
         do {
@@ -71,14 +73,14 @@ public class JsonParser extends AParser {
             token = JsonTokenParser.getNextToken(input);
             switch (token.getType()) {
                 case STRING: {
-                    object.put(key, new JsonPrimitive(token.getValue()));
+                    object.put(key, new DataPrimitive(token.getValue()));
                     input = input.substring(token.getPosition()); // On avance à la fin de la valeur
                     break;
                 }
                 case CURLY_OPEN: {
                     input = input.substring(
                             JsonTokenParser.getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
-                    Pair<JsonObject, Integer> res = parseObject(input);
+                    Pair<DataObject, Integer> res = parseObject(input);
                     object.put(key, res.getFirst());
                     input = input.substring(res.getSecond() + 1); // On avance à la fin de la liste
 
@@ -87,7 +89,7 @@ public class JsonParser extends AParser {
                 case ARRAY_OPEN: {
                     input = input.substring(
                             JsonTokenParser.getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
-                    Pair<JsonArray, Integer> res = parseArray(input);
+                    Pair<DataArray, Integer> res = parseArray(input);
                     object.put(key, res.getFirst());
                     input = input.substring(res.getSecond() + 1); // On avance à la fin de la liste
 
@@ -95,10 +97,46 @@ public class JsonParser extends AParser {
                 }
             }
 
-
         } while (token.getType() != JsonToken.CURLY_CLOSE && token.getType() != JsonToken.UNKNOWN);
 
         return new Pair<>(object, (int) length - input.length());
     }
 
+    @Override
+    public String toString(DataObject object) {
+        StringBuilder res = new StringBuilder("{");
+
+        for (Map.Entry<String, DataElement> entry : object.getChildren().entrySet()) {
+            res.append('"').append(entry.getKey()).append("\":");
+            res.append(entry.getValue().toString());
+            res.append(",");
+        }
+
+        if (res.length() > 1)
+            res.setLength(res.length() - 1);
+
+        res.append("}");
+        return res.toString();
+    }
+
+    @Override
+    public String toString(DataArray array) {
+        StringBuilder res = new StringBuilder("[");
+
+        for (DataElement element : array.getElements()) {
+            res.append(element.toString());
+        }
+
+
+        if (res.length() > 1)
+            res.setLength(res.length() - 1);
+
+        res.append("]");
+        return res.toString();
+    }
+
+    @Override
+    public String toString(DataPrimitive primitive) {
+        return '"' + primitive.getAsString() + '"';
+    }
 }

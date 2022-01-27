@@ -24,7 +24,8 @@ public class PacketListener extends Thread {
     private final JsonParser parser = new JsonParser();
 
     public PacketListener(int port) throws IOException {
-        serverSocket = new ServerSocket(port); serverSocket.setSoTimeout(5000);
+        serverSocket = new ServerSocket(port);
+        serverSocket.setSoTimeout(5000);
 
         actionManager       = new ActionManager();
         windowActionManager = new WindowActionManager();

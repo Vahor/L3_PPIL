@@ -3,7 +3,7 @@ package fr.nathan.mim.api.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DataArray extends DataElement {
+public class DataArray extends DataElement {
 
     protected List<DataElement> elements;
 
@@ -20,5 +20,13 @@ public abstract class DataArray extends DataElement {
 
     public List<DataElement> getElements() {
         return elements;
+    }
+
+    @Override
+    public DataArray clone() {return new DataArray(this);}
+
+    @Override
+    public String toString() {
+        return null;  // todo visitor
     }
 }
