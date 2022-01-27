@@ -1,9 +1,9 @@
 package fr.nathan.mim.render.renderer;
 
 import fr.nathan.mim.render.shape.shapes.Circle;
+import fr.nathan.mim.render.shape.shapes.Polygon;
 import fr.nathan.mim.render.shape.shapes.Shape;
 import fr.nathan.mim.render.shape.shapes.Text;
-import fr.nathan.mim.render.shape.shapes.Polygon;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -26,7 +26,6 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     private double initialWidth;
 
     private boolean drawing;
-
 
     private BufferStrategy bufferStrategy;
     private Graphics2D graphics2D;
@@ -120,11 +119,6 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     public void drawShape(Shape shape) {
         shape.draw(this);
         shapes.add(shape);
-    }
-
-    @Override
-    public Graphics2D getGraphics2D() {
-        return graphics2D;
     }
 
     @Override

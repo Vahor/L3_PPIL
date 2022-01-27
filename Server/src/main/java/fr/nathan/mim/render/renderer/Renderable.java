@@ -5,12 +5,9 @@ import fr.nathan.mim.render.shape.shapes.Shape;
 import fr.nathan.mim.render.shape.shapes.Text;
 import fr.nathan.mim.render.shape.shapes.Polygon;
 
-import java.awt.*;
-
 public interface Renderable {
 
     void redraw();
-    Graphics2D getGraphics2D();
     void resetGraphics();
     void disposeBuffer();
     void setTitle(String title);
