@@ -70,3 +70,7 @@ DataElement *Shape::serialize(bool ignoreGroup) const {
 void Shape::draw(Visitor &visitor) const {
     visitor.drawShape(this);
 }
+ostream &operator<<(ostream &os, const Shape &shape) {
+    os << shape.toString();
+    return os;
+}

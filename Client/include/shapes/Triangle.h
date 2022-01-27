@@ -7,29 +7,19 @@
 
 #include "data/DataArray.h"
 #include "shapes/Shape.h"
-#include "shapes/Triangle.h"
 #include "Point2D.h"
 #include <cmath>
 #include <vector>
 
-class Polygon : public Shape {
+class Triangle : public Shape {
 
-    std::vector<Point2D *> points;
+    Point2D *points[3];
 
 public:
 
-    Polygon() : Shape() {}
-    ~Polygon() override {
-        cerr << "Todo PolyGon destruct" << endl;
-    }
-
-    void addPoint(const Point2D *point) {
-        points.push_back(point->clone());
-    }
-
-    void removePoint(const Point2D *point) {
-        points.erase(std::find(points.begin(), points.end(), point));
-    }
+    Triangle(Point2D *a,
+             Point2D *b,
+             Point2D *c) : points{a, b, c} {}
 
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();
@@ -48,7 +38,7 @@ public:
     }
 
     string toString() const override {
-        string res = "Polygon[";
+        string res = "Triangle[";
         for (auto *point: points) {
             res += point->toString();
             res += ","; // On garde la dernière "," pour le Shape::_toString()
@@ -59,36 +49,33 @@ public:
         return res;
     }
 
-    Polygon *clone() const override {
-        return new Polygon(*this);
+    Triangle *clone() const override {
+        return new Triangle(*this);
     }
 
     Point2D *getCenter() const override {
-        double sumX = 0;
-        double sumY = 0;
-        auto size = (double) points.size();
-        for (Point2D *point: points) {
-            sumX += point->getX();
-            sumY += point->getY();
-        }
-        return new Point2D(sumX / size, sumY / size);
+//        double sumX = 0;
+//        double sumY = 0;
+//        auto size = (double) points.size();
+//        for (Point2D *point: points) {
+//            sumX += point->getX();
+//            sumY += point->getY();
+//        }
+//        return new Point2D(sumX / size, sumY / size);
+        return nullptr;
+        // todo center triangles
     }
 
     double getArea() const override {
-        // Décomposition en triangles
-        // Puis somme des aires des triangles
-        double res = 0;
-        // forme ABCDE
-        // on a triangles : ABC ACD ADE
-        if (points.size() < 3) return res;
+        // Aire (triangle ABC) = 0.5 * det(AB,AC).
 
-        Point2D *anchor = points[0];
-        for (int i = 1; i < points.size() - 1; i++) {
-            cout << i << endl;
-            res += Triangle(anchor, points[i], points[i + 1]).getArea();
-        }
+        // AB = B - A
+        Point2D AB = *points[1] - *points[0];
+        Point2D BC = *points[2] - *points[1];
 
-        return res;
+        double det = abs(AB.getX() * BC.getY() - AB.getY() * BC.getX());
+
+        return 0.5 * (det);
     }
 
     void scale(int scale) override {

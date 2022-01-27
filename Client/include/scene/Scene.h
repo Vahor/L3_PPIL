@@ -105,6 +105,14 @@ public:
     int getHeight() const { return height; }
     int getWidth() const { return width; }
 
+    double getArea() const {
+        double res = 0;
+        for (auto shape: shapes) {
+            res += shape->getArea();
+        }
+        return res;
+    }
+
 
 
     // Iterator

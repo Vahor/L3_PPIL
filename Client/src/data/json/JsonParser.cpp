@@ -55,7 +55,6 @@ pair<DataObject *, int> JsonParser::parseObject(string input) {
     return {object, length - input.length()};
 }
 
-// TODO : ajouter le même principe pour DataArray, Primitive etc
 string JsonParser::toString(const DataObject *object) const {
     string res = "{";
 

@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include <ostream>
 #include "Serializable.h"
 #include "Color.h"
 #include "handler/Handler.h"
@@ -62,6 +63,8 @@ public:
 
 
     virtual double getArea() const = 0;
+
+    friend ostream &operator<<(ostream &os, const Shape &shape);
 
     static Shape *parse(const DataObject &object,
                         const Handler<DataObject, Shape *> *shapeHandler,

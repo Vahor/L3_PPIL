@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cmath>
+#include <ostream>
 #include "data/DataObject.h"
 #include "data/DataPrimitive.h"
 
@@ -54,6 +55,16 @@ public:
     inline bool operator!=(const Point2D &other) const {
         return !(*this == other);
     }
+
+    friend ostream &operator<<(ostream &os, const Point2D &d) {
+        os << d.toString();
+        return os;
+    }
+
+    inline Point2D operator-(const Point2D &u) const {
+        return {x - u.x, y - u.y};
+    };
+
 };
 
 
