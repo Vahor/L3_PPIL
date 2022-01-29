@@ -5,14 +5,16 @@
 #include "shapes/Shape.h"
 #include "shapes/ShapeGroup.h"
 
+int Shape::previousId = 1;
+
 Shape::Shape(const Shape &copy) {
     this->color = copy.color;
-    this->borderColor = copy.color;
+    this->borderColor = copy.borderColor;
+    this->id = copy.id;
     // Lorsqu'on clone un element, on ne clone pas le groupe !
 }
 
 Shape::~Shape() {
-    cout << "Delete AShape" << endl;
     if (group != nullptr)
         group->removeShape(this);
 }
@@ -25,6 +27,8 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     else
         metaObject = new DataObject();
 
+    metaObject->put("id", new DataPrimitive(id));
+
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
 
@@ -36,7 +40,7 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
         metaObject->put("color", metaColor);
 
     // BorderColor
-    Color *metaBorderColor = (useGroup && group->color != nullptr) ? group->borderColor : borderColor;
+    Color *metaBorderColor = (useGroup && group->borderColor != nullptr) ? group->borderColor : borderColor;
     if (metaBorderColor != nullptr)
         metaObject->put("borderColor", metaBorderColor);
 
@@ -45,8 +49,9 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
 }
 
 
-string Shape::_toString() const {
+string Shape::getMetaString() const {
     string res = "Meta[";
+    res += "id=" + to_string(id) + ",";
     if (color)
         res += "color=" + color->toString() + ",";
     if (borderColor)

@@ -20,13 +20,16 @@ class Shape : public Serializable {
     Color *color = nullptr;
     Color *borderColor = nullptr;
     ShapeGroup *group = nullptr;
+    int id;
 
 public:
 
-    Shape() = default;
+    static int previousId;
+
+    Shape() : id(nextId()) {}
     Shape(const Shape &copy);
 
-    string _toString() const;
+    string getMetaString() const;
     virtual string toString() const = 0;
     explicit operator std::string() const { return toString(); }
 
@@ -49,17 +52,20 @@ public:
     void setColor(Color *v) { this->color = v; }
     void setBorderColor(Color *v) { this->borderColor = v; }
     void setGroup(ShapeGroup *v) { this->group = v; }
+    void setId(const int v) { this->id = v; }
+    static int nextId() { return previousId++; }
 
     // getters
     virtual Point2D *getCenter() const = 0;
     Color *getColor() const { return color; }
     ShapeGroup *getGroup() const { return group; }
     bool isInGroup() const { return group != nullptr; }
+    int getId() const { return id; }
 
     virtual void scale(int scale) = 0;
     virtual void translate(double x, double y) = 0;
-    void rotateSelf(double deg) { rotate(*getCenter(), deg); }
-    virtual void rotate(const Point2D &center, double deg) = 0;
+    void rotateSelf(double radians) { rotate(*getCenter(), radians); }
+    virtual void rotate(const Point2D &center, double radians) = 0;
 
 
     virtual double getArea() const = 0;
