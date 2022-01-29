@@ -19,8 +19,9 @@ class Polygon : public Shape {
 public:
 
     Polygon() : Shape() {}
+
     ~Polygon() override {
-        cerr << "Todo PolyGon destruct" << endl;
+        points.clear();
     }
 
     void addPoint(const Point2D *point) {
@@ -48,13 +49,17 @@ public:
     }
 
     string toString() const override {
-        string res = "Polygon[";
+        string res = "Polygon[points=[";
         for (auto *point: points) {
             res += point->toString();
-            res += ","; // On garde la dernière "," pour le Shape::_toString()
+            res += ",";
         }
+        if (!points.empty())
+            // On garde la dernière ","
+            res.pop_back();
 
-        res += Shape::_toString();
+        res += "],";
+        res += Shape::getMetaString();
         res += "]";
         return res;
     }
@@ -84,7 +89,6 @@ public:
 
         Point2D *anchor = points[0];
         for (int i = 1; i < points.size() - 1; i++) {
-            cout << i << endl;
             res += Triangle(anchor, points[i], points[i + 1]).getArea();
         }
 
@@ -102,9 +106,9 @@ public:
         }
     }
 
-    void rotate(const Point2D &center, double deg) override {
+    void rotate(const Point2D &center, double radians) override {
         for (Point2D *point: points) {
-            point->rotate(center, deg);
+            point->rotate(center, radians);
         }
     }
 };

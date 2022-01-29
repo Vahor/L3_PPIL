@@ -23,9 +23,13 @@ public:
         cout << "Name: " << scene->getName() << endl;
         cout << "Width: " << scene->getWidth() << endl;
         cout << "Height: " << scene->getHeight() << endl;
+        cout << "Shapes : " << endl;
         for (auto &shape: *scene) {
             if (shape->isInGroup())continue;
-            cout << "\t" << shape->toString() << endl;
+            vector<string> helpLines = split(shape->toString(), '\n');
+            for (const auto &line: helpLines) {
+                cout << "\t" << line << endl;
+            }
         }
     }
 

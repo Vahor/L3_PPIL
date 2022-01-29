@@ -44,7 +44,7 @@ public:
             res += ","; // On garde la dernière "," pour le Shape::_toString()
         }
 
-        res += Shape::_toString();
+        res += Shape::getMetaString();
         res += "]";
         return res;
     }
@@ -89,9 +89,9 @@ public:
         }
     }
 
-    void rotate(const Point2D &center, double deg) override {
+    void rotate(const Point2D &center, double radians) override {
         for (Point2D *point: points) {
-            point->rotate(center, deg);
+            point->rotate(center, radians);
         }
     }
 };

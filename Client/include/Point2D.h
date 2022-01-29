@@ -31,12 +31,15 @@ public:
     double getX() const { return x; }
     double getY() const { return y; }
 
-    void setX(double x) { this->x = x; }
-    void setY(double y) { this->y = y; }
+    void setX(double d) { this->x = d; }
+    void setY(double d) { this->y = d; }
 
-    void rotate(const Point2D &center, double degrees) {
-        x = cos(degrees) * (center.x - x) - sin(degrees) * (center.y - y);
-        y = sin(degrees) * (center.x - x) + cos(degrees) * (center.y - y);
+    void rotate(const Point2D &center, double radians) {
+        double xShifted = x - center.x;
+        double yShifted = y - center.y;
+
+        x = center.x + (cos(radians) * xShifted - sin(radians) * yShifted);
+        y = center.y + (sin(radians) * xShifted + cos(radians) * yShifted);
     }
 
     static Point2D center(const Point2D &p1, const Point2D &p2) {

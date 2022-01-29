@@ -14,6 +14,12 @@ class ShapeGroup : public Shape {
 
 public:
 
+    ~ShapeGroup() override {
+        for (const auto &item: elements)
+            item->setGroup(nullptr);
+        elements.clear();
+    }
+
     ShapeGroup() : Shape() {}
     ShapeGroup(const ShapeGroup &copy) : Shape(copy) {
         for (const auto &it: copy.elements) { addShape(it->clone()); }
@@ -46,13 +52,12 @@ public:
     }
 
     string toString() const override {
-        string res = "ShapeGroup[";
+        string res = "ShapeGroup[items=[";
         for (auto *shape: elements) {
-            res += "\n\t\t";
+            res += "\n\t";
             res += shape->toString();
         }
-        if (!elements.empty())
-            res += "\n\t";
+        res += "\n]," + Shape::getMetaString();
         res += "]";
         return res;
     }
@@ -62,7 +67,15 @@ public:
     }
 
     Point2D *getCenter() const override {
-        return new Point2D(0, 0); // todo
+        auto count = (double) elements.size();
+        double sumX = 0;
+        double sumY = 0;
+        for (Shape *shape: elements) {
+            Point2D *center = shape->getCenter();
+            sumX += center->getX();
+            sumY += center->getY();
+        }
+        return new Point2D(sumX / count, sumY / count);
     }
 
     double getArea() const override {
@@ -85,9 +98,9 @@ public:
         }
     }
 
-    void rotate(const Point2D &center, double deg) override {
+    void rotate(const Point2D &center, double radians) override {
         for (Shape *shape: elements) {
-            shape->rotate(center, deg);
+            shape->rotate(center, radians);
         }
     }
 

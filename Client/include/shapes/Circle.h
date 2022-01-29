@@ -36,7 +36,7 @@ public:
     string toString() const override {
         return "Circle[position=" + position.toString() +
                ",diameter=" + to_string(diameter)
-               + "," + Shape::_toString() +
+               + "," + Shape::getMetaString() +
                +"]";
     }
 
@@ -63,8 +63,8 @@ public:
         position.setY(position.getY() + y);
     }
 
-    void rotate(const Point2D &center, double deg) override {
-        position.rotate(center, deg);
+    void rotate(const Point2D &center, double radians) override {
+        position.rotate(center, radians);
     }
 
 };

@@ -28,9 +28,9 @@ protected:
         string value = object->get("value")->getAsPrimitive()->getAsString();
 
 
-        double angle = object->get("angle")->getAsPrimitive()->getAsDouble();
+        double radians = object->get("radians")->getAsPrimitive()->getAsDouble();
 
-        return new Text(Point2D(x, y), size, value, angle);
+        return new Text(Point2D(x, y), size, value, radians);
     }
 
 public:

@@ -38,8 +38,8 @@ public:
         return children.count(key);
     }
 
-    void put(const string &key, const DataElement *json) {
-        children[key] = json->clone();
+    void put(const string &key, const DataElement *element) {
+        children[key] = element->clone();
     }
 
     DataElement *get(const string &key) const {
