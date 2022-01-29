@@ -25,8 +25,8 @@ public class TextHandler extends ShapeHandler {
         double y = position.get("y").getAsPrimitive().getAsDouble();
 
 
-        double angle = object.get("angle").getAsPrimitive().getAsDouble();
+        double radians = object.get("radians").getAsPrimitive().getAsDouble();
 
-        return new Text(new Point2D(x, y), value, size, angle, input.getMeta());
+        return new Text(new Point2D(x, y), value, size, radians, input.getMeta());
     }
 }

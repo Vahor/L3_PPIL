@@ -13,14 +13,14 @@ public class Text extends Shape {
     private final int size;
     private final Point2D center;
     private final String value;
-    private final double angleDeg;
+    private final double radians;
 
-    public Text(Point2D center, String value, int size, double angleDeg, Meta meta) {
+    public Text(Point2D center, String value, int size, double radians, Meta meta) {
         super(meta);
         this.center   = center;
         this.value    = value;
         this.size     = size;
-        this.angleDeg = angleDeg;
+        this.radians = radians;
     }
 
     @Override

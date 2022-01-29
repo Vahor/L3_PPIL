@@ -148,7 +148,7 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     public void drawText(Text text) {
 
         AffineTransform affineTransform = new AffineTransform();
-        affineTransform.rotate(Math.toRadians(text.getAngleDeg()));
+        affineTransform.rotate(text.getRadians());
 
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, text.getSize());
         font = font.deriveFont(affineTransform);
