@@ -13,10 +13,10 @@
 #include "cli/commands/SaveCommand.h"
 #include "cli/commands/ListCommand.h"
 #include "cli/commands/ReconnectCommand.h"
-#include "actions/java/DrawOverJavaTcp.h"
 #include "cli/commands/DrawCommand.h"
+#include "cli/commands/ShapeCommand.h"
 
-void solar(TCPClient &client) {
+void solar() {
 
     Scene scene;
     scene.setName("SolarSystem");
@@ -28,8 +28,8 @@ void solar(TCPClient &client) {
     sun.setColor(Color::ORANGE);
 
     Text sunText({0, 0}, 50, "Soleil");
-    sunText.setColor(Color::RED);
-    sunText.rotateSelf(45);
+    sunText.setColor(Color::BLACK);
+    sunText.setAngleDeg(45);
 
 
     Polygon sunPolygon;
@@ -39,8 +39,8 @@ void solar(TCPClient &client) {
     sunPolygon.setColor(Color::RED);
 
     Text polygonText({100, 100}, 10, "polygonText");
-    polygonText.setColor(Color::YELLOW);
-    polygonText.rotateSelf(0);
+    polygonText.setColor(Color::BLACK);
+    polygonText.setAngleDeg(-90);
 
     ShapeGroup sunGroup;
     sunGroup.addShape(&sun);
@@ -56,27 +56,26 @@ void solar(TCPClient &client) {
     earthPath.setBorderColor(Color::WHITE);
 
     Text earthText({150, 0}, 20, "Terre");
-    earthText.setColor(Color::GREEN);
-    earthText.rotateSelf(45);
+    earthText.setColor(Color::BLACK);
+    earthText.setAngleDeg(90);
 
     ShapeGroup earthGroup;
     earthGroup.addShape(&earthPath);
     earthGroup.addShape(&earth);
     earthGroup.addShape(&earthText);
 
+    ShapeGroup everything;
+    everything.addShape(&earthGroup);
+    everything.addShape(&sunGroup);
 
-    earthGroup.setColor(Color::RED);
-    scene.add(&sunGroup);
-    scene.add(&earthGroup);
-
-    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing");
-    scene.draw(visitor);
+    scene.add(&everything);
 
     SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
 
 int main() {
 
+    solar();
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
 
@@ -90,8 +89,8 @@ int main() {
     cli->addCommand("list", new ListCommand());
     cli->addCommand("draw", new DrawCommand());
     cli->addCommand("reconnect", new ReconnectCommand());
+    cli->addCommand("shape", new ShapeCommand());
 
-    // TODO : Ajouter une commande pour le calcul d'aire
     // TODO : Ajouter une commande pour initialiser le parser
 
     cli->init();

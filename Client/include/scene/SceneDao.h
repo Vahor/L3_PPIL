@@ -17,6 +17,7 @@
 
 #include "meta/handler/ColorHandler.h"
 #include "meta/handler/BorderColorHandler.h"
+#include "meta/handler/IdHandler.h"
 
 class SceneDao : public Dao<Scene, string> {
 
@@ -43,6 +44,7 @@ class SceneDao : public Dao<Scene, string> {
     void initMetaHandler() {
         metaHandler = new ColorHandler(metaHandler);
         metaHandler = new BorderColorHandler(metaHandler);
+        metaHandler = new IdHandler(metaHandler);
     }
 
 
@@ -59,6 +61,7 @@ protected:
     SceneDao() {
         initMetaHandler();
         initShapeHandler();
+        parser = new JsonParser; // default
     }
 
 

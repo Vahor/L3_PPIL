@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include "actions/Visitor.h"
-#include "shapes/Shape.h"
 #include "handler/Handler.h"
 #include "client/Client.h"
 
@@ -15,15 +14,18 @@
 #include "data/DataArray.h"
 #include "data/DataPrimitive.h"
 
+#include "shapes/Shape.h"
+#include "shapes/ShapeGroup.h"
+
 using namespace std;
 
 class Scene : public Serializable {
-
 
     string name;
     int height = 500;
     int width = 900;
     vector<Shape *> shapes;
+
 public:
     Scene() = default;
 
@@ -59,8 +61,7 @@ public:
     }
 
     virtual ~Scene() {
-        cerr << "delete AScene" << endl;
-        // todo
+        shapes.clear();
     }
 
     virtual Scene *clone() const {
@@ -93,6 +94,20 @@ public:
 
     virtual void draw(Visitor &visitor) const {
         visitor.drawScene(this);
+    }
+
+    Shape *getShapeById(int id) {
+        for (Shape *shape: shapes) {
+            if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {
+                if (group->getId() == id) return shape;
+                for (Shape *inGroupShape: *group) {
+                    if (inGroupShape->getId() == id) return inGroupShape;
+                }
+            } else {
+                if (shape->getId() == id) return shape;
+            }
+        }
+        return nullptr;
     }
 
     // Setters
