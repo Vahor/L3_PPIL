@@ -29,7 +29,7 @@ void solar() {
 
     Text sunText({0, 0}, 50, "Soleil");
     sunText.setColor(Color::BLACK);
-    sunText.setAngleDeg(45);
+    sunText.setAngleDeg(135);
 
 
     Polygon sunPolygon;
@@ -40,7 +40,7 @@ void solar() {
 
     Text polygonText({100, 100}, 10, "polygonText");
     polygonText.setColor(Color::BLACK);
-    polygonText.setAngleDeg(-90);
+    polygonText.setAngleDeg(-135);
 
     ShapeGroup sunGroup;
     sunGroup.addShape(&sun);
@@ -57,7 +57,7 @@ void solar() {
 
     Text earthText({150, 0}, 20, "Terre");
     earthText.setColor(Color::BLACK);
-    earthText.setAngleDeg(90);
+    earthText.setAngleDeg(180);
 
     ShapeGroup earthGroup;
     earthGroup.addShape(&earthPath);
@@ -73,11 +73,55 @@ void solar() {
     SceneDao::getInstance()->save("solarSystem.json", &scene);
 }
 
+void textTest() {
+    Scene scene;
+    scene.setName("textTest");
+    scene.setHeight(500);
+    scene.setWidth(1000);
+
+
+    ShapeGroup everything;
+
+    double y = 200;
+    double x = -480;
+    for (int i = 1; i < 360; i++) {
+        Text *text = new Text({x, y}, 15, to_string(i));
+        text->setColor(Color::BLACK);
+        text->setAngleDeg(i);
+
+        x += 50;
+
+        if (i % 20 == 0) {
+            y -= 50;
+            x = -480;
+        }
+
+
+        everything.addShape(text);
+    }
+
+    scene.add(&everything);
+
+    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
+    srand(time(nullptr));
+    while (true) {
+        scene.draw(visitor);
+        everything.rotate({0, 0}, 1);
+        double r = rand() % 255;
+        double g = rand() % 255;
+        double b = rand() % 255;
+        everything.setColor(new Color(r, g, b, 255));
+
+        visitor.setReset(true);
+    }
+    //SceneDao::getInstance()->save("textTest.json", &scene);
+}
+
 int main() {
 
-    solar();
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
+    textTest();
 
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");

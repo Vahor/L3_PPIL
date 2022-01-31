@@ -89,7 +89,7 @@ public:
     };
 
     void add(Shape *shape) {
-        shapes.push_back(shape->clone());
+        shapes.push_back(shape);
     }
 
     virtual void draw(Visitor &visitor) const {

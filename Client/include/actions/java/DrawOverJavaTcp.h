@@ -14,27 +14,38 @@
 #include "actions/java/renderer/UpdateRendererNameAction.h"
 #include "actions/java/renderer/UpdateRendererSizeAction.h"
 #include "actions/java/renderer/DisposeRendererAction.h"
+#include "actions/java/renderer/ResetRendererAction.h"
 
 class DrawOverJavaTcp : public Visitor {
 
     string framework;
+    bool reset;
 
 public:
-    explicit DrawOverJavaTcp(string framework) : framework(std::move(framework)) {}
+    explicit DrawOverJavaTcp(string framework, bool reset = false) : framework(std::move(framework)), reset(reset) {}
+
+    void setReset(bool b) {
+        this->reset = b;
+    }
 
     void drawScene(const Scene *scene) const override {
         cout << "DrawOverJavaTcp" << endl;
-        InitRendererAction(framework).execute();
-        usleep(300 * 1000);
-        UpdateRendererNameAction(scene->getName()).execute();
-        UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute();
-        usleep(300 * 1000);
+        if (reset)
+            ResetRendererAction().execute();
+        else {
+            InitRendererAction(framework).execute();
+            usleep(500 * 1000);
+            UpdateRendererNameAction(scene->getName()).execute();
+            UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute();
+        }
+        usleep(500 * 1000);
 
         for (auto shape: *scene) {
             drawShape(shape);
+            usleep(5 * 1000); // delay 5ms to allow swing draw
         }
 
-        usleep(200 * 1000);
+        //usleep(400 * 1000);
 
         DisposeRendererAction().execute();
     }
