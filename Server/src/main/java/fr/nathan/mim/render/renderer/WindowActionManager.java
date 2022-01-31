@@ -8,6 +8,7 @@ import fr.nathan.mim.render.renderer.actions.meta.UpdateRendererSizeAction;
 import fr.nathan.mim.render.renderer.actions.renderer.DisposeRendererAction;
 import fr.nathan.mim.render.renderer.actions.renderer.InitRendererAction;
 import fr.nathan.mim.render.renderer.actions.renderer.RendererHandler;
+import fr.nathan.mim.render.renderer.actions.renderer.ResetRendererAction;
 
 public class WindowActionManager {
 
@@ -21,6 +22,7 @@ public class WindowActionManager {
 
     void initShapeHandler() {
         rendererHandler = new InitRendererAction(rendererHandler);
+        rendererHandler = new ResetRendererAction(rendererHandler);
         rendererHandler = new DisposeRendererAction(rendererHandler);
     }
 

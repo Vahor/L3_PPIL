@@ -40,8 +40,6 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         createBufferStrategy(2);
         Thread.sleep(250);
 
-        setBackground(Color.BLACK);
-
         // On ajoute une taille et position par défaut
         setSize(initialWidth, initialHeight);
         setLocationRelativeTo(null);
@@ -102,10 +100,18 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         // Move origin to center
         graphics2D.translate(getWidth() / 2., getHeight() / 2.);
 
+        // todo : le scale n'est pas bon
+        //  voir pour ne pas utiliser un scale / retirer la liste d'objets
+
         // Adapt to screen size
         double currentFactor = Math.min((double) getHeight() / initialHeight, (double) getWidth() / initialWidth)
                 + scaleBoost;
         graphics2D.scale(currentFactor, currentFactor);
+    }
+
+    @Override
+    public void resetScene() {
+        shapes.clear();
     }
 
     @Override
@@ -123,8 +129,8 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
 
     @Override
     public void disposeBuffer() {
-        graphics2D.dispose();
         bufferStrategy.show();
+        graphics2D.dispose();
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -148,21 +154,15 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     public void drawText(Text text) {
 
         AffineTransform affineTransform = new AffineTransform();
-        affineTransform.rotate(text.getRadians());
+        affineTransform.setToRotation(text.getRadians());
 
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, text.getSize());
         font = font.deriveFont(affineTransform);
         graphics2D.setFont(font);
 
-        // On retire la moitié de la taille/largeur pour centrer le texte sur sa position
-        int width = graphics2D.getFontMetrics().stringWidth(text.getValue());
-        int height = graphics2D.getFontMetrics().getHeight();
-
-        int xPosition = (int) (text.getCenter().getX() - width / 2);
-        int yPosition = (int) (text.getCenter().getY() - height / 2);
-
         graphics2D.setColor(text.getMeta().getColor());
-        graphics2D.drawString(text.getValue(), xPosition, yPosition);
+        graphics2D.drawString(text.getValue(), (int) text.getCenter().getX(), (int) text.getCenter().getY());
+
     }
 
     @Override

@@ -9,6 +9,7 @@ public interface Renderable {
 
     void redraw();
     void resetGraphics();
+    void resetScene();
     void disposeBuffer();
     void setTitle(String title);
     void setSize(int width, int height);
