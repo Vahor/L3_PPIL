@@ -1,5 +1,6 @@
 package fr.nathan.mim.server;
 
+import fr.nathan.mim.Main;
 import fr.nathan.mim.api.data.DataObject;
 import fr.nathan.mim.api.data.json.JsonParser;
 import fr.nathan.mim.render.renderer.Renderable;
@@ -21,7 +22,6 @@ public class PacketListener extends Thread {
     private final WindowActionManager windowActionManager;
 
     private Renderable currentRenderable;
-    private final JsonParser parser = new JsonParser();
 
     public PacketListener(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -41,9 +41,10 @@ public class PacketListener extends Thread {
                 try (Socket server = serverSocket.accept();
                      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(server.getInputStream()))) {
 
-                    String line; while ((line = bufferedReader.readLine()) != null) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
 
-                        DataObject object = parser.parse(line).getAsObject();
+                        DataObject object = Main.currentParser.parse(line).getAsObject();
 
                         // On fait une différence avec WINDOW
                         // pour savoir quel manager utiliser.

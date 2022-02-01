@@ -1,5 +1,7 @@
 package fr.nathan.mim.api.data;
 
+import fr.nathan.mim.Main;
+
 import java.util.HashMap;
 
 public class DataObject extends DataElement {
@@ -19,7 +21,7 @@ public class DataObject extends DataElement {
 
     @Override
     public String toString() {
-        return null;  // todo visitor
+        return Main.currentParser.toString(this);
     }
 
 }

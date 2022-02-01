@@ -1,5 +1,7 @@
 package fr.nathan.mim.api.data;
 
+import fr.nathan.mim.Main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,6 @@ public class DataArray extends DataElement {
 
     @Override
     public String toString() {
-        return null;  // todo visitor
+        return Main.currentParser.toString(this);
     }
 }

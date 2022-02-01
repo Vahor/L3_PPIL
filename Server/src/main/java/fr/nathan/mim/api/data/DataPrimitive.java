@@ -1,5 +1,7 @@
 package fr.nathan.mim.api.data;
 
+import fr.nathan.mim.Main;
+
 public class DataPrimitive extends DataElement {
 
     protected String value;
@@ -19,6 +21,6 @@ public class DataPrimitive extends DataElement {
 
     @Override
     public String toString() {
-        return null; // todo visitor
+        return Main.currentParser.toString(this);
     }
 }
