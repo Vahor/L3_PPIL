@@ -52,8 +52,11 @@ void solar() {
     Circle earth({150, 0}, 40);
     earth.setColor(Color::CYAN);
 
+    Circle moon({180, 0}, 5);
+    moon.setColor(Color::LIGHT_GRAY);
+
     Circle earthPath({0, 0}, 315);
-    earthPath.setBorderColor(Color::WHITE);
+    earthPath.setBorderColor(Color::GREEN);
 
     Text earthText({150, 0}, 20, "Terre");
     earthText.setColor(Color::BLACK);
@@ -62,6 +65,7 @@ void solar() {
     ShapeGroup earthGroup;
     earthGroup.addShape(&earthPath);
     earthGroup.addShape(&earth);
+    earthGroup.addShape(&moon);
     earthGroup.addShape(&earthText);
 
     ShapeGroup everything;
@@ -128,7 +132,7 @@ void textTest() {
         everything.setColor(new Color(r, g, b, 255));
 
         visitor.setReset(true);
-        usleep(5000 * 1000);
+        usleep(2000 * 1000);
     }
     //SceneDao::getInstance()->save("textTest.json", &scene);
 }

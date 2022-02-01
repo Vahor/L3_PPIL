@@ -35,6 +35,7 @@ public:
     static Color *GREEN;
     static Color *YELLOW;
     static Color *CYAN;
+    static Color *LIGHT_GRAY;
     static Color *ORANGE;
 
     inline bool operator==(const Color &other) const {

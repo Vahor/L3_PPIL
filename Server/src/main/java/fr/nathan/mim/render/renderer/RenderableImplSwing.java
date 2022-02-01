@@ -8,17 +8,23 @@ import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RenderableImplSwing extends JFrame implements WindowListener, Renderable {
 
-    private final ArrayList<Shape> shapes = new ArrayList<>();
+    private final List<Shape> shapes = Collections.synchronizedList(new ArrayList<>());
 
     private double scaleBoost = 0;
+    private double offsetX = 0;
+    private double offsetY = 0;
 
     @Getter
     private double initialHeight;
@@ -56,14 +62,51 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
             double prev = scaleBoost;
 
             // [0,2]
-            scaleBoost = Math.min(2, Math.max(0, scaleBoost + steps));
+            scaleBoost = Math.min(2, Math.max(-0.99, scaleBoost + steps));
             if (scaleBoost == prev) return;
-
-            System.out.println("scaleBoost = " + scaleBoost);
 
             // Redraw
             redraw();
         });
+
+        int defaultCursor = Cursor.HAND_CURSOR;
+        setCursor(defaultCursor);
+        addMouseListener(new MouseListener() {
+
+            private Point initialClick;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+
+                setCursor(Cursor.CROSSHAIR_CURSOR);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (initialClick != null) {
+
+                    // How much the mouse moved
+                    int xMoved = e.getX() - initialClick.x;
+                    int yMoved = e.getY() - initialClick.y;
+
+                    offsetX += xMoved;
+                    offsetY += yMoved;
+                    setCursor(defaultCursor);
+
+                    redraw();
+                }
+            }
+
+            // Empty
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+
 
         addComponentListener(new ResizeEndListener() {
             @Override
@@ -80,7 +123,13 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         try {
             drawing = true;
             resetGraphics();
-            shapes.forEach(s -> s.draw(this));
+            shapes.forEach(s -> {
+                try {
+                    s.draw(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
             disposeBuffer();
             drawing = false;
         } catch (Exception e) {
@@ -91,6 +140,7 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     @Override
     public void resetGraphics() {
         bufferStrategy = getBufferStrategy();
+
         // Graphics
         graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
 
@@ -98,14 +148,11 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         graphics2D.clearRect(0, 0, getWidth(), getHeight());
 
         // Move origin to center
-        graphics2D.translate(getWidth() / 2., getHeight() / 2.);
-
-        // todo : le scale n'est pas bon
-        //  voir pour ne pas utiliser un scale / retirer la liste d'objets
+        graphics2D.translate(getWidth() / 2. + offsetX, getHeight() / 2. + offsetY);
 
         // Adapt to screen size
-        double currentFactor = Math.min((double) getHeight() / initialHeight, (double) getWidth() / initialWidth)
-                + scaleBoost;
+        double currentFactor = Math.min((double) getHeight() / initialHeight, (double) getWidth() / initialWidth);
+        currentFactor *= (1 + scaleBoost);
         graphics2D.scale(currentFactor, currentFactor);
     }
 
@@ -123,7 +170,11 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
 
     @Override
     public void drawShape(Shape shape) {
-        shape.draw(this);
+        try {
+            shape.draw(this);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
         shapes.add(shape);
     }
 
@@ -152,7 +203,6 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
 
     @Override
     public void drawText(Text text) {
-
         AffineTransform affineTransform = new AffineTransform();
         affineTransform.setToRotation(text.getRadians());
 
