@@ -27,7 +27,7 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     else
         metaObject = new DataObject();
 
-    metaObject->put("id", new DataPrimitive(id));
+    metaObject->put("id", DataPrimitive(id));
 
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
@@ -45,6 +45,7 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
         metaObject->put("borderColor", metaBorderColor);
 
     object->put("meta", metaObject);
+
     return metaObject;
 }
 
@@ -57,7 +58,7 @@ string Shape::getMetaString() const {
     if (borderColor)
         res += "borderColor=" + borderColor->toString() + ",";
     if (group)
-        res += "group=true,"; // todo afficher un id ?
+        res += "group=" + to_string(group->getId()) + ",";
 
     if (res.length() > 5)
         res.pop_back(); // On retire la dernière virgule

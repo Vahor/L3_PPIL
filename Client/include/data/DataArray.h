@@ -26,7 +26,7 @@ public:
     }
 
     virtual ~DataArray() {
-        std::cerr << "delete DataArray" << std::endl;
+        elements.clear();
         // todo
     }
 

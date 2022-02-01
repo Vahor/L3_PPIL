@@ -27,15 +27,15 @@ public:
     }
 
     virtual ~DataObject() {
-        for (const auto &it: children) {
-            cout << it.first << ":" << it.second << endl;
-        }
-        cerr << "delete ADataObject" << endl;
-        // todo
+        children.clear();
     }
 
     bool has(const string &key) const {
         return children.count(key);
+    }
+
+    void put(const string &key, const DataElement &element) {
+        children[key] = element.clone();
     }
 
     void put(const string &key, const DataElement *element) {
