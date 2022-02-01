@@ -71,6 +71,9 @@ void solar() {
     scene.add(&everything);
 
     SceneDao::getInstance()->save("solarSystem.json", &scene);
+
+    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
+    scene.draw(visitor);
 }
 
 void textTest() {
@@ -84,7 +87,7 @@ void textTest() {
 
     double y = 200;
     double x = -480;
-    for (int i = 1; i < 360; i++) {
+    for (int i = 1; i < 3; i++) {
         Text *text = new Text({x, y}, 15, to_string(i));
         text->setColor(Color::BLACK);
         text->setAngleDeg(i);
@@ -104,9 +107,12 @@ void textTest() {
 
     DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
     srand(time(nullptr));
+    // todo :
+    //  La rotation de texte n'est toujours pas bonne, l'angle n'est pas bon
+    //  Si on n'utilise que le radius ça fonctionne, mais si on décale le texte par la suite, ça ne marche plus
     while (true) {
         scene.draw(visitor);
-        everything.rotate({0, 0}, 1);
+        //everything.rotate({0, 0}, 1);
         double r = rand() % 255;
         double g = rand() % 255;
         double b = rand() % 255;
@@ -121,7 +127,7 @@ int main() {
 
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
-    textTest();
+    solar();
 
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");
