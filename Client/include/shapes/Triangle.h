@@ -78,7 +78,7 @@ public:
         return 0.5 * (det);
     }
 
-    void scale(int scale) override {
+    void scale(double scale) override {
         // todo
     }
 

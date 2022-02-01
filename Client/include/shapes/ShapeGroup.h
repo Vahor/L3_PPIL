@@ -86,7 +86,7 @@ public:
         return res;
     }
 
-    void scale(int scale) override {
+    void scale(double scale) override {
         for (Shape *shape: elements) {
             shape->scale(scale);
         }

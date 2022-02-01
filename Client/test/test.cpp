@@ -6,6 +6,7 @@
 #include "./tests/LOAD_SCENE.h"
 #include "./tests/MATH_SCENE.h"
 #include "./tests/JSON_PARSER.h"
+#include "./tests/SCALE_SHAPES.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ int main()
     LOAD_SCENE::runTest(test);
     JSON_PARSER::runTest(test);
     MATH_SCENE::runTest(test);
+    SCALE_SHAPES::runTest(test);
 
     test.stop();
 

@@ -54,7 +54,7 @@ public:
         return M_PI * (radius * radius);
     }
 
-    void scale(int scale) override {
+    void scale(double scale) override {
         diameter *= scale;
     }
 

@@ -24,8 +24,8 @@ public:
         points.clear();
     }
 
-    void addPoint(const Point2D *point) {
-        points.push_back(point->clone());
+    void addPoint(const Point2D &point) {
+        points.push_back(point.clone());
     }
 
     void removePoint(const Point2D *point) {
@@ -95,8 +95,11 @@ public:
         return res;
     }
 
-    void scale(int scale) override {
-        // todo
+    void scale(double scale) override {
+        for (Point2D *point: points) {
+            point->setY(point->getY() * scale);
+            point->setX(point->getX() * scale);
+        }
     }
 
     void translate(double x, double y) override {

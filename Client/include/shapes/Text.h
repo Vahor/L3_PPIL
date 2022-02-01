@@ -70,7 +70,7 @@ public:
         return 0;
     }
 
-    void scale(int scale) override {
+    void scale(double scale) override {
         size *= scale;
     }
 

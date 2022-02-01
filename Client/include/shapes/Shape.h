@@ -62,7 +62,7 @@ public:
     bool isInGroup() const { return group != nullptr; }
     int getId() const { return id; }
 
-    virtual void scale(int scale) = 0;
+    virtual void scale(double scale) = 0;
     virtual void translate(double x, double y) = 0;
     void rotateSelf(double radians) { rotate(*getCenter(), radians); }
     virtual void rotate(const Point2D &center, double radians) = 0;
