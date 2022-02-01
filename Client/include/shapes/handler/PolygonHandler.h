@@ -23,7 +23,7 @@ protected:
         for (DataElement *element: *points) {
             double x = element->getAsObject()->get("x")->getAsPrimitive()->getAsDouble();
             double y = element->getAsObject()->get("y")->getAsPrimitive()->getAsDouble();
-            polygon->addPoint(new Point2D(x, y));
+            polygon->addPoint(Point2D(x, y));
         }
 
         return polygon;

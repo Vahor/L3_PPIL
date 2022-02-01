@@ -21,30 +21,30 @@ public:
         SimpleTest::divider("MATH_SCENE");
 
         Polygon square;
-        square.addPoint(new Point2D(0, 0));
-        square.addPoint(new Point2D(0, 5));
-        square.addPoint(new Point2D(5, 5));
-        square.addPoint(new Point2D(5, 0));
+        square.addPoint(Point2D(0, 0));
+        square.addPoint(Point2D(0, 5));
+        square.addPoint(Point2D(5, 5));
+        square.addPoint(Point2D(5, 0));
 
         test.assertTrue(
                 square.getArea() == 25,
                 "square.getArea() == 25");
 
         Polygon weirdSquare;
-        weirdSquare.addPoint(new Point2D(-4, 4));
-        weirdSquare.addPoint(new Point2D(2, 7));
-        weirdSquare.addPoint(new Point2D(3, -3));
-        weirdSquare.addPoint(new Point2D(-3, -2));
+        weirdSquare.addPoint(Point2D(-4, 4));
+        weirdSquare.addPoint(Point2D(2, 7));
+        weirdSquare.addPoint(Point2D(3, -3));
+        weirdSquare.addPoint(Point2D(-3, -2));
 
         test.assertTrue(
                 weirdSquare.getArea() == 49,
                 "weirdSquare.getArea() == 49");
 
         Polygon convexe;
-        convexe.addPoint(new Point2D(1, 4));
-        convexe.addPoint(new Point2D(2, 7));
-        convexe.addPoint(new Point2D(3, -3));
-        convexe.addPoint(new Point2D(-3, -2));
+        convexe.addPoint(Point2D(1, 4));
+        convexe.addPoint(Point2D(2, 7));
+        convexe.addPoint(Point2D(3, -3));
+        convexe.addPoint(Point2D(-3, -2));
 
         test.assertTrue(
                 convexe.getArea() == 26.5,

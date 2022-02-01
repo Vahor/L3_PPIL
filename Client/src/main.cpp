@@ -33,9 +33,9 @@ void solar() {
 
 
     Polygon sunPolygon;
-    sunPolygon.addPoint(new Point2D({100, 100}));
-    sunPolygon.addPoint(new Point2D({100, 50}));
-    sunPolygon.addPoint(new Point2D({50, 50}));
+    sunPolygon.addPoint(Point2D({100, 100}));
+    sunPolygon.addPoint(Point2D({100, 50}));
+    sunPolygon.addPoint(Point2D({50, 50}));
     sunPolygon.setColor(Color::RED);
 
     Text polygonText({100, 100}, 10, "polygonText");
@@ -77,9 +77,11 @@ void solar() {
     SceneDao::getInstance()->save("solarSystem.json", &scene);
 
     DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
+    bool scale = true;
     while (true) {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
+        everything.scale(scale ? 2 : .5);
         everything.rotate({0, 0}, rad);
         double r = rand() % 255;
         double g = rand() % 255;
@@ -88,6 +90,7 @@ void solar() {
 
         visitor.setReset(true);
         usleep(500 * 1000);
+        scale = !scale;
     }
 }
 

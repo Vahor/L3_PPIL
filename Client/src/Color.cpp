@@ -12,4 +12,5 @@ Color *Color::RED = new Color(255, 0, 0, 255);
 Color *Color::GREEN = new Color(0, 255, 0, 255);
 Color *Color::YELLOW = new Color(255, 255, 0, 255);
 Color *Color::CYAN = new Color(0, 255, 255, 255);
+Color *Color::LIGHT_GRAY = new Color(150, 150, 150, 255);
 Color *Color::ORANGE = new Color(255, 200, 0, 255);
