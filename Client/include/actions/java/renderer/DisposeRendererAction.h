@@ -16,7 +16,7 @@ public:
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
 
-        meta->put("DISPOSE", new DataPrimitive(true));
+        meta->put("DISPOSE", DataPrimitive(true));
 
         return meta;
     }

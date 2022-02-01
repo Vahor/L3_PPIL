@@ -19,8 +19,8 @@ public:
 
     DataElement *serialize() const {
         auto *object = new DataObject();
-        object->put("x", new DataPrimitive(x));
-        object->put("y", new DataPrimitive(y));
+        object->put("x", DataPrimitive(x));
+        object->put("y", DataPrimitive(y));
         return object;
     }
 

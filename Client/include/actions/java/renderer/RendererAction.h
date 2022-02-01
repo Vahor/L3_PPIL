@@ -17,12 +17,15 @@ public:
     void execute() const override {
         TCPClient *client = TCPClient::getInstance();
 
-        auto *object = new DataObject();
-        auto *data = new DataObject();
+        auto object = DataObject();
+        auto data = DataObject();
+        auto meta = getMetaData();
 
-        data->put("meta", getMetaData());
-        object->put("WINDOW", data);
+        data.put("meta", meta);
+        object.put("WINDOW", data);
 
-        client->send(object->toString());
+        client->send(object.toString());
+
+        delete meta;
     }
 };

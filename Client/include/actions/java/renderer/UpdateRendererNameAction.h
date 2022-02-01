@@ -15,7 +15,7 @@ public:
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
 
-        meta->put("name", new DataPrimitive(name));
+        meta->put("name", DataPrimitive(name));
 
         return meta;
     }

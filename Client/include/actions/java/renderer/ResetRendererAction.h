@@ -17,7 +17,7 @@ public:
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
 
-        meta->put("RESET", new DataPrimitive(true));
+        meta->put("RESET", DataPrimitive(true));
 
         return meta;
     }

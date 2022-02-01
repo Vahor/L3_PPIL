@@ -15,10 +15,12 @@ public:
 
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
-        auto *size = new DataObject();
 
-        size->put("width", new DataPrimitive(width));
-        size->put("height", new DataPrimitive(height));
+        auto size = DataObject();
+
+        size.put("width", DataPrimitive(width));
+        size.put("height", DataPrimitive(height));
+
         meta->put("size", size);
 
         return meta;

@@ -32,9 +32,9 @@ public:
 
         auto *data = new DataObject();
         data->put("position", position.serialize());
-        data->put("size", new DataPrimitive(size));
-        data->put("value", new DataPrimitive(value));
-        data->put("radians", new DataPrimitive(radians));
+        data->put("size", DataPrimitive(size));
+        data->put("value", DataPrimitive(value));
+        data->put("radians", DataPrimitive(radians));
 
         object->put("TEXT", data);
 

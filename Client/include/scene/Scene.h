@@ -71,15 +71,16 @@ public:
     DataElement *serialize0(bool ignoreGroup) const override {
 
         auto *object = new DataObject();
-        auto *window = new DataObject();
 
-        window->put("name", new DataPrimitive(getName()));
-        window->put("height", new DataPrimitive(getHeight()));
-        window->put("width", new DataPrimitive(getWidth()));
+        auto window = DataObject();
 
-        auto *items = new DataArray();
+        window.put("name", DataPrimitive(getName()));
+        window.put("height", DataPrimitive(getHeight()));
+        window.put("width", DataPrimitive(getWidth()));
+
+        auto items = DataArray();
         for (auto &shape: shapes) {
-            items->add(shape->serialize(ignoreGroup));
+            items.add(shape->serialize(ignoreGroup));
         }
 
         object->put("window", window);

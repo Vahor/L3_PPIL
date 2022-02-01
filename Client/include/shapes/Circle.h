@@ -24,9 +24,9 @@ public:
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();
 
-        auto *data = new DataObject();
-        data->put("position", position.serialize());
-        data->put("diameter", new DataPrimitive(diameter));
+        auto data = DataObject();
+        data.put("position", position.serialize());
+        data.put("diameter", DataPrimitive(diameter));
 
         object->put("CIRCLE", data);
 
