@@ -80,9 +80,8 @@ public:
     }
 
     void rotate(const Point2D &center, double d) override {
-        // todo : Est-ce qu'on fait une roation sur le texte lorsqu'on tourne la forme ?
-        this->radians += d;
-        this->radians = fmod(this->radians, M_PI);
+        this->radians -= d;
+        this->radians = fmod(this->radians, 2 * M_PI);
         position.rotate(center, d);
     }
 

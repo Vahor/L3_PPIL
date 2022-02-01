@@ -73,7 +73,18 @@ void solar() {
     SceneDao::getInstance()->save("solarSystem.json", &scene);
 
     DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
-    scene.draw(visitor);
+    while (true) {
+        scene.draw(visitor);
+        double rad = 10 * M_PI / 180;
+        everything.rotate({0, 0}, rad);
+        double r = rand() % 255;
+        double g = rand() % 255;
+        double b = rand() % 255;
+        everything.setColor(new Color(r, g, b, 255));
+
+        visitor.setReset(true);
+        usleep(500 * 1000);
+    }
 }
 
 void textTest() {
@@ -87,7 +98,7 @@ void textTest() {
 
     double y = 200;
     double x = -480;
-    for (int i = 1; i < 3; i++) {
+    for (int i = 1; i < 360; i++) {
         Text *text = new Text({x, y}, 15, to_string(i));
         text->setColor(Color::BLACK);
         text->setAngleDeg(i);
@@ -107,18 +118,17 @@ void textTest() {
 
     DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
     srand(time(nullptr));
-    // todo :
-    //  La rotation de texte n'est toujours pas bonne, l'angle n'est pas bon
-    //  Si on n'utilise que le radius ça fonctionne, mais si on décale le texte par la suite, ça ne marche plus
     while (true) {
         scene.draw(visitor);
-        //everything.rotate({0, 0}, 1);
+        double rad = 90 * M_PI / 180;
+        everything.rotate({0, 0}, rad);
         double r = rand() % 255;
         double g = rand() % 255;
         double b = rand() % 255;
         everything.setColor(new Color(r, g, b, 255));
 
         visitor.setReset(true);
+        usleep(5000 * 1000);
     }
     //SceneDao::getInstance()->save("textTest.json", &scene);
 }
