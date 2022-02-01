@@ -29,7 +29,6 @@ public:
     }
 
     void drawScene(const Scene *scene) const override {
-        cout << "DrawOverJavaTcp" << endl;
         if (reset)
             ResetRendererAction().execute();
         else {
@@ -41,7 +40,7 @@ public:
 
 
         for (auto shape: *scene) {
-            drawShape(shape);
+            shape->draw(*this);
             usleep(5 * 1000); // delay 5ms to allow swing draw
         }
 

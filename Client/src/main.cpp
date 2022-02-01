@@ -55,15 +55,11 @@ void solar() {
     Circle moon({180, 0}, 5);
     moon.setColor(Color::LIGHT_GRAY);
 
-    Circle earthPath({0, 0}, 315);
-    earthPath.setBorderColor(Color::GREEN);
-
     Text earthText({150, 0}, 20, "Terre");
     earthText.setColor(Color::BLACK);
     earthText.setAngleDeg(180);
 
     ShapeGroup earthGroup;
-    earthGroup.addShape(&earthPath);
     earthGroup.addShape(&earth);
     earthGroup.addShape(&moon);
     earthGroup.addShape(&earthText);
@@ -83,10 +79,12 @@ void solar() {
         double rad = 10 * M_PI / 180;
         everything.scale(scale ? 2 : .5);
         everything.rotate({0, 0}, rad);
-        double r = rand() % 255;
-        double g = rand() % 255;
-        double b = rand() % 255;
-        everything.setColor(new Color(r, g, b, 255));
+        for (auto shape: earthGroup) {
+            double r = rand() % 255;
+            double g = rand() % 255;
+            double b = rand() % 255;
+            shape->setColor(new Color(r, g, b, 255));
+        }
 
         visitor.setReset(true);
         usleep(500 * 1000);

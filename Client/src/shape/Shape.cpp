@@ -19,6 +19,28 @@ Shape::~Shape() {
         group->removeShape(this);
 }
 
+
+Color *getShapeColor(const Shape *shape, bool useGroup) {
+    if (shape == nullptr) { return nullptr; }
+
+    if (useGroup) {
+        Color *parentColor = getShapeColor(shape->getGroup(), true);
+        if (parentColor != nullptr) return parentColor;
+    }
+    return shape->getColor();
+}
+
+Color *getShapeBorderColor(const Shape *shape, bool useGroup) {
+    if (shape == nullptr) { return nullptr; }
+
+    if (useGroup) {
+        Color *parentColor = getShapeBorderColor(shape->getGroup(), true);
+        if (parentColor != nullptr) return parentColor;
+    }
+
+    return shape->getBorderColor();
+}
+
 DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     DataObject *metaObject;
 
@@ -32,17 +54,15 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     // Si la valeur est égale à la valeur par défaut, on ne fait rien
     // pour ne pas stocker des gros fichier pour rien
 
-    bool useGroup = group != nullptr && !ignoreGroup;
+    bool useGroup = !ignoreGroup;
+    Color *shapeOrParentColor = getShapeColor(this, useGroup);
+    Color *shapeOrParentBorderColor = getShapeBorderColor(this, useGroup);
 
     // Color
-    Color *metaColor = (useGroup && group->color != nullptr) ? group->color : color;
-    if (metaColor != nullptr)
-        metaObject->put("color", metaColor);
+    metaObject->put("color", shapeOrParentColor);
 
     // BorderColor
-    Color *metaBorderColor = (useGroup && group->borderColor != nullptr) ? group->borderColor : borderColor;
-    if (metaBorderColor != nullptr)
-        metaObject->put("borderColor", metaBorderColor);
+    metaObject->put("borderColor", shapeOrParentBorderColor);
 
     object->put("meta", metaObject);
 
@@ -73,7 +93,7 @@ DataElement *Shape::serialize(bool ignoreGroup) const {
     addMetaData(element->getAsObject(), ignoreGroup);
     return element;
 }
-void Shape::draw(Visitor &visitor) const {
+void Shape::draw(const Visitor &visitor) const {
     visitor.drawShape(this);
 }
 ostream &operator<<(ostream &os, const Shape &shape) {

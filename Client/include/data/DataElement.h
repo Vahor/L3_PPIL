@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 
 class DataObject;
 
@@ -26,6 +27,7 @@ public:
     virtual string toString() const = 0;
 
     explicit operator string() const { return toString(); }
+    friend std::ostream &operator<<(std::ostream &os, const DataElement &element);
 };
 
 

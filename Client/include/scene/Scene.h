@@ -93,7 +93,7 @@ public:
         shapes.push_back(shape);
     }
 
-    virtual void draw(Visitor &visitor) const {
+    virtual void draw(const Visitor &visitor) const {
         visitor.drawScene(this);
     }
 

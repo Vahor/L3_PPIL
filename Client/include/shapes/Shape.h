@@ -46,7 +46,7 @@ public:
 
     DataElement *serialize(bool ignoreGroup) const override;
 
-    virtual void draw(Visitor &visitor) const;
+    virtual void draw(const Visitor &visitor) const;
 
     // setters
     void setColor(Color *v) { this->color = v; }
@@ -58,6 +58,7 @@ public:
     // getters
     virtual Point2D *getCenter() const = 0;
     Color *getColor() const { return color; }
+    Color *getBorderColor() const { return borderColor; }
     ShapeGroup *getGroup() const { return group; }
     bool isInGroup() const { return group != nullptr; }
     int getId() const { return id; }

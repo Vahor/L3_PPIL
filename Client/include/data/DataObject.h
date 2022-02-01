@@ -39,6 +39,7 @@ public:
     }
 
     void put(const string &key, const DataElement *element) {
+        if (element == nullptr) return;
         children[key] = element->clone();
     }
 

@@ -29,3 +29,6 @@ DataArray *DataElement::getAsArray() const {
 DataPrimitive *DataElement::getAsPrimitive() const {
     return (DataPrimitive *) this;
 }
+ostream &operator<<(ostream &os, const DataElement &element) {
+    return os << element.toString();
+}
