@@ -33,19 +33,17 @@ public:
         if (reset)
             ResetRendererAction().execute();
         else {
-            InitRendererAction(framework).execute();
-            usleep(500 * 1000);
+            InitRendererAction(framework, scene->getHeight(), scene->getWidth()).execute();
             UpdateRendererNameAction(scene->getName()).execute();
-            UpdateRendererSizeAction(scene->getWidth(), scene->getHeight()).execute();
+
+            usleep(200 * 1000); // delay 200ms to allow swing init
         }
-        usleep(500 * 1000);
+
 
         for (auto shape: *scene) {
             drawShape(shape);
             usleep(5 * 1000); // delay 5ms to allow swing draw
         }
-
-        //usleep(400 * 1000);
 
         DisposeRendererAction().execute();
     }
