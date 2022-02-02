@@ -127,6 +127,7 @@ public class JsonParser extends Parser {
 
         for (DataElement element : array.getElements()) {
             res.append(element.toString());
+            res.append(",");
         }
 
 

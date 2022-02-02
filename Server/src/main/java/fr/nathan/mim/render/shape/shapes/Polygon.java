@@ -6,15 +6,15 @@ import fr.nathan.mim.render.shape.Meta;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
 public class Polygon extends Shape {
 
     @Getter
-    private final Set<Point2D> points = new HashSet<>();
+    private final List<Point2D> points = new ArrayList<>();
 
     public Polygon(Meta meta)           {super(meta);}
 
