@@ -25,47 +25,13 @@ public:
         }
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObject();
-
-        auto data = DataObject();
-        auto pointsArray = DataArray();
-
-        for (Point2D *point: points) {
-            pointsArray.add(point->serialize());
-        }
-
-        data.put("points", pointsArray);
-        object->put("TRIANGLE", data);
-
-        return object;
-    }
-
-    string toString() const override {
-        string res = "Triangle[";
-        for (auto *point: points) {
-            res += point->toString();
-            res += ","; // On garde la dernière "," pour le Shape::_toString()
-        }
-
-        res += Shape::getMetaString();
-        res += "]";
-        return res;
-    }
-
     Triangle *clone() const override {
         return new Triangle(*this);
     }
 
-    Point2D *getCenter() const override {
-        double sumX = 0;
-        double sumY = 0;
-        for (Point2D *point: points) {
-            sumX += point->getX();
-            sumY += point->getY();
-        }
-        return new Point2D(sumX / 3, sumY / 3);
-    }
+    DataElement *serialize0(bool ignoreGroup) const override;
+    string toString() const override;
+    Point2D *getCenter() const override;
 
     double getArea() const override {
         // Aire (triangle ABC) = 0.5 * det(AB,AC).

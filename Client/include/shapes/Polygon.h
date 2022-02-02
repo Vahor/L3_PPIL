@@ -24,6 +24,10 @@ public:
         points.clear();
     }
 
+    Polygon *clone() const override {
+        return new Polygon(*this);
+    }
+
     void addPoint(const Point2D &point) {
         points.push_back(point.clone());
     }
@@ -32,69 +36,11 @@ public:
         points.erase(std::find(points.begin(), points.end(), point));
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObject();
+    DataElement *serialize0(bool ignoreGroup) const override;
+    string toString() const override;
 
-        auto data = DataObject();
-        auto pointsArray = DataArray();
-
-        for (Point2D *point: points) {
-            pointsArray.add(point->serialize());
-        }
-
-        data.put("points", pointsArray);
-        object->put("POLYGON", data);
-
-        return object;
-    }
-
-    string toString() const override {
-        string res = "Polygon[points=[";
-        for (auto *point: points) {
-            res += point->toString();
-            res += ",";
-        }
-
-        if (!points.empty())
-            // On garde la dernière ","
-            res.pop_back();
-
-        res += "],";
-        res += Shape::getMetaString();
-        res += "]";
-        return res;
-    }
-
-    Polygon *clone() const override {
-        return new Polygon(*this);
-    }
-
-    Point2D *getCenter() const override {
-        double sumX = 0;
-        double sumY = 0;
-        auto size = (double) points.size();
-        for (Point2D *point: points) {
-            sumX += point->getX();
-            sumY += point->getY();
-        }
-        return new Point2D(sumX / size, sumY / size);
-    }
-
-    double getArea() const override {
-        // Décomposition en triangles
-        // Puis somme des aires des triangles
-        double res = 0;
-        // forme ABCDE
-        // on a triangles : ABC ACD ADE
-        if (points.size() < 3) return res;
-
-        Point2D *anchor = points[0];
-        for (int i = 1; i < points.size() - 1; i++) {
-            res += Triangle(anchor, points[i], points[i + 1]).getArea();
-        }
-
-        return res;
-    }
+    Point2D *getCenter() const override;
+    double getArea() const override;
 
     void scale(double scale) override {
         for (Point2D *point: points) {

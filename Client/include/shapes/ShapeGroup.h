@@ -34,22 +34,7 @@ public:
         elements.erase(std::find(elements.begin(), elements.end(), shape));
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObject();
-
-        auto *data = new DataObject();
-        auto items = DataArray();
-
-        for (Shape *shape: elements) {
-            items.add(shape->serialize(ignoreGroup));
-        }
-
-        data->put("items", items);
-
-        object->put("GROUP", data);
-
-        return object;
-    }
+    DataElement *serialize0(bool ignoreGroup) const override;
 
     string toString() const override {
         string res = "ShapeGroup[items=[";
@@ -70,17 +55,7 @@ public:
         return elements.size();
     }
 
-    Point2D *getCenter() const override {
-        auto count = (double) elements.size();
-        double sumX = 0;
-        double sumY = 0;
-        for (Shape *shape: elements) {
-            Point2D *center = shape->getCenter();
-            sumX += center->getX();
-            sumY += center->getY();
-        }
-        return new Point2D(sumX / count, sumY / count);
-    }
+    Point2D *getCenter() const override;
 
     double getArea() const override {
         double res = 0;

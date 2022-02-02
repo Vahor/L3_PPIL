@@ -110,3 +110,14 @@ bool Shape::operator==(const Shape &rhs) const {
 bool Shape::operator!=(const Shape &rhs) const {
     return !(rhs == *this);
 }
+Shape *Shape::parse(const DataObject &object, const Handler<DataObject, Shape *> *shapeHandler,
+                    const Handler<pair<DataObject *, Shape *>, Shape *> *metaHandler) {
+    Shape *shape = shapeHandler->solve(*object.getAsObject());
+    if (shape != nullptr) {
+        if (object.has("meta")) {
+            DataObject *elementMeta = object.get("meta")->getAsObject();
+            metaHandler->solve({elementMeta, shape});
+        }
+    }
+    return shape;
+}

@@ -12,7 +12,7 @@
 class Text : public Shape {
 
     Point2D position;
-    int size;
+    double size;
     string value;
     double radians;
 

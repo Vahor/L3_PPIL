@@ -12,7 +12,7 @@ add_executable(Client
         src/data/DataElement.cpp
         src/shape/Shape.cpp
         src/scene/SceneDao.cpp
-        )
+        src/shape/Triangle.cpp src/shape/Polygon.cpp src/shape/Circle.cpp src/shape/ShapeGroup.cpp)
 
 
 set(SOURCE_FILES_TEST
@@ -25,8 +25,7 @@ set(SOURCE_FILES_TEST
         src/data/DataElement.cpp
         src/shape/Shape.cpp
         src/scene/SceneDao.cpp
-        include/dao/Dao.h
-        )
+        src/shape/Triangle.cpp src/shape/Polygon.cpp src/shape/Circle.cpp src/shape/ShapeGroup.cpp)
 
 
 target_link_libraries(Client readline)

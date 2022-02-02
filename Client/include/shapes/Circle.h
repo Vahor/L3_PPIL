@@ -25,27 +25,17 @@ public:
         }
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
-        auto *object = new DataObject();
-
-        auto data = DataObject();
-        data.put("position", position.serialize());
-        data.put("diameter", DataPrimitive(diameter));
-
-        object->put("CIRCLE", data);
-
-        return object;
+    Circle *clone() const override {
+        return new Circle(*this);
     }
+
+    DataElement *serialize0(bool ignoreGroup) const override;
 
     string toString() const override {
         return "Circle[position=" + position.toString() +
                ",diameter=" + to_string(diameter)
                + "," + Shape::getMetaString() +
                +"]";
-    }
-
-    Circle *clone() const override {
-        return new Circle(*this);
     }
 
     Point2D *getCenter() const override {
