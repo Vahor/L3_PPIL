@@ -15,7 +15,7 @@ protected:
      *  Source des informations à extraire
      * @return
      *  nullptr si cette classe ne sait pas gérer l'information
-     *  ou un pointeur sur <In>
+     *  ou un pointeur sur In
      */
     virtual Out parse(const In &input) const = 0;
 
@@ -25,7 +25,7 @@ public:
      *
      * @param input  Source des informations à extraire
      * @return nullptr si aucun expert ne sait gérer l'information
-     *  ou un pointeur sur <In>
+     *  ou un pointeur sur In
      */
     virtual Out solve(const In &input) const = 0;
 

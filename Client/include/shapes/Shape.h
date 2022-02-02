@@ -51,7 +51,7 @@ public:
     // setters
     void setColor(Color *v) { this->color = v; }
     void setBorderColor(Color *v) { this->borderColor = v; }
-    void setGroup(ShapeGroup *v) { this->group = v; }
+    void setGroup(ShapeGroup *v);
     void setId(const int v) { this->id = v; }
     static int nextId() { return previousId++; }
 
@@ -72,6 +72,8 @@ public:
     virtual double getArea() const = 0;
 
     friend ostream &operator<<(ostream &os, const Shape &shape);
+    bool operator==(const Shape &rhs) const;
+    bool operator!=(const Shape &rhs) const;
 
     static Shape *parse(const DataObject &object,
                         const Handler<DataObject, Shape *> *shapeHandler,

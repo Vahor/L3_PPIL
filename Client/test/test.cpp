@@ -10,6 +10,7 @@
 #include "./tests/CIRCLE.h"
 #include "./tests/TEXT.h"
 #include "./tests/TRIANGLE.h"
+#include "./tests/GROUP.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ int main() {
     CIRCLE::runTest(test);
     TEXT::runTest(test);
     TRIANGLE::runTest(test);
+    GROUP::runTest(test);
 
     test.stop();
 

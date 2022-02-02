@@ -53,7 +53,7 @@ public:
                 drawShape(s);
             }
         } else {
-            TCPClient *client = TCPClient::getInstance();
+            Client *client = TCPClient::getInstance();
             client->send(shape->serialize(false)->toString());
         }
     }

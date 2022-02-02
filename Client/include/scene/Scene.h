@@ -90,13 +90,20 @@ public:
     };
 
     void add(Shape *shape) {
-        shapes.push_back(shape);
+        shapes.push_back(shape->clone());
     }
 
     virtual void draw(const DrawVisitor &visitor) const {
         visitor.drawScene(this);
     }
 
+    /**
+     * Retourne la forme de la scene qui a comme identifiant `id`.
+     * On cherche récursivement dans les groupes.
+     *
+     * @param id L'identifiant de la forme qu'on veut récupérer
+     * @return La forme qui à l'identifiant recherché, ou nullptr si aucune forme ne correspond
+     */
     Shape *getShapeById(int id) {
         for (Shape *shape: shapes) {
             if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {

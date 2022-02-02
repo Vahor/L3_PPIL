@@ -99,3 +99,14 @@ ostream &operator<<(ostream &os, const Shape &shape) {
     os << shape.toString();
     return os;
 }
+void Shape::setGroup(ShapeGroup *v) {
+    if (group != nullptr)
+        group->removeShape(this);
+    this->group = v;
+}
+bool Shape::operator==(const Shape &rhs) const {
+    return id == rhs.id;
+}
+bool Shape::operator!=(const Shape &rhs) const {
+    return !(rhs == *this);
+}

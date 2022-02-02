@@ -66,6 +66,10 @@ public:
         return new ShapeGroup(*this);
     }
 
+    size_t size() const {
+        return elements.size();
+    }
+
     Point2D *getCenter() const override {
         auto count = (double) elements.size();
         double sumX = 0;

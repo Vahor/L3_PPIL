@@ -21,7 +21,6 @@ public:
     DataArray() = default;
 
     DataArray(const DataArray &copy) {
-        //cout << "copy ADataArray" << endl;
         for (const auto &it: copy.elements) { add(it); }
     }
 

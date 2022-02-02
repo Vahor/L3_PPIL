@@ -36,7 +36,7 @@ public:
         }
 
         data.put("points", pointsArray);
-        object->put("POLYGON", data);
+        object->put("TRIANGLE", data);
 
         return object;
     }
@@ -58,16 +58,13 @@ public:
     }
 
     Point2D *getCenter() const override {
-//        double sumX = 0;
-//        double sumY = 0;
-//        auto size = (double) points.size();
-//        for (Point2D *point: points) {
-//            sumX += point->getX();
-//            sumY += point->getY();
-//        }
-//        return new Point2D(sumX / size, sumY / size);
-        return nullptr;
-        // todo center triangles
+        double sumX = 0;
+        double sumY = 0;
+        for (Point2D *point: points) {
+            sumX += point->getX();
+            sumY += point->getY();
+        }
+        return new Point2D(sumX / 3, sumY / 3);
     }
 
     double getArea() const override {
@@ -83,7 +80,10 @@ public:
     }
 
     void scale(double scale) override {
-        // todo
+        for (Point2D *point: points) {
+            point->setY(point->getY() * scale);
+            point->setX(point->getX() * scale);
+        }
     }
 
     void translate(double x, double y) override {
