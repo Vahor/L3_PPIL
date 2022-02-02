@@ -138,11 +138,86 @@ void textTest() {
     //SceneDao::getInstance()->save("textTest.json", &scene);
 }
 
+void dvdTest() {
+
+    Scene scene;
+    int width = 500;
+    int width_2 = width / 2;
+    int height = 250;
+    int height_2 = height / 2;
+
+    scene.setWidth(width);
+    scene.setHeight(height);
+    scene.setName("DVD Animation Test");
+
+    ShapeGroup DVD;
+
+    double rectangleHeight = 20;
+    double rectangleWidth = 40;
+    double fontSize = 20;
+
+    Text text({(-fontSize / 2), (-fontSize / 2)}, (int) fontSize, "DVD");
+    text.setColor(Color::WHITE);
+
+    Polygon rectangle;
+
+    rectangle.addPoint({-rectangleWidth, -rectangleHeight});
+    rectangle.addPoint({-rectangleWidth, rectangleHeight});
+    rectangle.addPoint({rectangleWidth, rectangleHeight});
+    rectangle.addPoint({rectangleWidth, -rectangleHeight});
+    rectangle.setColor(Color::BLACK);
+
+    DVD.addShape(&rectangle);
+    //DVD.addShape(&text);
+
+    scene.add(&DVD);
+
+    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
+
+    double speed = 5;
+    double motX = 1;
+    double motY = 1;
+
+    while (true) {
+        scene.draw(visitor);
+
+        Point2D *currentPosition = DVD.getCenter();
+        int currentX = currentPosition->getX();
+        int currentY = currentPosition->getY();
+
+        bool changeColor = false;
+
+        if ((currentX - rectangleWidth) <= -width_2 || (currentX + rectangleWidth) >= width_2) {
+            motX = -motX;
+            changeColor = true;
+        }
+
+        if ((currentY - rectangleHeight) <= -height_2 || (currentY + rectangleHeight) >= height_2) {
+            motY = -motY;
+            changeColor = true;
+        }
+
+        if (changeColor) {
+            double r = rand() % 255;
+            double g = rand() % 255;
+            double b = rand() % 255;
+            DVD.setColor(new Color(r, g, b, 255));
+        }
+
+        DVD.translate(motX * speed, motY * speed);
+
+        visitor.setReset(true);
+        usleep(100 * 1000);
+    }
+
+
+}
+
 int main() {
 
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
-    solar();
+    dvdTest();
 
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");

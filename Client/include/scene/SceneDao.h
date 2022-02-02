@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "dao/Dao.h"
 #include "scene/Scene.h"
 #include "data/json/JsonParser.h"
 #include <fstream>
@@ -19,7 +18,7 @@
 #include "meta/handler/BorderColorHandler.h"
 #include "meta/handler/IdHandler.h"
 
-class SceneDao : public Dao<Scene, string> {
+class SceneDao {
 
     Parser *parser = nullptr;
     Handler<DataObject, Shape *> *shapeHandler = nullptr;
@@ -77,7 +76,7 @@ public:
      * @return La scene correspondante si elle existe.
      *  nullptr sinon
      */
-    Scene *get(string path) override {
+    Scene *get(string path) {
         fstream inputFile = getFileStream(path, ios::in);
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
@@ -98,7 +97,7 @@ public:
      * @param path Chemin vers le fichier à sauvegarder
      * @param data Donnés à sauvegarder
      */
-    void save(string path, Scene *data) override {
+    void save(string path, Scene *data) {
         fstream inputFile = getFileStream(path, ios::out);
         inputFile << data->serialize(true)->toString();
         inputFile.close();

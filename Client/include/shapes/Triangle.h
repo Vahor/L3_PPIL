@@ -24,14 +24,14 @@ public:
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();
 
-        auto *data = new DataObject();
-        auto *pointsArray = new DataArray();
+        auto data = DataObject();
+        auto pointsArray = DataArray();
 
         for (Point2D *point: points) {
-            pointsArray->add(point->serialize());
+            pointsArray.add(point->serialize());
         }
 
-        data->put("points", pointsArray);
+        data.put("points", pointsArray);
         object->put("POLYGON", data);
 
         return object;

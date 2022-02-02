@@ -21,9 +21,6 @@ public:
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
 
-        // todo : Suivre ce principe pour les autres packets
-        //  Comme on utilise un clone on n'a pas besoin de faire un pointeur
-
         auto init = DataObject();
         init.put("framework", DataPrimitive(framework));
         init.put("width", DataPrimitive(width));

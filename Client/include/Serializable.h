@@ -24,7 +24,6 @@ public:
      * @param ignoreGroup false pour que les propriétés du groupe écrasent les propriétés de l'objet
      */
     virtual DataElement *serialize(bool ignoreGroup) const {
-        DataElement *element = serialize0(ignoreGroup);
-        return element;
+        return serialize0(ignoreGroup);
     };
 };

@@ -38,10 +38,10 @@ public:
         auto *object = new DataObject();
 
         auto *data = new DataObject();
-        auto *items = new DataArray();
+        auto items = DataArray();
 
         for (Shape *shape: elements) {
-            items->add(shape->serialize(ignoreGroup));
+            items.add(shape->serialize(ignoreGroup));
         }
 
         data->put("items", items);

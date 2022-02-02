@@ -80,8 +80,7 @@ string Shape::getMetaString() const {
     if (group)
         res += "group=" + to_string(group->getId()) + ",";
 
-    if (res.length() > 5)
-        res.pop_back(); // On retire la dernière virgule
+    res.pop_back(); // On retire la dernière virgule
 
     res += "]";
 
