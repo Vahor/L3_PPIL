@@ -12,7 +12,7 @@ DataElement *Triangle::toDataElement0(bool ignoreGroup) const {
     auto pointsArray = DataArray();
 
     for (Point2D *point: points) {
-        pointsArray.add(point->serialize());
+        pointsArray.add(point->toDataElement(ignoreGroup));
     }
 
     data.put("points", pointsArray);

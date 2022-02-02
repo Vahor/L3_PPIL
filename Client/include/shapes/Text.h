@@ -12,7 +12,7 @@
 class Text : public Shape {
 
     Point2D position;
-    double size;
+    int size;
     string value;
     double radians;
 
@@ -34,11 +34,11 @@ public:
     DataElement *toDataElement0(bool ignoreGroup) const override {
         auto *object = new DataObject();
 
-        auto *data = new DataObject();
-        data->put("position", position.serialize());
-        data->put("size", DataPrimitive(size));
-        data->put("value", DataPrimitive(value));
-        data->put("radians", DataPrimitive(radians));
+        auto data = DataObject();
+        data.put("position", position.toDataElement(ignoreGroup));
+        data.put("size", DataPrimitive(size));
+        data.put("value", DataPrimitive(value));
+        data.put("radians", DataPrimitive(radians));
 
         object->put("TEXT", data);
 
@@ -75,7 +75,7 @@ public:
     }
 
     void scale(double scale) override {
-        size *= scale;
+        size = (int) (size * scale);
     }
 
     void translate(double x, double y) override {

@@ -77,14 +77,9 @@ void solar() {
     while (true) {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
-        everything.scale(scale ? 2 : .5);
+        everything.scale(-1);
+        //everything.scale(scale ? 2 : .5);
         everything.rotate({0, 0}, rad);
-        for (auto shape: earthGroup) {
-            double r = rand() % 255;
-            double g = rand() % 255;
-            double b = rand() % 255;
-            shape->setColor(new Color(r, g, b, 255));
-        }
 
         visitor.setReset(true);
         usleep(500 * 1000);
@@ -217,7 +212,7 @@ int main() {
 
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
-    dvdTest();
+    solar();
 
     Cli *cli = Cli::getInstance();
     cli->setPrefix("\033[32mtruc > \033[37m");

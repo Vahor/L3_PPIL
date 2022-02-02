@@ -63,12 +63,42 @@ public:
     bool isInGroup() const { return group != nullptr; }
     int getId() const { return id; }
 
+    /**
+     * Applique une transformation d'agrandissement sur la forme
+     * Ne prend pas en compte les distances, seul les distances internes à la formes sont modifiées.
+     * <br/>
+     * Une valeur négative applique un effet miroir sur la forme.
+     *
+     * @param scale Facteur d'agrandissement de la forme.
+     */
     virtual void scale(double scale) = 0;
+
+    /**
+     * Décale la forme de {x} sur l'axe x et {y} sur l'axe y.
+     *
+     * @param x Offset for the x coordinate
+     * @param y Offset for the y coordinate
+     */
     virtual void translate(double x, double y) = 0;
+
     void rotateSelf(double radians) { rotate(*getCenter(), radians); }
+
+    /**
+     * Applique une rotation de la forme d'un angle de {radians} radians.
+     * Par rapport au point {center}
+     *
+     * @param center Point d'ancrage pour la rotation
+     * @param radians Angle de rotation
+     */
     virtual void rotate(const Point2D &center, double radians) = 0;
 
 
+    /**
+     * Retourne l'aire de la forme.
+     * Ne prend pas en compte les superpositions de formes
+     *
+     * @return aire de la forme
+     */
     virtual double getArea() const = 0;
 
     friend ostream &operator<<(ostream &os, const Shape &shape);

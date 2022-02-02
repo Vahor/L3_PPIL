@@ -8,7 +8,7 @@
 #include "data/DataObject.h"
 #include "data/DataPrimitive.h"
 
-class Point2D {
+class Point2D : public Serializable {
 
     double x;
     double y;
@@ -17,7 +17,7 @@ public:
 
     Point2D(double x, double y) : x(x), y(y) {}
 
-    DataElement *serialize() const {
+    DataElement *toDataElement0(bool _) const override {
         auto *object = new DataObject();
         object->put("x", DataPrimitive(x));
         object->put("y", DataPrimitive(y));
