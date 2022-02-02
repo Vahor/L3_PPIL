@@ -29,7 +29,7 @@ public:
         return new Triangle(*this);
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override;
+    DataElement *toDataElement0(bool ignoreGroup) const override;
     string toString() const override;
     Point2D *getCenter() const override;
 

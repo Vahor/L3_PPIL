@@ -56,7 +56,9 @@ public:
         Scene *scene = sceneDao->get("scene1.json");
         Scene *sceneClone = scene->clone();
 
-        string fromCode = testScene.serialize(false)->toString();
+        Parser *parser = SceneDao::getInstance()->getParser();
+
+        string fromCode = testScene.toDataElement(false)->serialize(*parser);
 
         Scene testGroupScene;
         testGroupScene.setName("testGroup");
@@ -87,24 +89,29 @@ public:
 //
 //        cout << text << endl;
 
+
+
 //        cout << testScene.serialize(false)->toString() << endl;
-//        cout << scene->serialize(false)->toString() << endl;
-//        cout << fromCode << endl;
+        //cout << scene->toDataElement(false)->serialize(*parser) << endl;
+        //cout << fromCode << endl;
 
         // cout << groupLoad->serialize(true)->toString() << endl;
         // cout << testGroupScene.serialize(false)->toString() << endl;
         // cout << groupLoad->serialize(false)->toString() << endl;
 
-        test.assertTrue(scene->serialize(false)->toString().length() == fromCode.length(),
+
+        test.assertTrue(scene->toDataElement(false)->serialize(*parser).length() == fromCode.length(),
                         "Load");
         test.assertTrue(
-                sceneClone->serialize(false)->toString().length() == scene->serialize(false)->toString().length(),
+                sceneClone->toDataElement(false)->serialize(*parser).length() ==
+                scene->toDataElement(false)->serialize(*parser).length(),
                 "Clone");
-        test.assertTrue(groupLoad->serialize(false)->toString().length() ==
-                        testGroupScene.serialize(false)->toString().length(),
+        test.assertTrue(groupLoad->toDataElement(false)->serialize(*parser).length() ==
+                        testGroupScene.toDataElement(false)->serialize(*parser).length(),
                         "Group Load");
         test.assertTrue(
-                groupLoad->serialize(true)->toString().length() == testGroupScene.serialize(true)->toString().length(),
+                groupLoad->toDataElement(true)->serialize(*parser).length() ==
+                testGroupScene.toDataElement(true)->serialize(*parser).length(),
                 "Group ignore Load");
     }
 };

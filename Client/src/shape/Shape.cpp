@@ -86,8 +86,8 @@ string Shape::getMetaString() const {
 
     return res;
 }
-DataElement *Shape::serialize(bool ignoreGroup) const {
-    DataElement *element = serialize0(ignoreGroup);
+DataElement *Shape::toDataElement(bool ignoreGroup) const {
+    DataElement *element = toDataElement0(ignoreGroup);
 
     addMetaData(element->getAsObject(), ignoreGroup);
     return element;

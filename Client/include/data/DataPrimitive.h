@@ -39,6 +39,7 @@ public:
     const string &getAsString() const { return value; }
 
     string toString() const override;
+    string serialize(const Parser &parser) const override;
 };
 
 

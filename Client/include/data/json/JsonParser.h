@@ -26,9 +26,9 @@ public:
         return "json";
     }
 
-    string toString(const DataObject *object) const override;
-    string toString(const DataArray *array) const override;
-    string toString(const DataPrimitive *primitive) const override;
+    string serialize(const DataObject *object) const override;
+    string serialize(const DataArray *array) const override;
+    string serialize(const DataPrimitive *primitive) const override;
 
 };
 

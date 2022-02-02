@@ -30,7 +30,7 @@ public:
 
         DataElement *object = parser.parse(s);
         test.assertTrue(object != nullptr, "Not null");
-        test.assertTrue(object->toString() == s, "Equals");
+        test.assertTrue(object->serialize(parser) == s, "Equals");
     }
 };
 

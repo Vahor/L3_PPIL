@@ -4,14 +4,14 @@
 
 #include "shapes/ShapeGroup.h"
 
-DataElement *ShapeGroup::serialize0(bool ignoreGroup) const {
+DataElement *ShapeGroup::toDataElement0(bool ignoreGroup) const {
     auto *object = new DataObject();
 
     auto data = DataObject();
     auto items = DataArray();
 
     for (Shape *shape: elements) {
-        items.add(shape->serialize(ignoreGroup));
+        items.add(shape->toDataElement(ignoreGroup));
     }
 
     data.put("items", items);

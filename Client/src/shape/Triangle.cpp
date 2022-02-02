@@ -5,7 +5,7 @@
 
 #include "shapes/Triangle.h"
 
-DataElement *Triangle::serialize0(bool ignoreGroup) const {
+DataElement *Triangle::toDataElement0(bool ignoreGroup) const {
     auto *object = new DataObject();
 
     auto data = DataObject();

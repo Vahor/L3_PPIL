@@ -8,6 +8,8 @@ bool TCPClient::send(const string &data) const {
     string packet = data;
     packet += "\n";
 
+    cout << packet << endl;
+
     if (::send(sock, packet.c_str(), strlen(packet.c_str()), 0) < 0) {
         cerr << "Send failed : " << packet << endl;
         return false;

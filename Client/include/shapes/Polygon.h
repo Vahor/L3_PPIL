@@ -36,7 +36,7 @@ public:
         points.erase(std::find(points.begin(), points.end(), point));
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override;
+    DataElement *toDataElement0(bool ignoreGroup) const override;
     string toString() const override;
 
     Point2D *getCenter() const override;

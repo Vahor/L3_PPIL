@@ -54,7 +54,10 @@ public:
             }
         } else {
             Client *client = TCPClient::getInstance();
-            client->send(shape->serialize(false)->toString());
+            DataElement *element = shape->toDataElement(false);
+            client->send(element->serialize(*SceneDao::getInstance()->getParser()));
+
+            delete element;
         }
     }
 };

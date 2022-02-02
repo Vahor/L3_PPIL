@@ -28,7 +28,7 @@ class SceneDao {
     static fstream getFileStream(string &path, ios_base::openmode mode) {
         fstream inputFile(path, mode);
         if (!inputFile.is_open()) {
-            throw std::runtime_error("Le fichier " + path + " n'existe pas");
+            throw std::runtime_error("File not found : " + path);
         }
         return inputFile;
     }
@@ -99,7 +99,7 @@ public:
      */
     void save(string path, Scene *data) {
         fstream inputFile = getFileStream(path, ios::out);
-        inputFile << data->serialize(true)->toString();
+        inputFile << data->toDataElement(true)->serialize(*parser);
         inputFile.close();
     }
 

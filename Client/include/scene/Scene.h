@@ -68,7 +68,7 @@ public:
         return new Scene(*this);
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
+    DataElement *toDataElement0(bool ignoreGroup) const override {
 
         auto *object = new DataObject();
 
@@ -80,7 +80,7 @@ public:
 
         auto items = DataArray();
         for (auto &shape: shapes) {
-            items.add(shape->serialize(ignoreGroup));
+            items.add(shape->toDataElement(ignoreGroup));
         }
 
         object->put("window", window);

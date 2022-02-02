@@ -102,13 +102,13 @@ pair<DataObject *, int> JsonParser::parseObject(string input) {
 }
 
 
-string JsonParser::toString(const DataObject *object) const {
+string JsonParser::serialize(const DataObject *object) const {
     string res = "{";
 
     for (const auto &it: object->getChildren()) {
         DataElement *element = it.second;
         res += '"' + it.first + "\":";
-        res += element->toString();
+        res += element->serialize(*this);
 
         res += ",";
     }
@@ -120,12 +120,12 @@ string JsonParser::toString(const DataObject *object) const {
     return res;
 }
 
-string JsonParser::toString(const DataArray *array) const {
+string JsonParser::serialize(const DataArray *array) const {
     string res = "[";
 
     for (auto it: *array) {
         DataElement *element = it;
-        res += element->toString();
+        res += element->serialize(*this);
 
         res += ",";
     }
@@ -138,6 +138,6 @@ string JsonParser::toString(const DataArray *array) const {
     return res;
 }
 
-string JsonParser::toString(const DataPrimitive *primitive) const {
+string JsonParser::serialize(const DataPrimitive *primitive) const {
     return '"' + primitive->getAsString() + '"';
 }

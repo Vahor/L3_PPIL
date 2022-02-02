@@ -4,7 +4,7 @@
 
 #include "shapes/Circle.h"
 
-DataElement *Circle::serialize0(bool ignoreGroup) const {
+DataElement *Circle::toDataElement0(bool ignoreGroup) const {
     auto *object = new DataObject();
 
     auto data = DataObject();

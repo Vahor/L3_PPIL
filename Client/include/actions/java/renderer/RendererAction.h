@@ -15,7 +15,7 @@ protected:
 public:
 
     void execute() const override {
-        TCPClient *client = TCPClient::getInstance();
+        Client *client = TCPClient::getInstance();
 
         auto object = DataObject();
         auto data = DataObject();
@@ -24,7 +24,7 @@ public:
         data.put("meta", meta);
         object.put("WINDOW", data);
 
-        client->send(object.toString());
+        client->send(object.serialize(*SceneDao::getInstance()->getParser()));
 
         delete meta;
     }

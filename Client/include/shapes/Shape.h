@@ -44,7 +44,7 @@ public:
 
     virtual ~Shape();
 
-    DataElement *serialize(bool ignoreGroup) const override;
+    DataElement *toDataElement(bool ignoreGroup) const override;
 
     virtual void draw(const DrawVisitor &visitor) const;
 

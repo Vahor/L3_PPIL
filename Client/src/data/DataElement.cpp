@@ -8,18 +8,6 @@
 #include "scene/SceneDao.h"
 
 
-string DataArray::toString() const {
-    return SceneDao::getInstance()->getParser()->toString(this);
-}
-
-string DataObject::toString() const {
-    return SceneDao::getInstance()->getParser()->toString(this);
-}
-
-string DataPrimitive::toString() const {
-    return SceneDao::getInstance()->getParser()->toString(this);
-}
-
 DataObject *DataElement::getAsObject() const {
     return (DataObject *) this;
 }

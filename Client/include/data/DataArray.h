@@ -38,6 +38,7 @@ public:
     }
 
     string toString() const override;
+    string serialize(const Parser &parser) const override;
 
 
     auto begin() { return &elements[0]; }

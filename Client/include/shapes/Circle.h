@@ -29,7 +29,7 @@ public:
         return new Circle(*this);
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override;
+    DataElement *toDataElement0(bool ignoreGroup) const override;
 
     string toString() const override {
         return "Circle[position=" + position.toString() +

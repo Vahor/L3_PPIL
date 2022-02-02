@@ -34,7 +34,7 @@ public:
         elements.erase(std::find(elements.begin(), elements.end(), shape));
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override;
+    DataElement *toDataElement0(bool ignoreGroup) const override;
 
     string toString() const override {
         string res = "ShapeGroup[items=[";

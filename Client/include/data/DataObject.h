@@ -48,6 +48,7 @@ public:
     }
 
     string toString() const override;
+    string serialize(const Parser &parser) const override;
 
     const map<string, DataElement *> &getChildren() const {
         return children;

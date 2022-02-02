@@ -4,7 +4,7 @@
 
 #include "shapes/Polygon.h"
 
-DataElement *Polygon::serialize0(bool ignoreGroup) const {
+DataElement *Polygon::toDataElement0(bool ignoreGroup) const {
     auto *object = new DataObject();
 
     auto data = DataObject();

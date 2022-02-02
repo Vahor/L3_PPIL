@@ -25,7 +25,6 @@ void SimpleTest::stop() const {
     cout << "Total: " << n << endl;
     cout << "Pass/Total: " << pass << "/" << n << " (" << calculate_percent(pass, n) << "%)" << endl;
     cout << "Fail/Total: " << fail << "/" << n << " (" << calculate_percent(fail, n) << "%)" << endl;
-    if (fail == 0) cout << "All tests passed!" << std::endl;
     separator();
 } // end
 

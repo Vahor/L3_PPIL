@@ -31,7 +31,7 @@ public:
         }
     }
 
-    DataElement *serialize0(bool ignoreGroup) const override {
+    DataElement *toDataElement0(bool ignoreGroup) const override {
         auto *object = new DataObject();
 
         auto *data = new DataObject();
