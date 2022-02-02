@@ -1,16 +1,16 @@
 //
-// Created by Nathan David on 02/12/2021.
+// Created by Nathan David on 02/02/2022.
 //
-#pragma once
 
+#pragma once
 
 #include "data/DataPrimitive.h"
 #include "data/DataObject.h"
 #include "data/DataArray.h"
-#include "data/json/JsonToken.h"
 #include "data/Parser.h"
 
-class JsonParser : public Parser {
+
+class XMLParser : public Parser {
 
     static pair<DataArray, int> parseArray(string input);
 
@@ -19,18 +19,15 @@ class JsonParser : public Parser {
 public:
 
     DataObject parse(const string &input) const override {
-        return parseObject(input.substr(1)).first;  // racine à JsonObject de base
+        return parseObject(input).first;  // racine à JsonObject de base
     }
 
     string supportedExtensions() const override {
-        return "json";
+        return "xml";
     }
 
     string serialize(const DataObject *object) const override;
     string serialize(const DataArray *array) const override;
     string serialize(const DataPrimitive *primitive) const override;
-
 };
-
-
 

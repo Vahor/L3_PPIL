@@ -16,9 +16,9 @@ protected:
 
 public:
 
-    DataObject() = default;
+    DataObject() : DataElement("object") {}
 
-    explicit DataObject(const DataObject *copy) {
+    explicit DataObject(const DataObject *copy) : DataElement("object") {
         for (const auto &it: copy->children) { put(it.first, it.second); }
     }
 
@@ -26,7 +26,7 @@ public:
         return new DataObject(*this);
     }
 
-    virtual ~DataObject() {
+    ~DataObject() override {
         children.clear();
     }
 
@@ -35,12 +35,14 @@ public:
     }
 
     void put(const string &key, const DataElement &element) {
-        children[key] = element.clone();
+        DataElement *clone = element.clone();
+        clone->setParent(this);
+        children[key] = clone;
     }
 
     void put(const string &key, const DataElement *element) {
         if (element == nullptr) return;
-        children[key] = element->clone();
+        put(key, *element);
     }
 
     DataElement *get(const string &key) const {

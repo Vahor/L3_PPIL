@@ -28,9 +28,8 @@ public:
 
     static void testString(SimpleTest &test, JsonParser &parser, const string &s) {
 
-        DataElement *object = parser.parse(s);
-        test.assertTrue(object != nullptr, "Not null");
-        test.assertTrue(object->serialize(parser) == s, "Equals");
+        DataObject object = parser.parse(s);
+        test.assertTrue(object.serialize(parser) == s, "Equals");
     }
 };
 

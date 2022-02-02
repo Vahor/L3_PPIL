@@ -5,8 +5,8 @@
 #include "data/json/JsonParser.h"
 
 
-pair<DataArray *, int> JsonParser::parseArray(string input) {
-    auto *array = new DataArray;
+pair<DataArray, int> JsonParser::parseArray(string input) {
+    auto array = DataArray();
     Token token;
     unsigned long length = input.length();
     do {
@@ -19,15 +19,15 @@ pair<DataArray *, int> JsonParser::parseArray(string input) {
 
         switch (token.type) {
             case TOKEN::STRING: {
-                array->add(new DataPrimitive(token.value));
+                array.add(DataPrimitive(token.value));
                 input = input.substr(token.position); // On avance à la fin de la valeur
                 break;
             }
             case TOKEN::CURLY_OPEN: {
                 input = input.substr(
                         JsonToken::getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
-                pair<DataObject *, int> res = parseObject(input);
-                array->add(res.first);
+                pair<DataObject, int> res = parseObject(input);
+                array.add(res.first);
                 input = input.substr(res.second + 1); // On avance à la fin de l'objet
 
                 break;
@@ -35,8 +35,8 @@ pair<DataArray *, int> JsonParser::parseArray(string input) {
             case TOKEN::ARRAY_OPEN: {
                 input = input.substr(
                         JsonToken::getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
-                pair<DataArray *, int> res = parseArray(input);
-                array->add(res.first);
+                pair<DataArray, int> res = parseArray(input);
+                array.add(res.first);
                 input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                 break;
@@ -50,8 +50,8 @@ pair<DataArray *, int> JsonParser::parseArray(string input) {
     return {array, length - input.length()};
 }
 
-pair<DataObject *, int> JsonParser::parseObject(string input) {
-    auto *object = new DataObject();
+pair<DataObject, int> JsonParser::parseObject(string input) {
+    auto object = DataObject();
     Token token;
     unsigned long length = input.length();
     do {
@@ -69,15 +69,15 @@ pair<DataObject *, int> JsonParser::parseObject(string input) {
 
         switch (token.type) {
             case TOKEN::STRING: {
-                object->put(key, new DataPrimitive(token.value));
+                object.put(key, DataPrimitive(token.value));
                 input = input.substr(token.position); // On avance à la fin de la valeur
                 break;
             }
             case TOKEN::CURLY_OPEN: {
                 input = input.substr(
                         JsonToken::getNextTokenPosition(input, '{') + 1); // On avance au début de ce token
-                pair<DataObject *, int> res = parseObject(input);
-                object->put(key, res.first);
+                pair<DataObject, int> res = parseObject(input);
+                object.put(key, res.first);
                 input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                 break;
@@ -85,8 +85,8 @@ pair<DataObject *, int> JsonParser::parseObject(string input) {
             case TOKEN::ARRAY_OPEN: {
                 input = input.substr(
                         JsonToken::getNextTokenPosition(input, '[') + 1); // On avance au début de ce token
-                pair<DataArray *, int> res = parseArray(input);
-                object->put(key, res.first);
+                pair<DataArray, int> res = parseArray(input);
+                object.put(key, res.first);
                 input = input.substr(res.second + 1); // On avance à la fin de la liste
 
                 break;

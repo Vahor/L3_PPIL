@@ -8,7 +8,7 @@
 class Parser {
 
 public:
-    virtual DataObject *parse(string input) const = 0;
+    virtual DataObject parse(const string &input) const = 0;
     virtual string supportedExtensions() const = 0;
 
     virtual string serialize(const DataObject *object) const = 0;

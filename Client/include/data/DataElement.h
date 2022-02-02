@@ -5,6 +5,7 @@
 
 #include <string>
 #include <ostream>
+#include <utility>
 
 class DataObject;
 
@@ -18,7 +19,12 @@ using std::string;
 
 class DataElement {
 
+    string type;
+    DataElement *parent = nullptr;
+
 public:
+
+    explicit DataElement(string type) : type(std::move(type)) {}
 
     virtual DataElement *clone() const = 0;
 
@@ -27,6 +33,11 @@ public:
     virtual DataObject *getAsObject() const;
     virtual DataArray *getAsArray() const;
     virtual DataPrimitive *getAsPrimitive() const;
+
+    string getType() const { return type; }
+
+    DataElement *getParent() const { return parent; }
+    void setParent(DataElement *p) { this->parent = p; }
 
     virtual string serialize(const Parser &parser) const = 0;
     virtual string toString() const = 0;

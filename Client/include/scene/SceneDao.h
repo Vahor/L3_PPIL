@@ -6,6 +6,7 @@
 
 #include "scene/Scene.h"
 #include "data/json/JsonParser.h"
+#include "data/xml/XMLParser.h"
 #include <fstream>
 
 #include "shapes/Shape.h"
@@ -80,9 +81,9 @@ public:
         fstream inputFile = getFileStream(path, ios::in);
         string jsonFile = string((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
-        DataObject *object = parser->parse(jsonFile);
+        DataObject object = parser->parse(jsonFile);
         inputFile.close();
-        Scene *scene = get(*object);
+        Scene *scene = get(object);
         return scene;
     }
 
@@ -115,6 +116,8 @@ public:
         // un simple if else est suffisant ici
         if (format == "json") {
             parser = new JsonParser();
+        } else if (format == "xml") {
+            parser = new XMLParser();
         } else {
             throw std::runtime_error("Unknown format '" + format + "'");
         }

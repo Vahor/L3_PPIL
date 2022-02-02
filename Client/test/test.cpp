@@ -6,6 +6,7 @@
 #include "./tests/LOAD_SCENE.h"
 #include "./tests/MATH_SCENE.h"
 #include "./tests/JSON_PARSER.h"
+#include "./tests/XML_PARSER.h"
 #include "./tests/SCALE_SHAPES.h"
 #include "./tests/CIRCLE.h"
 #include "./tests/TEXT.h"
@@ -24,6 +25,7 @@ int main() {
     TEXT::runTest(test);
     TRIANGLE::runTest(test);
     GROUP::runTest(test);
+    XML_PARSER::runTest(test);
 
     test.stop();
 

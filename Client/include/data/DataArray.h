@@ -18,13 +18,13 @@ protected:
 
 public:
 
-    DataArray() = default;
+    DataArray() : DataElement("array") {}
 
-    DataArray(const DataArray &copy) {
+    DataArray(const DataArray &copy) : DataElement("array") {
         for (const auto &it: copy.elements) { add(it); }
     }
 
-    virtual ~DataArray() {
+    ~DataArray() override {
         elements.clear();
         // todo
     }
@@ -33,8 +33,14 @@ public:
         return new DataArray(*this);
     }
 
+    void add(const DataElement &element) {
+        DataElement *clone = element.clone();
+        clone->setParent(this);
+        elements.push_back(clone);
+    }
+
     void add(DataElement *element) {
-        elements.push_back(element->clone());
+        add(*element);
     }
 
     string toString() const override;
