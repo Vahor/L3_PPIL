@@ -8,7 +8,7 @@
 #include "Color.h"
 #include "handler/Handler.h"
 #include "Point2D.h"
-#include "actions/Visitor.h"
+#include "actions/DrawVisitor.h"
 
 using namespace std;
 
@@ -46,7 +46,7 @@ public:
 
     DataElement *serialize(bool ignoreGroup) const override;
 
-    virtual void draw(const Visitor &visitor) const;
+    virtual void draw(const DrawVisitor &visitor) const;
 
     // setters
     void setColor(Color *v) { this->color = v; }

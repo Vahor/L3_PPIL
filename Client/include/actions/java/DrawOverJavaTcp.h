@@ -16,7 +16,7 @@
 #include "actions/java/renderer/DisposeRendererAction.h"
 #include "actions/java/renderer/ResetRendererAction.h"
 
-class DrawOverJavaTcp : public Visitor {
+class DrawOverJavaTcp : public DrawVisitor {
 
     string framework;
     bool reset;

@@ -19,7 +19,11 @@ public:
 
     Triangle(Point2D *a,
              Point2D *b,
-             Point2D *c) : points{a, b, c} {}
+             Point2D *c) : points{a, b, c} {
+        if (a == nullptr || b == nullptr || c == nullptr) {
+            throw std::invalid_argument("All points must be non-null.");
+        }
+    }
 
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();

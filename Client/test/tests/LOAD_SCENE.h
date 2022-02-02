@@ -69,7 +69,6 @@ public:
         group.addShape(circle2);
         group.setColor(Color::BLUE);
         testGroupScene.add(&group);
-        cout << group.toString() << endl;
 
         sceneDao->save("scene2.json", &testGroupScene);
         Scene *groupLoad = sceneDao->get("scene2.json");
@@ -92,9 +91,9 @@ public:
 //        cout << scene->serialize(false)->toString() << endl;
 //        cout << fromCode << endl;
 
-        cout << groupLoad->serialize(true)->toString() << endl;
-        cout << testGroupScene.serialize(false)->toString() << endl;
-        cout << groupLoad->serialize(false)->toString() << endl;
+        // cout << groupLoad->serialize(true)->toString() << endl;
+        // cout << testGroupScene.serialize(false)->toString() << endl;
+        // cout << groupLoad->serialize(false)->toString() << endl;
 
         test.assertTrue(scene->serialize(false)->toString().length() == fromCode.length(),
                         "Load");

@@ -35,18 +35,6 @@ public:
 
             test.assertTrue(previousArea == polygon.getArea(), "Polygon Scale 2 => .5 Keep area");
         }
-
-
-        // Circle
-        {
-            Circle circle(Point2D(0, 0), 20);
-
-            double previousArea = circle.getArea();
-            circle.scale(2);
-            circle.scale(.5);
-
-            test.assertTrue(previousArea == circle.getArea(), "Circle Scale 2 => .5 Keep area");
-        }
     }
 };
 

@@ -19,7 +19,11 @@ public:
     Circle(Point2D position, double diameter) :
             position(std::move(position)),
             diameter(diameter),
-            Shape() {}
+            Shape() {
+        if (diameter < 0) {
+            throw std::invalid_argument("Invalid diameter, negative value received.");
+        }
+    }
 
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();

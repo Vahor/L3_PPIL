@@ -25,7 +25,11 @@ public:
             size(size),
             value(std::move(value)),
             radians(radians),
-            Shape() {}
+            Shape() {
+        if (size < 0) {
+            throw std::invalid_argument("Invalid size, negative value received.");
+        }
+    }
 
     DataElement *serialize0(bool ignoreGroup) const override {
         auto *object = new DataObject();

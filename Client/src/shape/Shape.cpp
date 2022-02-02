@@ -92,7 +92,7 @@ DataElement *Shape::serialize(bool ignoreGroup) const {
     addMetaData(element->getAsObject(), ignoreGroup);
     return element;
 }
-void Shape::draw(const Visitor &visitor) const {
+void Shape::draw(const DrawVisitor &visitor) const {
     visitor.drawShape(this);
 }
 ostream &operator<<(ostream &os, const Shape &shape) {

@@ -120,9 +120,15 @@ public:
         }
     }
 
-    Parser *getParser() const {
-        return parser;
-    }
+    /**
+     * Retourne le parser actuel
+     *
+     * @see SceneDao::setParser()
+     *
+     * @return null si le parser n'est pas défini.
+     *  Autrement retourne la parser actuel.
+     */
+    Parser *getParser() const { return parser; }
 
     Scene *getCurrentScene() const { return currentScene; };
     void setCurrentScene(Scene *v) { this->currentScene = v; }

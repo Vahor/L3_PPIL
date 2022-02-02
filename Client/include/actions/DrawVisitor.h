@@ -8,7 +8,7 @@ class Shape;
 
 class Scene;
 
-class Visitor {
+class DrawVisitor {
 
 public:
 

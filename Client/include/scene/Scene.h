@@ -6,7 +6,7 @@
 
 #include <string>
 #include <vector>
-#include "actions/Visitor.h"
+#include "actions/DrawVisitor.h"
 #include "handler/Handler.h"
 #include "client/Client.h"
 
@@ -93,7 +93,7 @@ public:
         shapes.push_back(shape);
     }
 
-    virtual void draw(const Visitor &visitor) const {
+    virtual void draw(const DrawVisitor &visitor) const {
         visitor.drawScene(this);
     }
 

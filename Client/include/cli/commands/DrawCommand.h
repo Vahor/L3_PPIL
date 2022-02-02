@@ -28,8 +28,8 @@ public:
 
         string framework = args[0];
 
-        Visitor *visitor = new DrawOverJavaTcp(framework);
-        scene->draw(*visitor);
+        DrawOverJavaTcp visitor(framework);
+        scene->draw(visitor);
         cout << scene->getName() << " has been drawn" << endl;
     }
 
