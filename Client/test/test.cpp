@@ -12,6 +12,7 @@
 #include "./tests/TEXT.h"
 #include "./tests/TRIANGLE.h"
 #include "./tests/GROUP.h"
+#include "./tests/LINE.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ int main() {
     TRIANGLE::runTest(test);
     GROUP::runTest(test);
     XML_PARSER::runTest(test);
+    LINE::runTest(test);
 
     test.stop();
 

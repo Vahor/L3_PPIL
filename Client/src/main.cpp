@@ -3,6 +3,7 @@
 
 #include "shapes/Circle.h"
 #include "shapes/Text.h"
+#include "shapes/Line.h"
 
 #include "scene/SceneDao.h"
 #include "scene/Scene.h"
@@ -59,6 +60,9 @@ void solar() {
     earthText.setColor(Color::BLACK);
     earthText.setAngleDeg(180);
 
+    Line line({60, 50}, {100, 100});
+    line.setColor(Color::BLACK);
+
     ShapeGroup earthGroup;
     earthGroup.addShape(&earth);
     earthGroup.addShape(&moon);
@@ -67,6 +71,7 @@ void solar() {
     ShapeGroup everything;
     everything.addShape(&earthGroup);
     everything.addShape(&sunGroup);
+    everything.addShape(&line);
 
     scene.add(&everything);
 
@@ -77,8 +82,7 @@ void solar() {
     while (true) {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
-        everything.scale(-1);
-        //everything.scale(scale ? 2 : .5);
+        everything.scale(scale ? 2 : .5);
         everything.rotate({0, 0}, rad);
 
         visitor.setReset(true);

@@ -24,7 +24,7 @@ public class PolygonHandler extends ShapeHandler {
 
         DataObject object = input.getObject().get("POLYGON").getAsObject();
 
-        Polygon polygon = new Polygon(input.getMeta());
+        Polygon polygon = new Polygon();
 
         DataArray points = object.get("points").getAsArray();
 

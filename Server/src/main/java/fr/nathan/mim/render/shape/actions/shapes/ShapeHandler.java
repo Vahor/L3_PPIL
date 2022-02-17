@@ -19,12 +19,9 @@ public abstract class ShapeHandler extends ACORHandler<ShapeHandler.Parameters, 
 
         @Getter
         private final DataObject object;
-        @Getter
-        private final Meta meta;
 
-        public Parameters(DataObject object, Meta meta) {
+        public Parameters(DataObject object) {
             this.object = object;
-            this.meta   = meta;
         }
     }
 }

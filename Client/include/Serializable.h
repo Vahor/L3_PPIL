@@ -9,14 +9,16 @@
 
 class Serializable {
 
-
-public:
+protected:
 
     /**
      * Transforme la classe actuelle en DataElement
      * @return L'objet actuel sous forme DataElement
      */
     virtual DataElement *toDataElement0(bool ignoreGroup) const = 0;
+
+public:
+
 
     /**
      * Appelle la méthode toDataElement0 et ajoute ou non les propriétés du groupe.

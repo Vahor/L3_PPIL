@@ -42,8 +42,8 @@ public:
         y = center.y + (sin(radians) * xShifted + cos(radians) * yShifted);
     }
 
-    static Point2D center(const Point2D &p1, const Point2D &p2) {
-        return {(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
+    static Point2D *center(const Point2D &p1, const Point2D &p2) {
+        return new Point2D{(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
     }
 
     virtual string toString() const {

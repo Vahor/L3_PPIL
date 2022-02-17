@@ -16,7 +16,7 @@ public class Polygon extends Shape {
     @Getter
     private final List<Point2D> points = new ArrayList<>();
 
-    public Polygon(Meta meta)           {super(meta);}
+    public Polygon()           {super();}
 
     public void addPoint(Point2D point) {points.add(point);}
 

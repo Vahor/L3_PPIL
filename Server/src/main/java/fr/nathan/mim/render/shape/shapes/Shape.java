@@ -12,7 +12,7 @@ public abstract class Shape {
 
     @Getter @Setter
     protected Meta meta;
-    protected Shape(Meta meta) {this.meta = meta;}
+    protected Shape() {}
 
     public abstract void draw(Renderable renderable);
 }

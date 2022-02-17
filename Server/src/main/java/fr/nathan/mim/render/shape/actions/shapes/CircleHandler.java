@@ -30,6 +30,6 @@ public class CircleHandler extends ShapeHandler {
         double x = position.get("x").getAsPrimitive().getAsDouble();
         double y = position.get("y").getAsPrimitive().getAsDouble();
 
-        return new Circle(new Point2D(x, y), diameter, input.getMeta());
+        return new Circle(new Point2D(x, y), diameter);
     }
 }

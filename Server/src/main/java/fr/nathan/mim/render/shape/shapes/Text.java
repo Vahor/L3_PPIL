@@ -15,8 +15,8 @@ public class Text extends Shape {
     private final String value;
     private final double radians;
 
-    public Text(Point2D center, String value, int size, double radians, Meta meta) {
-        super(meta);
+    public Text(Point2D center, String value, int size, double radians) {
+        super();
         this.center   = center;
         this.value    = value;
         this.size     = size;

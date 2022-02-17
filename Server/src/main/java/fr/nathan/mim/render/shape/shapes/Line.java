@@ -8,19 +8,19 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class Circle extends Shape {
+public class Line extends Shape {
 
-    private final double diameter;
-    private final Point2D center;
+    private final Point2D from;
+    private final Point2D to;
 
-    public Circle(Point2D center, double diameter) {
+    public Line(Point2D from, Point2D to) {
         super();
-        this.center   = center;
-        this.diameter = diameter;
+        this.from   = from;
+        this.to = to;
     }
 
     @Override
     public void draw(Renderable renderable) {
-        renderable.drawCircle(this);
+        renderable.drawLine(this);
     }
 }

@@ -66,8 +66,6 @@ public:
     /**
      * Applique une transformation d'agrandissement sur la forme
      * Ne prend pas en compte les distances, seul les distances internes à la formes sont modifiées.
-     * <br/>
-     * Une valeur négative applique un effet miroir sur la forme.
      *
      * @param scale Facteur d'agrandissement de la forme.
      */
