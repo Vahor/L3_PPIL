@@ -46,6 +46,11 @@ public:
         return new Point2D{(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
     }
 
+    void homothetie(const double k, const Point2D &point) {
+        x = k * x + (1 - k) * point.x;
+        y = k * y + (1 - k) * point.y;
+    }
+
     virtual string toString() const {
         return "(" + to_string(x) + "," + to_string(y) + ")";
     }
@@ -55,6 +60,7 @@ public:
     inline bool operator==(const Point2D &other) const {
         return x == other.x && y == other.y;
     }
+
     inline bool operator!=(const Point2D &other) const {
         return !(*this == other);
     }
@@ -64,8 +70,24 @@ public:
         return os;
     }
 
+    inline Point2D operator+(const Point2D &u) const {
+        return {x + u.x, y + u.y};
+    };
+
     inline Point2D operator-(const Point2D &u) const {
         return {x - u.x, y - u.y};
+    };
+
+    inline Point2D operator*(const Point2D &u) const {
+        return {x * u.x, y * u.y};
+    };
+
+    inline Point2D operator*(const double u) const {
+        return {x * u, y * u};
+    };
+
+    inline Point2D operator-() const {
+        return {-x, -y};
     };
 
 };

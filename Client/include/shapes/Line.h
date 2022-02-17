@@ -44,6 +44,12 @@ public:
         return 0;
     }
 
+    void zoom(const Point2D &center, double factor) override {
+        from.homothetie(factor, center);
+        to.homothetie(factor, center);
+        scale(factor);
+    }
+
     void scale(double scale) override {
         from.setX(from.getX() * scale);
         from.setY(from.getY() * scale);

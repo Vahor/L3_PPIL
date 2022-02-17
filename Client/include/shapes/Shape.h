@@ -71,6 +71,18 @@ public:
      */
     virtual void scale(double scale) = 0;
 
+
+    /**
+     * Appliqune une homothétie de la forme par rapport à un point.
+     * Correspond à une translation suivie d'une agrandissement de la forme.
+     *
+     * @param center Point invariant de la transformation
+     * @param scale Facteur d'agrandissement de la forme
+     */
+    virtual void zoom(const Point2D &center, double scale) {
+
+    };
+
     /**
      * Décale la forme de {x} sur l'axe x et {y} sur l'axe y.
      *

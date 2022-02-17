@@ -7,13 +7,13 @@
 
 #include "data/DataArray.h"
 #include "shapes/Shape.h"
-#include "shapes/Triangle.h"
 #include "Point2D.h"
 #include <cmath>
 #include <vector>
 
 class Polygon : public Shape {
 
+protected:
     std::vector<Point2D *> points;
 
 public:
@@ -28,7 +28,7 @@ public:
         return new Polygon(*this);
     }
 
-    void addPoint(const Point2D &point) {
+    virtual void addPoint(const Point2D &point) {
         points.push_back(point.clone());
     }
 
@@ -40,7 +40,18 @@ public:
     string toString() const override;
 
     Point2D *getCenter() const override;
-    double getArea() const override;
+    virtual double getArea() const override;
+    int size() const { return (int) points.size(); }
+    Point2D *getPointAt(int index) const {
+        return points.at(index);
+    }
+
+    void zoom(const Point2D &center, double factor) override {
+        for (Point2D *point: points) {
+            point->homothetie(factor, center);
+        }
+        scale(factor);
+    }
 
     void scale(double scale) override {
         for (Point2D *point: points) {

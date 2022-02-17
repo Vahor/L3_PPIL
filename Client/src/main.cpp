@@ -79,11 +79,13 @@ void solar() {
 
     DrawOverJavaTcp visitor = DrawOverJavaTcp("swing", false);
     bool scale = true;
+    Point2D center(500, 0);
     while (true) {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
-        everything.scale(scale ? 2 : .5);
-        everything.rotate({0, 0}, rad);
+        // todo: Add tests for zoom
+        everything.zoom(center, scale ? 2 : 1);
+//        everything.rotate({0, 0}, rad);
 
         visitor.setReset(true);
         usleep(500 * 1000);

@@ -65,6 +65,12 @@ public:
         return res;
     }
 
+    void zoom(const Point2D &center, double scale) override {
+        for (Shape *shape: elements) {
+            shape->zoom(center, scale);
+        }
+    }
+
     void scale(double scale) override {
         for (Shape *shape: elements) {
             shape->scale(scale);

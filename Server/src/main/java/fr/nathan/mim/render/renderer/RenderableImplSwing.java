@@ -1,9 +1,8 @@
 package fr.nathan.mim.render.renderer;
 
-import fr.nathan.mim.render.shape.shapes.Circle;
+import fr.nathan.mim.render.shape.shapes.*;
 import fr.nathan.mim.render.shape.shapes.Polygon;
 import fr.nathan.mim.render.shape.shapes.Shape;
-import fr.nathan.mim.render.shape.shapes.Text;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -183,6 +182,17 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         bufferStrategy.show();
         graphics2D.dispose();
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void drawLine(Line line) {
+        System.out.println("line = " + line);
+        graphics2D.setColor(line.getMeta().getColor());
+
+        graphics2D.drawLine(
+                (int) line.getFrom().getX(), (int) line.getFrom().getY(),
+                (int) line.getTo().getX(), (int) line.getTo().getY()
+        );
     }
 
     @Override

@@ -3,6 +3,7 @@
 //
 
 #include "shapes/Polygon.h"
+#include "shapes/Triangle.h"
 
 DataElement *Polygon::toDataElement0(bool ignoreGroup) const {
     auto *object = new DataObject();

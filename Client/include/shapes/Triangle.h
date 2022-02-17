@@ -5,24 +5,21 @@
 #pragma once
 
 
-#include "data/DataArray.h"
-#include "shapes/Shape.h"
-#include "Point2D.h"
-#include <cmath>
-#include <vector>
+#include "shapes/Polygon.h"
 
-class Triangle : public Shape {
-
-    Point2D *points[3];
+class Triangle : public Polygon {
 
 public:
 
     Triangle(Point2D *a,
              Point2D *b,
-             Point2D *c) : points{a, b, c} {
+             Point2D *c) : Polygon() {
         if (a == nullptr || b == nullptr || c == nullptr) {
             throw std::invalid_argument("All points must be non-null.");
         }
+        Polygon::addPoint(*a);
+        Polygon::addPoint(*b);
+        Polygon::addPoint(*c);
     }
 
     Triangle *clone() const override {
@@ -33,12 +30,18 @@ public:
     string toString() const override;
     Point2D *getCenter() const override;
 
+    void addPoint(const Point2D &point) override {
+        if (size() == 3) {
+            throw std::invalid_argument("All points must be non-null.");
+        }
+    }
+
     double getArea() const override {
         // Aire (triangle ABC) = 0.5 * det(AB,AC).
 
         // AB = B - A
-        Point2D AB = *points[1] - *points[0];
-        Point2D BC = *points[2] - *points[1];
+        Point2D AB = *getPointAt(1) - *getPointAt(0);
+        Point2D BC = *getPointAt(2) - *getPointAt(1);
 
         double det = abs(AB.getX() * BC.getY() - AB.getY() * BC.getX());
 

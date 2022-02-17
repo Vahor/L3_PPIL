@@ -7,6 +7,7 @@
 #include "scene/SceneDao.h"
 #include "data/json/JsonParser.h"
 #include "scene/Scene.h"
+#include "shapes/Triangle.h"
 #include <string>
 #include <algorithm>
 

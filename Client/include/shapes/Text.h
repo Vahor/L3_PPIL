@@ -74,6 +74,11 @@ public:
         return 0;
     }
 
+    void zoom(const Point2D &center, double factor) override {
+        position.homothetie(factor, center);
+        scale(factor);
+    }
+
     void scale(double scale) override {
         size = (int) (size * scale);
     }
