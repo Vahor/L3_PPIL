@@ -12,7 +12,19 @@ class DrawVisitor {
 
 public:
 
+    /**
+     * Dessine la forme
+     * @param shape Scene a dessiner
+     */
     virtual void drawShape(const Shape *shape) const = 0;
+
+    /**
+     * Dessine la scene.<br />
+     * Initialise la scene puis dessines toutes les formes à l'aide de la méthode drawShape.
+     *
+     * @see DrawVisitor.drawShape
+     * @param shape Scene a dessiner
+     */
     virtual void drawScene(const Scene *scene) const = 0;
 
 };

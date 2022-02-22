@@ -16,9 +16,9 @@ protected:
 
 public:
 
-    DataObject() : DataElement("object") {}
+    DataObject() : DataElement(OBJECT) {}
 
-    explicit DataObject(const DataObject *copy) : DataElement("object") {
+    explicit DataObject(const DataObject *copy) : DataElement(OBJECT) {
         for (const auto &it: copy->children) { put(it.first, it.second); }
     }
 

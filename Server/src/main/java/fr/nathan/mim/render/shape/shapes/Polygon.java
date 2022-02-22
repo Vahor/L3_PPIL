@@ -2,7 +2,6 @@ package fr.nathan.mim.render.shape.shapes;
 
 import fr.nathan.mim.api.geom.Point2D;
 import fr.nathan.mim.render.renderer.Renderable;
-import fr.nathan.mim.render.shape.Meta;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -16,7 +15,7 @@ public class Polygon extends Shape {
     @Getter
     private final List<Point2D> points = new ArrayList<>();
 
-    public Polygon()           {super();}
+    public Polygon()                    {super();}
 
     public void addPoint(Point2D point) {points.add(point);}
 

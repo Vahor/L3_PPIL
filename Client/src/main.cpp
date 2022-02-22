@@ -84,7 +84,7 @@ void solar() {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
         // todo: Add tests for zoom
-        everything.zoom(center, scale ? 2 : 1);
+//        everything.zoom(center, scale ? 2 : 1);
 //        everything.rotate({0, 0}, rad);
 
         visitor.setReset(true);

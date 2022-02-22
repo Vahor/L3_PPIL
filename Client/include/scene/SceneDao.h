@@ -51,7 +51,7 @@ class SceneDao {
     static SceneDao *instance_;
 
     bool isParserAlreadyActive(const string &format) {
-        return parser != nullptr && parser->supportedExtensions() == format;
+        return parser != nullptr && parser->supportedExtension() == format;
     }
 
 

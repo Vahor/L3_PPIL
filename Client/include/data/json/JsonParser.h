@@ -22,7 +22,7 @@ public:
         return parseObject(input.substr(1)).first;  // racine à JsonObject de base
     }
 
-    string supportedExtensions() const override {
+    string supportedExtension() const override {
         return "json";
     }
 

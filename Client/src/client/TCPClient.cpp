@@ -3,7 +3,7 @@
 TCPClient *TCPClient::instance_ = {nullptr};
 
 bool TCPClient::send(const string &data) const {
-    if (sock == -1) return false; // todo mettre un cerr / throw ?
+    if (sock == -1) return false;
 
     string packet = data;
     packet += "\n";

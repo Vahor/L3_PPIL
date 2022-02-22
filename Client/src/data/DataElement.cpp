@@ -20,3 +20,7 @@ DataPrimitive *DataElement::getAsPrimitive() const {
 ostream &operator<<(ostream &os, const DataElement &element) {
     return os << element.toString();
 }
+
+string typeToString(Type type) {
+    return enumStr[type];
+}

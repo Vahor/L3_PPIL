@@ -30,6 +30,12 @@ public:
     Shape(const Shape &copy);
 
     string getMetaString() const;
+    /**
+     * Transforme la forme en une chaine de caractere
+     * compréhensible par un humain.
+     *
+     * @return Une chaine de caractere correspondant à la forme
+     */
     virtual string toString() const = 0;
     explicit operator std::string() const { return toString(); }
 
@@ -40,18 +46,30 @@ public:
      */
     virtual DataObject *addMetaData(DataObject *object, bool ignoreGroup) const;
 
+    /**
+     * Clone l'élement actuel en gardant les propriétes de couleurs.<br />
+     * Un nouvel identifiant est généré.
+     * Le groupe n'est pas assigné lors du clonnage.
+     *
+     * @return Un clone de l'objet actuel, partageant des propriétes.
+     */
     virtual Shape *clone() const = 0;
 
     virtual ~Shape();
 
     DataElement *toDataElement(bool ignoreGroup) const override;
 
+    /**
+     * Execute la méthode de dessin correpondante dans le visitor.
+     * @param visitor Implémentation de dessin.
+     */
     virtual void draw(const DrawVisitor &visitor) const;
 
     // setters
     void setColor(Color *v) { this->color = v; }
     void setBorderColor(Color *v) { this->borderColor = v; }
     void setGroup(ShapeGroup *v);
+    void resetGroup() { this->group = nullptr; }
     void setId(const int v) { this->id = v; }
     static int nextId() { return previousId++; }
 
@@ -71,7 +89,6 @@ public:
      */
     virtual void scale(double scale) = 0;
 
-
     /**
      * Appliqune une homothétie de la forme par rapport à un point.
      * Correspond à une translation suivie d'une agrandissement de la forme.
@@ -79,9 +96,7 @@ public:
      * @param center Point invariant de la transformation
      * @param scale Facteur d'agrandissement de la forme
      */
-    virtual void zoom(const Point2D &center, double scale) {
-
-    };
+    virtual void zoom(const Point2D &center, double scale) = 0;
 
     /**
      * Décale la forme de {x} sur l'axe x et {y} sur l'axe y.
@@ -91,6 +106,13 @@ public:
      */
     virtual void translate(double x, double y) = 0;
 
+    /**
+     * Utiilise la méthode rotate avec le centre
+     * de la forme comme point de rotation
+     *
+     * @see Shape::rotate
+     * @param radians
+     */
     void rotateSelf(double radians) { rotate(*getCenter(), radians); }
 
     /**

@@ -25,13 +25,26 @@ public:
         for (const auto &it: copy.elements) { addShape(it->clone()); }
     }
 
+    /**
+     * Ajoute une forme dans ce groupe.<br />
+     * Et enregistre une referencence du groupe sur la forme.
+     *
+     * @param shape La forme à ajouter dans le groupe
+     */
     void addShape(Shape *shape) {
         elements.push_back(shape);
         shape->setGroup(this);
     }
 
+    /**
+     * Retire une forme de ce groupe.<br />
+     * Et retire la referencence du groupe sur la forme.
+     *
+     * @param shape La forme à retirer de ce le groupe
+     */
     void removeShape(Shape *shape) {
         elements.erase(std::find(elements.begin(), elements.end(), shape));
+        shape->resetGroup();
     }
 
     DataElement *toDataElement0(bool ignoreGroup) const override;

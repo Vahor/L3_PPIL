@@ -19,14 +19,14 @@ protected:
 
 public:
 
-    DataPrimitive(const DataPrimitive &copy) : DataElement("primitive") {
+    DataPrimitive(const DataPrimitive &copy) : DataElement(PRIMITIVE) {
         this->value = copy.value;
     }
 
-    explicit DataPrimitive(string value) : DataElement("primitive"), value(std::move(value)) {}
-    explicit DataPrimitive(int value) : DataElement("primitive"), value(to_string(value)) {}
-    explicit DataPrimitive(bool value) : DataElement("primitive"), value(value ? "true" : "false") {}
-    explicit DataPrimitive(double value) : DataElement("primitive"), value(to_string(value)) {}
+    explicit DataPrimitive(string value) : DataElement(PRIMITIVE), value(std::move(value)) {}
+    explicit DataPrimitive(int value) : DataElement(PRIMITIVE), value(to_string(value)) {}
+    explicit DataPrimitive(bool value) : DataElement(PRIMITIVE), value(value ? "true" : "false") {}
+    explicit DataPrimitive(double value) : DataElement(PRIMITIVE), value(to_string(value)) {}
 
 
     DataPrimitive *clone() const override {

@@ -17,14 +17,23 @@ class Parser;
 
 using std::string;
 
+enum Type {
+    OBJECT,
+    ARRAY,
+    PRIMITIVE
+};
+static const string enumStr[] = {"OBJECT", "ARRAY", "PRIMITIVE"};
+
+string typeToString(Type type);
+
 class DataElement {
 
-    string type;
+    Type type;
     DataElement *parent = nullptr;
 
 public:
 
-    explicit DataElement(string type) : type(std::move(type)) {}
+    explicit DataElement(Type type) : type(type) {}
 
     virtual DataElement *clone() const = 0;
 
@@ -34,12 +43,27 @@ public:
     virtual DataArray *getAsArray() const;
     virtual DataPrimitive *getAsPrimitive() const;
 
-    string getType() const { return type; }
+    Type getType() const { return type; }
 
     DataElement *getParent() const { return parent; }
     void setParent(DataElement *p) { this->parent = p; }
 
+    /**
+    * Transforme l'objet en une chaine de caractere
+     * à l'aide du parser.
+     *
+     * @see Parser.serialize(DataElement* element)
+    *
+    * @return Une chaine de caractere correspondant à l'objet
+    */
     virtual string serialize(const Parser &parser) const = 0;
+
+    /**
+    * Transforme l'objet en une chaine de caractere
+    * compréhensible par un humain.
+    *
+    * @return Une chaine de caractere correspondant à l'objet
+    */
     virtual string toString() const = 0;
 
     explicit operator string() const { return toString(); }

@@ -74,7 +74,7 @@ string XMLParser::serialize(const DataObject *object) const {
 
     for (const auto &it: object->getChildren()) {
         DataElement *element = it.second;
-        res += '<' + it.first + " type=\"" + element->getType() + "\">";
+        res += '<' + it.first + " type=\"" + typeToString(element->getType()) + "\">";
         res += element->serialize(*this);
 
         res += "</" + it.first + ">";

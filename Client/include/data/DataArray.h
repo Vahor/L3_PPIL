@@ -18,9 +18,9 @@ protected:
 
 public:
 
-    DataArray() : DataElement("array") {}
+    DataArray() : DataElement(ARRAY) {}
 
-    DataArray(const DataArray &copy) : DataElement("array") {
+    DataArray(const DataArray &copy) : DataElement(ARRAY) {
         for (const auto &it: copy.elements) { add(it); }
     }
 

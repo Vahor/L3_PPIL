@@ -31,7 +31,7 @@ public:
 
     Scene(const Scene &copy) {
         for (auto &shape: copy.shapes) {
-            add(shape);
+            add(shape->clone());
         }
         this->name = copy.name;
         this->height = copy.height;
@@ -64,6 +64,12 @@ public:
         shapes.clear();
     }
 
+    /**
+     * Clone la scene en conservant ses propriétes <br/>
+     * Toutes les formes sont aussi clonnées et ajoutées à la nouvelle scene.
+     *
+     * @return Un clone de l'objet actuel, partageant des propriétes.
+     */
     virtual Scene *clone() const {
         return new Scene(*this);
     }
@@ -89,10 +95,19 @@ public:
         return object;
     };
 
+    /**
+     * Ajoutes une forme dans la scene.
+     *
+     * @param shape Forme à ajouter
+     */
     void add(Shape *shape) {
         shapes.push_back(shape);
     }
 
+    /**
+     * Execute la méthode de dessin correpondante dans le visitor.
+     * @param visitor Implémentation de dessin.
+     */
     virtual void draw(const DrawVisitor &visitor) const {
         visitor.drawScene(this);
     }
