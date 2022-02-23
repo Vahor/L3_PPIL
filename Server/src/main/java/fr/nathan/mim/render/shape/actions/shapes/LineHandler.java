@@ -11,13 +11,6 @@ public class LineHandler extends ShapeHandler {
 
     public LineHandler(Handler<Parameters, Shape> shapeHandler) {super(shapeHandler);}
 
-    /**
-     * @param input
-     *  Source des informations à extraire
-     * @return
-     *  nullptr si cette classe ne sait pas gérer l'information
-     *  ou un pointeur sur <In>
-     */
     @Override
     protected Shape parse(Parameters input) {
         if (!input.getObject().has("LINE")) return null;

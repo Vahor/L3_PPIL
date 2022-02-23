@@ -12,7 +12,7 @@ public abstract class ACORHandler<In, Out> extends Handler<In, Out> {
      *
      * @param line  Source des informations à extraire
      * @return NULL si aucun expert ne sait gérer l'information
-     *  ou un pointeur sur <In>
+     *  ou un pointeur sur In
      */
     public Out solve(In line) {
         Out value = this.parse(line);

@@ -6,6 +6,9 @@ import lombok.ToString;
 
 import java.awt.*;
 
+/**
+ * Informations communes à toutes les formes.
+ */
 @ToString
 public class Meta {
 

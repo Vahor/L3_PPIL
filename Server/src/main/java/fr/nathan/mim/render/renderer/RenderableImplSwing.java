@@ -35,6 +35,7 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     private BufferStrategy bufferStrategy;
     private Graphics2D graphics2D;
 
+    @SuppressWarnings("deprecation")
     public RenderableImplSwing(int initialWidth, int initialHeight) throws InterruptedException {
         super();
 
@@ -186,7 +187,6 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
 
     @Override
     public void drawLine(Line line) {
-        System.out.println("line = " + line);
         graphics2D.setColor(line.getMeta().getColor());
 
         graphics2D.drawLine(

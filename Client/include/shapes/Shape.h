@@ -60,7 +60,7 @@ public:
     DataElement *toDataElement(bool ignoreGroup) const override;
 
     /**
-     * Execute la méthode de dessin correpondante dans le visitor.
+     * Execute la méthode de dessin correspondante dans le visitor.
      * @param visitor Implémentation de dessin.
      */
     virtual void draw(const DrawVisitor &visitor) const;

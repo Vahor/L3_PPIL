@@ -15,7 +15,6 @@ public class Text extends Shape {
     private final double radians;
 
     public Text(Point2D center, String value, int size, double radians) {
-        super();
         this.center  = center;
         this.value   = value;
         this.size    = size;

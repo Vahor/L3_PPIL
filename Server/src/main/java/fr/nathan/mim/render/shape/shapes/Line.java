@@ -13,7 +13,6 @@ public class Line extends Shape {
     private final Point2D to;
 
     public Line(Point2D from, Point2D to) {
-        super();
         this.from = from;
         this.to   = to;
     }

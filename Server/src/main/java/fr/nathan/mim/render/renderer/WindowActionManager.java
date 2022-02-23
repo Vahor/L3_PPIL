@@ -9,6 +9,7 @@ import fr.nathan.mim.render.renderer.actions.renderer.DisposeRendererAction;
 import fr.nathan.mim.render.renderer.actions.renderer.InitRendererAction;
 import fr.nathan.mim.render.renderer.actions.renderer.RendererHandler;
 import fr.nathan.mim.render.renderer.actions.renderer.ResetRendererAction;
+import fr.nathan.mim.render.shape.UnknownShapeException;
 
 public class WindowActionManager {
 
@@ -31,6 +32,13 @@ public class WindowActionManager {
         metaHandler = new UpdateRendererSizeAction(metaHandler);
     }
 
+    /**
+     * Créer ou modifie les paramètres de la fenêtre existante
+     *
+     * @param object Source de donnée où on récupère les informations sur la fenêtre
+     * @param currentDrawing Instance actuelle
+     * @return Nouvelle instance de dessin ou instance actuelle modifiée
+     */
     public Renderable handleAction(DataObject object, Renderable currentDrawing) {
         DataObject elementMeta = object.get("meta").getAsObject();
 

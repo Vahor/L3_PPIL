@@ -10,13 +10,6 @@ public class CircleHandler extends ShapeHandler {
 
     public CircleHandler(Handler<Parameters, Shape> shapeHandler) {super(shapeHandler);}
 
-    /**
-     * @param input
-     *  Source des informations à extraire
-     * @return
-     *  nullptr si cette classe ne sait pas gérer l'information
-     *  ou un pointeur sur <In>
-     */
     @Override
     protected Shape parse(Parameters input) {
         if (!input.getObject().has("CIRCLE")) return null;

@@ -32,19 +32,28 @@ public class ActionManager {
         metaHandler = new ColorHandler(metaHandler);
     }
 
+    /**
+     * Dessine une forme à partir d'un DataObject
+     *
+     * @param object Source de donnée où on récupère les informations sur la forme
+     * @param renderable Instance où la forme sera dessinée
+     * @throws UnknownShapeException
+     *  Si l'objet ne correspond à aucune forme supportée par le ShapeHandler
+     */
     public void handleAction(DataObject object, Renderable renderable) throws UnknownShapeException {
-        Meta meta = new Meta();
-
-        if (object.has("meta")) {
-            DataObject elementMeta = object.get("meta").getAsObject();
-            metaHandler.solve(new MetaHandler.Parameters(elementMeta, meta));
-        }
 
         Shape shape = shapeHandler.solve(new ShapeHandler.Parameters(object));
         if(shape == null){
             throw new UnknownShapeException(object.toString());
         }
 
+        Meta meta = new Meta();
+
+        // Si l'objet contient une partie de métadonnée, on va l'interpréter
+        if (object.has("meta")) {
+            DataObject elementMeta = object.get("meta").getAsObject();
+            metaHandler.solve(new MetaHandler.Parameters(elementMeta, meta));
+        }
 
         shape.setMeta(meta);
 

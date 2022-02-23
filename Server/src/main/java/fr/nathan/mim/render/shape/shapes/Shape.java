@@ -12,7 +12,10 @@ public abstract class Shape {
 
     @Getter @Setter
     protected Meta meta;
-    protected Shape() {}
 
+    /**
+     * Execute la méthode de dessin correspondante dans le visitor.
+     * @param renderable Implémentation de dessin.
+     */
     public abstract void draw(Renderable renderable);
 }

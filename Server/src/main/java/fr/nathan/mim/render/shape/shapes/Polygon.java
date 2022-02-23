@@ -12,10 +12,8 @@ import java.util.List;
 @ToString(callSuper = true)
 public class Polygon extends Shape {
 
-    @Getter
-    private final List<Point2D> points = new ArrayList<>();
-
-    public Polygon()                    {super();}
+    // On utilise une ArrayList car l'ordre des points est important
+    @Getter private final List<Point2D> points = new ArrayList<>();
 
     public void addPoint(Point2D point) {points.add(point);}
 

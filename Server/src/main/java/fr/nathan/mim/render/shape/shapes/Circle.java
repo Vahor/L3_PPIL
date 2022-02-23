@@ -13,7 +13,6 @@ public class Circle extends Shape {
     private final Point2D center;
 
     public Circle(Point2D center, double diameter) {
-        super();
         this.center   = center;
         this.diameter = diameter;
     }

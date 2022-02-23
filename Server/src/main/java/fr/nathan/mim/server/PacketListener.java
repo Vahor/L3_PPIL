@@ -41,14 +41,16 @@ public class PacketListener extends Thread {
                 try (Socket server = serverSocket.accept();
                      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(server.getInputStream()))) {
 
+                    // On récupère chaque ligne envoyée sur le socket.
+                    // Et on les interprète une par une.
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
 
                         DataObject object = Main.currentParser.parse(line).getAsObject();
 
-                        // On fait une différence avec WINDOW
-                        // pour savoir quel manager utiliser.
+                        // On fait une différence avec WINDOW pour savoir quel manager utiliser.
                         // On pourrait en utiliser qu'un seul, mais de cette manière le code est plus lisible
+
                         if (object.has("WINDOW")) currentRenderable = windowActionManager.handleAction(object.get("WINDOW").getAsObject(), currentRenderable);
                         else if (currentRenderable != null) actionManager.handleAction(object, currentRenderable);
 
