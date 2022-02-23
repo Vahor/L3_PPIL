@@ -26,7 +26,7 @@ public:
      * Cette chaine est utilisable par {@link Parser#parse(String)}
      *
      * @param object L'information à transformer
-     * @return Une chaine de caractere correspondant à l'objet entrée
+     * @return Une chaine de caractere correspondant à l'objet entré
      */
     virtual string serialize(const DataObject *object) const = 0;
 
@@ -35,7 +35,7 @@ public:
      * Cette chaine est utilisable par {@link Parser#parse(String)}
      *
      * @param array L'information à transformer
-     * @return Une chaine de caractere correspondant à l'objet entrée
+     * @return Une chaine de caractere correspondant à l'objet entré
      */
     virtual string serialize(const DataArray *array) const = 0;
 
@@ -44,7 +44,7 @@ public:
      * Cette chaine est utilisable par {@link Parser#parse(String)}
      *
      * @param primitive L'information à transformer
-     * @return Une chaine de caractere correspondant à l'objet entrée
+     * @return Une chaine de caractere correspondant à l'objet entré
      */
     virtual string serialize(const DataPrimitive *primitive) const = 0;
 };
