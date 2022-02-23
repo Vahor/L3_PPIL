@@ -12,7 +12,7 @@ add_executable(Client
         src/data/DataElement.cpp
         src/shape/Shape.cpp
         src/scene/SceneDao.cpp
-        src/shape/Triangle.cpp src/shape/Polygon.cpp src/shape/Line.cpp src/shape/Circle.cpp src/shape/ShapeGroup.cpp src/data/DataArray.cpp src/data/DataObject.cpp src/data/DataPrimitive.cpp include/data/xml/XMLParser.cpp include/data/xml/XMLParser.h)
+        src/shape/TriangleTest.cpp src/shape/Polygon.cpp src/shape/LineTest.cpp src/shape/CircleTest.cpp src/shape/ShapeGroup.cpp src/data/DataArray.cpp src/data/DataObject.cpp src/data/DataPrimitive.cpp include/data/xml/XMLParser.cpp include/data/xml/XMLParser.h)
 
 
 set(SOURCE_FILES_TEST
@@ -25,7 +25,7 @@ set(SOURCE_FILES_TEST
         src/data/DataElement.cpp
         src/shape/Shape.cpp
         src/scene/SceneDao.cpp
-        src/shape/Triangle.cpp src/shape/Polygon.cpp src/shape/Line.cpp src/shape/Circle.cpp src/shape/ShapeGroup.cpp src/data/DataArray.cpp src/data/DataObject.cpp src/data/DataPrimitive.cpp include/data/xml/XMLParser.cpp include/data/xml/XMLParser.h include/data/xml/XMLToken.h)
+        src/shape/TriangleTest.cpp src/shape/Polygon.cpp src/shape/LineTest.cpp src/shape/CircleTest.cpp src/shape/ShapeGroup.cpp src/data/DataArray.cpp src/data/DataObject.cpp src/data/DataPrimitive.cpp include/data/xml/XMLParser.cpp include/data/xml/XMLParser.h include/data/xml/XMLToken.h)
 
 
 target_link_libraries(Client readline)

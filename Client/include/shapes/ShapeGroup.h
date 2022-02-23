@@ -52,7 +52,7 @@ public:
     string toString() const override {
         string res = "ShapeGroup[items=[";
         for (auto *shape: elements) {
-            res += "\n\t";
+            res += "\n";
             res += shape->toString();
         }
         res += "\n]," + Shape::getMetaString();

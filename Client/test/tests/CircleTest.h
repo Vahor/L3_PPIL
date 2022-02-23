@@ -7,23 +7,31 @@
 #include "scene/SceneDao.h"
 #include "data/json/JsonParser.h"
 #include "scene/Scene.h"
-#include "shapes/Triangle.h"
 #include <string>
 #include <algorithm>
 
 using namespace std;
 
-class TRIANGLE {
+class CircleTest {
 
 public:
 
     static void runTest(SimpleTest &test) {
-        SimpleTest::divider("TRIANGLE");
+        SimpleTest::divider("CIRCLE");
+
+        // Test scale
+        Circle circle(Point2D(0, 0), 20);
+
+        double previousArea = circle.getArea();
+        circle.scale(2);
+        circle.scale(.5);
+
+        test.assertTrue(previousArea == circle.getArea(), "Circle Scale 2 => .5 Keep area");
 
         // Test constructor
         try {
-            Triangle t(new Point2D{0, 0}, nullptr, new Point2D{1, 1});
-            test.assertTrue(false, "All points must be non-null.");
+            Circle c({0, 0}, -10);
+            test.assertTrue(false, "Invalid diameter should throw an exception");
         } catch (const std::exception &e) {
             test.assertTrue(true, e.what());
         }

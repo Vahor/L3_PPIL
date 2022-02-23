@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <ostream>
 #include "actions/DrawVisitor.h"
 #include "handler/Handler.h"
 #include "client/Client.h"
@@ -133,6 +134,29 @@ public:
         return nullptr;
     }
 
+    /**
+     * Transforme la scene en une chaine de caractere
+     * compréhensible par un humain.
+     *
+     * @return Une chaine de caractere correspondant à la forme
+     */
+    virtual string toString() const {
+        string res = "Shape[name=" + name +
+                     ",width=" + to_string(width) +
+                     ",height=" + to_string(height)
+                     + ",";
+
+        for (auto *shape: shapes) {
+            res += shape->toString();
+            res += ",";
+        }
+
+        res.pop_back();
+        res += "]";
+        return res;
+    }
+    explicit operator std::string() const { return toString(); }
+
     // Setters
     void setHeight(int _height) { this->height = _height; }
     void setWidth(int _width) { this->width = _width; }
@@ -159,6 +183,11 @@ public:
     auto end() { return &shapes[shapes.size()]; }
     auto begin() const { return &shapes[0]; }
     auto end() const { return &shapes[shapes.size()]; }
+
+    friend ostream &operator<<(ostream &os, const Scene &scene) {
+        os << scene.toString();
+        return os;
+    }
 
 };
 

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class LINE {
+class LineTest {
 
 public:
 

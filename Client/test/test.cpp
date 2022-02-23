@@ -8,11 +8,11 @@
 #include "./tests/JSON_PARSER.h"
 #include "./tests/XML_PARSER.h"
 #include "./tests/SCALE_SHAPES.h"
-#include "./tests/CIRCLE.h"
-#include "./tests/TEXT.h"
-#include "./tests/TRIANGLE.h"
-#include "./tests/GROUP.h"
-#include "./tests/LINE.h"
+#include "./tests/CircleTest.h"
+#include "./tests/TextTest.h"
+#include "./tests/TriangleTest.h"
+#include "./tests/GroupTest.h"
+#include "./tests/LineTest.h"
 
 using namespace std;
 
@@ -22,12 +22,12 @@ int main() {
     JSON_PARSER::runTest(test);
     MATH_SCENE::runTest(test);
     SCALE_SHAPES::runTest(test);
-    CIRCLE::runTest(test);
-    TEXT::runTest(test);
-    TRIANGLE::runTest(test);
-    GROUP::runTest(test);
+    CircleTest::runTest(test);
+    TextTest::runTest(test);
+    TriangleTest::runTest(test);
+    GroupTest::runTest(test);
     XML_PARSER::runTest(test);
-    LINE::runTest(test);
+    LineTest::runTest(test);
 
     test.stop();
 

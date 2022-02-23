@@ -12,26 +12,17 @@
 
 using namespace std;
 
-class CIRCLE {
+class TextTest {
 
 public:
 
     static void runTest(SimpleTest &test) {
-        SimpleTest::divider("CIRCLE");
-
-        // Test scale
-        Circle circle(Point2D(0, 0), 20);
-
-        double previousArea = circle.getArea();
-        circle.scale(2);
-        circle.scale(.5);
-
-        test.assertTrue(previousArea == circle.getArea(), "Circle Scale 2 => .5 Keep area");
+        SimpleTest::divider("TEXT");
 
         // Test constructor
         try {
-            Circle c({0, 0}, -10);
-            test.assertTrue(false, "Invalid diameter should throw an exception");
+            Text c({0, 0}, -10, "", 0);
+            test.assertTrue(false, "Invalid size should throw an exception");
         } catch (const std::exception &e) {
             test.assertTrue(true, e.what());
         }

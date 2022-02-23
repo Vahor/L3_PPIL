@@ -7,22 +7,23 @@
 #include "scene/SceneDao.h"
 #include "data/json/JsonParser.h"
 #include "scene/Scene.h"
+#include "shapes/Triangle.h"
 #include <string>
 #include <algorithm>
 
 using namespace std;
 
-class TEXT {
+class TriangleTest {
 
 public:
 
     static void runTest(SimpleTest &test) {
-        SimpleTest::divider("TEXT");
+        SimpleTest::divider("TRIANGLE");
 
         // Test constructor
         try {
-            Text c({0, 0}, -10, "", 0);
-            test.assertTrue(false, "Invalid size should throw an exception");
+            Triangle t(new Point2D{0, 0}, nullptr, new Point2D{1, 1});
+            test.assertTrue(false, "All points must be non-null.");
         } catch (const std::exception &e) {
             test.assertTrue(true, e.what());
         }
