@@ -1,6 +1,10 @@
 package fr.nathan.mim.render.renderer;
 
 import fr.nathan.mim.render.shape.shapes.*;
+import fr.nathan.mim.render.shape.shapes.Polygon;
+import fr.nathan.mim.render.shape.shapes.Shape;
+
+import java.awt.*;
 
 public interface Renderable {
 
@@ -10,6 +14,7 @@ public interface Renderable {
     void disposeBuffer();
     void setTitle(String title);
     void setSize(int width, int height);
+    void setBackgroundColor(Color color);
 
     /**
      * Dessine une forme sans connaitre son type.<br>

@@ -13,6 +13,7 @@
 #include "./tests/TriangleTest.h"
 #include "./tests/GroupTest.h"
 #include "./tests/LineTest.h"
+#include "./tests/AlexText.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ int main() {
     GroupTest::runTest(test);
     XML_PARSER::runTest(test);
     LineTest::runTest(test);
+    AlexText::runTest(test);
 
     test.stop();
 

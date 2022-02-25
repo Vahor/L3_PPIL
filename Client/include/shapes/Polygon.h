@@ -18,6 +18,13 @@ protected:
 
 public:
 
+
+    Polygon(const Polygon &copy) : Shape(copy) {
+        for (Point2D *point: copy.points) {
+            Polygon::addPoint(*point);
+        }
+    }
+
     Polygon() : Shape() {}
 
     ~Polygon() override {
@@ -50,10 +57,12 @@ public:
         for (Point2D *point: points) {
             point->homothetie(factor, center);
         }
-        scale(factor);
+        // Pas besoin de refaire un scale, décaler tous les points suffit à redimensionner la forme
+//        scale(factor);
     }
 
     void scale(double scale) override {
+        scale = abs(scale);
         for (Point2D *point: points) {
             point->setY(point->getY() * scale);
             point->setX(point->getX() * scale);

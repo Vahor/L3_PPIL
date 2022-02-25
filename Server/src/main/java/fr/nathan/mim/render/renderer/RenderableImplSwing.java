@@ -1,5 +1,6 @@
 package fr.nathan.mim.render.renderer;
 
+import fr.nathan.mim.api.geom.Point2D;
 import fr.nathan.mim.render.shape.shapes.*;
 import fr.nathan.mim.render.shape.shapes.Polygon;
 import fr.nathan.mim.render.shape.shapes.Shape;
@@ -12,9 +13,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class RenderableImplSwing extends JFrame implements WindowListener, Renderable {
@@ -30,14 +34,18 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     @Getter
     private double initialWidth;
 
+    private Color backgroundColor;
+
     private boolean drawing;
 
     private BufferStrategy bufferStrategy;
     private Graphics2D graphics2D;
 
     @SuppressWarnings("deprecation")
-    public RenderableImplSwing(int initialWidth, int initialHeight) throws InterruptedException {
+    public RenderableImplSwing(int initialWidth, int initialHeight, Color backgroundColor) throws InterruptedException {
         super();
+
+        setBackgroundColor(backgroundColor);
 
         setVisible(true);
 
@@ -56,7 +64,7 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
 
         addWindowListener(this);
 
-//        // Ajout du zoom lorsque l'utilisateur scroll
+//      Ajout du zoom lorsque l'utilisateur scroll
         addMouseWheelListener((e) -> {
             double steps = e.getWheelRotation() / 15.;
             double prev = scaleBoost;
@@ -147,6 +155,10 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         // Clear
         graphics2D.clearRect(0, 0, getWidth(), getHeight());
 
+        // Set background color
+        graphics2D.setColor(backgroundColor);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+
         // Move origin to center
         graphics2D.translate(getWidth() / 2. + offsetX, getHeight() / 2. + offsetY);
 
@@ -159,6 +171,11 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
     @Override
     public void resetScene() {
         shapes.clear();
+    }
+
+    @Override
+    public void setBackgroundColor(Color color) {
+        this.backgroundColor = color;
     }
 
     @Override
@@ -216,26 +233,29 @@ public class RenderableImplSwing extends JFrame implements WindowListener, Rende
         AffineTransform affineTransform = new AffineTransform();
         affineTransform.setToRotation(text.getRadians());
 
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, text.getSize());
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, (int) text.getSize());
         font = font.deriveFont(affineTransform);
         graphics2D.setFont(font);
 
         graphics2D.setColor(text.getMeta().getColor());
-        graphics2D.drawString(text.getValue(), (int) text.getCenter().getX(), (int) text.getCenter().getY());
+        graphics2D.drawString(text.getValue(), (float) text.getCenter().getX(), (float) text.getCenter().getY());
 
     }
 
     @Override
     public void drawPolygon(Polygon polygon) {
-        int[] xPoints = polygon.getPoints().stream().mapToInt(p -> (int) p.getX()).toArray();
-        int[] yPoints = polygon.getPoints().stream().mapToInt(p -> (int) p.getY()).toArray();
+        int[] xPoints = polygon.getPoints().stream().mapToInt(p -> (int) Math.round(p.getX())).toArray();
+        int[] yPoints = polygon.getPoints().stream().mapToInt(p -> (int) Math.round(p.getY())).toArray();
+
 
         // fill
         graphics2D.setColor(polygon.getMeta().getColor());
         graphics2D.fillPolygon(xPoints, yPoints, polygon.getPoints().size());
+//        graphics2D.draw(shape);
 
         // border
         graphics2D.setColor(polygon.getMeta().getBorderColor());
+//        graphics2D.draw(shape);
         graphics2D.drawPolygon(xPoints, yPoints, polygon.getPoints().size());
     }
 

@@ -35,11 +35,17 @@ public:
     void setY(double d) { this->y = d; }
 
     void rotate(const Point2D &center, double radians) {
-        double xShifted = x - center.x;
-        double yShifted = y - center.y;
+        double s = sin(radians);
+        double c = cos(radians);
 
-        x = center.x + (cos(radians) * xShifted - sin(radians) * yShifted);
-        y = center.y + (sin(radians) * xShifted + cos(radians) * yShifted);
+        x -= center.x;
+        y -= center.y;
+
+        double xnew = x * c - y * s;
+        double ynew = x * s + y * c;
+
+        x = xnew + center.x;
+        y = ynew + center.y;
     }
 
     static Point2D *center(const Point2D &p1, const Point2D &p2) {
@@ -47,8 +53,12 @@ public:
     }
 
     void homothetie(const double k, const Point2D &point) {
-        x = k * x + (1 - k) * point.x;
-        y = k * y + (1 - k) * point.y;
+        if (k == 1) return; // Si k == 1, il n'y a aucun agrandissement.
+
+        const Point2D diff = *this - point;
+
+        x = k * diff.x;
+        y = k * diff.y;
     }
 
     virtual string toString() const {

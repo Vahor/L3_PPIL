@@ -10,6 +10,6 @@ string DataPrimitive::serialize(const Parser &parser) const {
     return parser.serialize(this);
 }
 string DataPrimitive::toString() const {
-    return std::string();
+    return value;
 }
 

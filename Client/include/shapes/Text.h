@@ -12,7 +12,7 @@
 class Text : public Shape {
 
     Point2D position;
-    int size;
+    double size;
     string value;
     double radians;
 
@@ -20,7 +20,7 @@ public:
 
     Text(const Text &copy) = default;
 
-    Text(Point2D position, int size, string value, double radians = 0) :
+    Text(Point2D position, float size, string value, double radians = 0) :
             position(std::move(position)),
             size(size),
             value(std::move(value)),
@@ -80,7 +80,7 @@ public:
     }
 
     void scale(double scale) override {
-        size = (int) (size * scale);
+        size = size * abs(scale);
     }
 
     void translate(double x, double y) override {
@@ -89,9 +89,9 @@ public:
     }
 
     void rotate(const Point2D &center, double d) override {
+        position.rotate(center, d);
         this->radians -= d;
         this->radians = fmod(this->radians, 2 * M_PI);
-        position.rotate(center, d);
     }
 
 };

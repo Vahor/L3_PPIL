@@ -87,7 +87,7 @@ void solar() {
 //        everything.zoom(center, scale ? 2 : 1);
 //        everything.rotate({0, 0}, rad);
 
-        visitor.setReset(true);
+        visitor.setReuseSameWindow(true);
         usleep(500 * 1000);
         scale = !scale;
     }
@@ -133,7 +133,7 @@ void textTest() {
         double b = rand() % 255;
         everything.setColor(new Color(r, g, b, 255));
 
-        visitor.setReset(true);
+        visitor.setReuseSameWindow(true);
         usleep(2000 * 1000);
     }
     //SceneDao::getInstance()->save("textTest.json", &scene);
@@ -207,34 +207,109 @@ void dvdTest() {
 
         DVD.translate(motX * speed, motY * speed);
 
-        visitor.setReset(true);
+        visitor.setReuseSameWindow(true);
         usleep(100 * 1000);
     }
 
 
 }
 
+void alexTest() {
+    Scene scene;
+    scene.setWidth(400);
+    scene.setHeight(400);
+    scene.setBackgroundColor(Color::BLACK);
+
+
+    Circle center({0, 0}, 5);
+    center.setColor(Color::GREEN);
+
+    Circle circle1({-150, 60}, 5);
+
+    Polygon square;
+    square.addPoint({-120, 100});
+    square.addPoint({-150, 100});
+    square.addPoint({-150, 130});
+    square.addPoint({-120, 130});
+
+
+    Polygon triangle;
+    triangle.addPoint({-20, 60});
+    triangle.addPoint({0, 90});
+    triangle.addPoint({20, 60});
+
+
+    Line line({-150, 60}, {0, 95});
+
+    Text text({30, 30}, 10, "Yey salut");
+
+    Circle circleText({30, 30}, 5);
+
+    Polygon textBox;
+    textBox.setBorderColor(Color::RED);
+    textBox.addPoint({25, 25});
+    textBox.addPoint({25, 40});
+    textBox.addPoint({90, 40});
+    textBox.addPoint({90, 25});
+
+    ShapeGroup inner;
+
+    inner.addShape(&circle1);
+    inner.addShape(&square);
+    inner.addShape(&triangle);
+    inner.addShape(&line);
+
+    inner.addShape(&text);
+    inner.addShape(&circleText);
+    inner.setColor(Color::CYAN);
+
+    ShapeGroup group;
+    group.addShape(&inner);
+    group.addShape(&textBox);
+
+    DrawOverJavaTcp visitor = DrawOverJavaTcp("swing");
+
+    ShapeGroup clone = *group.clone();
+
+    clone.rotate({0, 0}, degToRad(-25));
+    clone.zoom(*center.getCenter(), .5);
+
+    clone.regenerateId();
+    clone.regenerateChildrenIds();
+    clone.getChildrenById(12)->setColor(Color::YELLOW);
+
+    scene.add(&group);
+    scene.add(&clone);
+    scene.add(&center);
+
+    scene.draw(visitor);
+}
+
 int main() {
 
+    bool useCli = false;
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
-    solar();
+    alexTest();
+    getchar();
 
-    Cli *cli = Cli::getInstance();
-    cli->setPrefix("\033[32mtruc > \033[37m");
+    if (useCli) {
+        Cli *cli = Cli::getInstance();
+        cli->setPrefix("\033[32mtruc > \033[37m");
 
-    cli->addCommand("exit", new ExitCommand());
-    cli->addCommand("help", new HelpCommand());
-    cli->addCommand("load", new LoadCommand());
-    cli->addCommand("save", new SaveCommand());
-    cli->addCommand("list", new ListCommand());
-    cli->addCommand("draw", new DrawCommand());
-    cli->addCommand("reconnect", new ReconnectCommand());
-    cli->addCommand("shape", new ShapeCommand());
+        cli->addCommand("exit", new ExitCommand());
+        cli->addCommand("help", new HelpCommand());
+        cli->addCommand("load", new LoadCommand());
+        cli->addCommand("save", new SaveCommand());
+        cli->addCommand("list", new ListCommand());
+        cli->addCommand("draw", new DrawCommand());
+        cli->addCommand("reconnect", new ReconnectCommand());
+        cli->addCommand("shape", new ShapeCommand());
 
-    // TODO : Ajouter une commande pour initialiser le parser
+        // TODO : Ajouter une commande pour initialiser le parser
 
-    cli->init();
+        cli->init();
+    }
 
 
     return 0;

@@ -17,8 +17,8 @@ class ShapeGroup;
 class Shape : public Serializable {
 
     // Meta
-    Color *color = nullptr;
-    Color *borderColor = nullptr;
+    const Color *color = nullptr;
+    const Color *borderColor = nullptr;
     ShapeGroup *group = nullptr;
     int id;
 
@@ -30,6 +30,7 @@ public:
     Shape(const Shape &copy);
 
     string getMetaString() const;
+
     /**
      * Transforme la forme en une chaine de caractere
      * compréhensible par un humain.
@@ -71,12 +72,13 @@ public:
     void setGroup(ShapeGroup *v);
     void resetGroup() { this->group = nullptr; }
     void setId(const int v) { this->id = v; }
+    void regenerateId() { this->id = nextId(); }
     static int nextId() { return previousId++; }
 
     // getters
     virtual Point2D *getCenter() const = 0;
-    Color *getColor() const { return color; }
-    Color *getBorderColor() const { return borderColor; }
+    const Color *getColor() const { return color; }
+    const Color *getBorderColor() const { return borderColor; }
     ShapeGroup *getGroup() const { return group; }
     bool isInGroup() const { return group != nullptr; }
     int getId() const { return id; }

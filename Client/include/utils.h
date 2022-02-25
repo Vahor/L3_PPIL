@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <string>
+#include <cmath>
 
 using std::string;
 using std::vector;
@@ -27,4 +28,10 @@ static vector<string> split(const string &input, const char &delimiter) {
         args.push_back(current);
 
     return args;
+}
+
+
+static double degToRad(double deg) {
+    // convert to radians
+    return deg * M_PI / 180;
 }

@@ -19,20 +19,21 @@
 class DrawOverJavaTcp : public DrawVisitor {
 
     string framework;
-    bool reset;
+    bool sameWindow;
 
 public:
-    explicit DrawOverJavaTcp(string framework, bool reset = false) : framework(std::move(framework)), reset(reset) {}
+    explicit DrawOverJavaTcp(string framework, bool reset = false) : framework(std::move(framework)),
+                                                                     sameWindow(reset) {}
 
-    void setReset(bool b) {
-        this->reset = b;
+    void setReuseSameWindow(bool b) {
+        this->sameWindow = b;
     }
 
     void drawScene(const Scene *scene) const override {
-        if (reset)
+        if (sameWindow)
             ResetRendererAction().execute();
         else {
-            InitRendererAction(framework, scene->getHeight(), scene->getWidth()).execute();
+            InitRendererAction(framework, scene).execute();
             UpdateRendererNameAction(scene->getName()).execute();
 
             usleep(200 * 1000); // delay 200ms to allow swing init

@@ -20,21 +20,21 @@ Shape::~Shape() {
 }
 
 
-Color *getShapeColor(const Shape *shape, bool useGroup) {
+const Color *getShapeColor(const Shape *shape, bool useGroup) {
     if (shape == nullptr) { return nullptr; }
 
     if (useGroup) {
-        Color *parentColor = getShapeColor(shape->getGroup(), true);
+        const Color *parentColor = getShapeColor(shape->getGroup(), true);
         if (parentColor != nullptr) return parentColor;
     }
     return shape->getColor();
 }
 
-Color *getShapeBorderColor(const Shape *shape, bool useGroup) {
+const Color *getShapeBorderColor(const Shape *shape, bool useGroup) {
     if (shape == nullptr) { return nullptr; }
 
     if (useGroup) {
-        Color *parentColor = getShapeBorderColor(shape->getGroup(), true);
+        const Color *parentColor = getShapeBorderColor(shape->getGroup(), true);
         if (parentColor != nullptr) return parentColor;
     }
 
@@ -55,8 +55,8 @@ DataObject *Shape::addMetaData(DataObject *object, bool ignoreGroup) const {
     // pour ne pas stocker des gros fichier pour rien
 
     bool useGroup = !ignoreGroup;
-    Color *shapeOrParentColor = getShapeColor(this, useGroup);
-    Color *shapeOrParentBorderColor = getShapeBorderColor(this, useGroup);
+    const Color *shapeOrParentColor = getShapeColor(this, useGroup);
+    const Color *shapeOrParentBorderColor = getShapeBorderColor(this, useGroup);
 
     // Color
     metaObject->put("color", shapeOrParentColor);

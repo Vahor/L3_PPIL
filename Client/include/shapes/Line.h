@@ -22,7 +22,6 @@ public:
             Shape() {
     }
 
-    // todo : tester le clone, faire une ligne puis modifier le from qui a été utilisé en entrée du constructeur
     Line *clone() const override {
         return new Line(*this);
     }
@@ -47,10 +46,10 @@ public:
     void zoom(const Point2D &center, double factor) override {
         from.homothetie(factor, center);
         to.homothetie(factor, center);
-        scale(factor);
     }
 
     void scale(double scale) override {
+        scale = abs(scale);
         from.setX(from.getX() * scale);
         from.setY(from.getY() * scale);
 

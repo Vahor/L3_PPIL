@@ -43,7 +43,12 @@ public:
      * @param shape La forme à retirer de ce le groupe
      */
     void removeShape(Shape *shape) {
-        elements.erase(std::find(elements.begin(), elements.end(), shape));
+        if (shape == nullptr) return;
+        // todo remove_if fonctionne mieux ici ?
+        // erase fait une exception EXC BAD ACCESS lors de la suppression
+        elements.erase(std::remove_if(
+                elements.begin(), elements.end(),
+                [&shape](Shape *x) { return x->getId() == shape->getId(); }), elements.end());
         shape->resetGroup();
     }
 
@@ -63,6 +68,21 @@ public:
     ShapeGroup *clone() const override {
         return new ShapeGroup(*this);
     }
+
+    void regenerateChildrenIds() {
+        for (Shape *shape: elements) {
+            shape->regenerateId();
+        }
+    }
+
+    /**
+     * Retourne la forme qui a comme identifiant `id`.
+     * On cherche récursivement dans les fils.
+     *
+     * @param id L'identifiant de la forme qu'on veut récupérer
+     * @return La forme qui à l'identifiant recherché, ou nullptr si aucune forme ne correspond
+     */
+    Shape *getChildrenById(int id) const;
 
     size_t size() const {
         return elements.size();
@@ -101,6 +121,8 @@ public:
             shape->rotate(center, radians);
         }
     }
+
+
 
 
     // Iterator

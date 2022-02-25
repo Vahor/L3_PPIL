@@ -11,20 +11,20 @@
 class InitRendererAction : public RendererAction {
 
     string framework;
-    int height;
-    int width;
+    const Scene *scene;
 
 public:
-    explicit InitRendererAction(string framework, int height, int width) : framework(std::move(framework)),
-                                                                           height(height), width(width) {}
+    explicit InitRendererAction(string framework, const Scene *scene) : framework(std::move(framework)),
+                                                                        scene(scene) {}
 
     DataObject *getMetaData() const override {
         auto *meta = new DataObject();
 
         auto init = DataObject();
         init.put("framework", DataPrimitive(framework));
-        init.put("width", DataPrimitive(width));
-        init.put("height", DataPrimitive(height));
+        init.put("width", DataPrimitive(scene->getWidth()));
+        init.put("height", DataPrimitive(scene->getHeight()));
+        init.put("backgroundColor", scene->getBackgroundColor());
 
         meta->put("INIT", init);
 

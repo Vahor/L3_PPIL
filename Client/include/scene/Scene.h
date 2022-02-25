@@ -25,6 +25,7 @@ class Scene : public Serializable {
     string name;
     int height = 500;
     int width = 900;
+    const Color *backgroundColor = Color::WHITE;
     vector<Shape *> shapes;
 
 public:
@@ -120,13 +121,11 @@ public:
      * @param id L'identifiant de la forme qu'on veut récupérer
      * @return La forme qui à l'identifiant recherché, ou nullptr si aucune forme ne correspond
      */
-    Shape *getShapeById(int id) {
+    Shape *getShapeById(int id) const {
         for (Shape *shape: shapes) {
             if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {
                 if (group->getId() == id) return shape;
-                for (Shape *inGroupShape: *group) {
-                    if (inGroupShape->getId() == id) return inGroupShape;
-                }
+                return group->getChildrenById(id);
             } else {
                 if (shape->getId() == id) return shape;
             }
@@ -161,11 +160,13 @@ public:
     void setHeight(int _height) { this->height = _height; }
     void setWidth(int _width) { this->width = _width; }
     void setName(const string &_name) { this->name = _name; }
+    void setBackgroundColor(const Color *_color) { this->backgroundColor = _color; }
 
     // Getters
     const string &getName() const { return name; }
     int getHeight() const { return height; }
     int getWidth() const { return width; }
+    const Color *getBackgroundColor() const { return backgroundColor; }
 
     double getArea() const {
         double res = 0;

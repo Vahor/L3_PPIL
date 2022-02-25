@@ -47,26 +47,6 @@ public:
 
         return 0.5 * (det);
     }
-
-    void scale(double scale) override {
-        for (Point2D *point: points) {
-            point->setY(point->getY() * scale);
-            point->setX(point->getX() * scale);
-        }
-    }
-
-    void translate(double x, double y) override {
-        for (Point2D *point: points) {
-            point->setX(point->getX() + x);
-            point->setY(point->getY() + y);
-        }
-    }
-
-    void rotate(const Point2D &center, double radians) override {
-        for (Point2D *point: points) {
-            point->rotate(center, radians);
-        }
-    }
 };
 
 

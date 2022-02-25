@@ -54,7 +54,7 @@ public:
     }
 
     void scale(double scale) override {
-        diameter *= scale;
+        diameter *= abs(scale);
     }
 
     void translate(double x, double y) override {
