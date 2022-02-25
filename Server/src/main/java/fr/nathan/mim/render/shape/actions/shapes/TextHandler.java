@@ -17,7 +17,7 @@ public class TextHandler extends ShapeHandler {
         DataObject object = input.getObject().get("TEXT").getAsObject();
 
         String value = object.get("value").getAsPrimitive().getAsString();
-        int size = object.get("size").getAsPrimitive().getAsInt();
+        double size = object.get("size").getAsPrimitive().getAsDouble();
 
         DataObject position = object.get("position").getAsObject();
 
