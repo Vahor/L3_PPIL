@@ -34,6 +34,12 @@ public:
     void setX(double d) { this->x = d; }
     void setY(double d) { this->y = d; }
 
+    /**
+     * Applique une tranformation de rotation sur le Point actuel
+     *
+     * @param center Point d'ancre pour la rotation
+     * @param radians Angle de rotation
+     */
     void rotate(const Point2D &center, double radians) {
         double s = sin(radians);
         double c = cos(radians);
@@ -48,10 +54,17 @@ public:
         y = ynew + center.y;
     }
 
+
     static Point2D *center(const Point2D &p1, const Point2D &p2) {
         return new Point2D{(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};
     }
 
+    /**
+     * Applique une tranformation d'homothetie sur le Point actuel
+     *
+     * @param k Facteur d'agrandissement
+     * @param point Point d'ancre pour l'homothetie
+     */
     void homothetie(const double k, const Point2D &point) {
         if (k == 1) return; // Si k == 1, il n'y a aucun agrandissement.
 

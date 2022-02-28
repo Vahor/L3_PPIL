@@ -125,7 +125,8 @@ public:
         for (Shape *shape: shapes) {
             if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {
                 if (group->getId() == id) return shape;
-                return group->getChildrenById(id);
+                Shape *result = group->getChildrenById(id);
+                if (result != nullptr) return result;
             } else {
                 if (shape->getId() == id) return shape;
             }

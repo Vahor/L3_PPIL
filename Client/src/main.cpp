@@ -282,12 +282,14 @@ void alexTest() {
     scene.add(&clone);
     scene.add(&center);
 
+    scene.setName("Test de scene");
+
     scene.draw(visitor);
 }
 
 int main() {
 
-    bool useCli = false;
+    bool useCli = true;
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
     alexTest();
@@ -295,7 +297,7 @@ int main() {
 
     if (useCli) {
         Cli *cli = Cli::getInstance();
-        cli->setPrefix("\033[32mtruc > \033[37m");
+        cli->setPrefix("\033[32mcli > \033[37m");
 
         cli->addCommand("exit", new ExitCommand());
         cli->addCommand("help", new HelpCommand());

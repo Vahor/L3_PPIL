@@ -71,7 +71,8 @@ public:
     }
 
     double getArea() const override {
-        return 0;
+        // Dépend de la police utilisée, mais ce calcul permet une approximation
+        return ((double) value.length() * size);
     }
 
     void zoom(const Point2D &center, double factor) override {

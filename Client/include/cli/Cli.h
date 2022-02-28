@@ -38,6 +38,12 @@ public:
     void operator=(const Cli &) = delete;
 
 
+    /**
+     * Enregistre une nouvelles commandes pour le Cli
+     *
+     * @param name Nom de la commande
+     * @param command Commande à executer
+     */
     void addCommand(const string &name, CliCommand *command) {
         commands[name] = command;
     }
@@ -46,6 +52,9 @@ public:
     void setEnabled(bool v) { this->enabled = v; }
     map<string, CliCommand *> getCommands() { return commands; }
 
+    /**
+     * Lance la boucle infinie du Cli.
+     */
     void init() {
         const char *line;
         while (enabled) {

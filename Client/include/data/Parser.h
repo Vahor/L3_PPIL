@@ -15,6 +15,7 @@ public:
      * @return Un DataObject correspondant à l'entrée
      */
     virtual DataObject parse(const string &input) const = 0;
+
     /**
      * Extension supportée par ce Parser
      * @return Une chaine de caractère correspondant à une extension de fichier que ce parser supporte.

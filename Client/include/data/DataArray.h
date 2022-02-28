@@ -26,7 +26,6 @@ public:
 
     ~DataArray() override {
         elements.clear();
-        // todo
     }
 
     DataArray *clone() const override {

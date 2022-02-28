@@ -24,17 +24,12 @@ public:
         Point2D from(0, 0);
         Point2D to(1, 1);
         Line line(from, to);
-        cout << line << endl;
 
         Point2D *center = line.getCenter();
         line.scale(1);
         Point2D *centerAfterScale = line.getCenter();
 
-        cout << line << endl;
-        cout << *centerAfterScale << endl;
-        cout << *centerAfterScale << endl;
-
-        test.assertTrue(*center == *centerAfterScale, "Line scaling sould not modify the center");
+        test.assertTrue(*center == *centerAfterScale, "Line scaling should not change the center");
     }
 };
 

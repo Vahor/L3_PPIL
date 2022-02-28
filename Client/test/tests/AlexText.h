@@ -64,15 +64,11 @@ public:
 
         ShapeGroup *clone = group.clone();
 
-        cout << group << endl;
-
         test.assertTrue(group.toString() == clone->toString(), "Clone");
 
         clone->regenerateId();
         clone->regenerateChildrenIds();
-        clone->getChildrenById(58)->setColor(Color::YELLOW);
-
-        cout << *clone << endl;
+        clone->getChildrenById(60)->setColor(Color::YELLOW);
 
         delete clone;
     }

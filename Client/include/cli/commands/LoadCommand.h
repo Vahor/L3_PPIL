@@ -32,7 +32,7 @@ public:
             Scene *scene = dao->get(path);
             dao->setCurrentScene(scene);
 
-            cout << "La scene " << scene->getName() << " a été chargée " << endl;
+            cout << "Scene " << scene->getName() << " has been loaded " << endl;
 
         } catch (const std::exception &e) {
             cerr << e.what() << endl;

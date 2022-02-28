@@ -33,11 +33,12 @@ Point2D *ShapeGroup::getCenter() const {
 }
 Shape *ShapeGroup::getChildrenById(int id) const {
     for (Shape *shape: elements) {
-        if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {
+        if (shape->getId() == id) {
+            return shape;
+        } else if (auto *group = dynamic_cast<const ShapeGroup *>(shape)) {
             if (group->getId() == id) return shape;
-            return group->getChildrenById(id);
-        } else {
-            if (shape->getId() == id) return shape;
+            Shape *result = group->getChildrenById(id);
+            if (result != nullptr) return result;
         }
     }
     return nullptr;
