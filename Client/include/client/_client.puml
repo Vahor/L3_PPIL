@@ -1,0 +1,53 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+abstract class Client {
+	#port : int
+	#address : string
+
+	+{abstract} send(string data) : bool
+	+getAddress() : string& 
+	+{abstract} connect(string address, int port) : void
+	+{abstract} disconnect() : void 
+	+reconnect() : void
+}
+
+
+class TCPClient {
+	-sock : int
+	-{static} instance_ : static TCPClient*
+
+	+{static} getInstance() : TCPClient*
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+.Client <|-- .TCPClient
+
+
+
+
+
+/' Aggregation relationships '/
+
+.TCPClient o-- .TCPClient
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

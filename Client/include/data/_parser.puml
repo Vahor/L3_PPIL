@@ -1,0 +1,52 @@
+@startuml
+
+
+/' Objects '/
+
+
+abstract class Parser {
+	+{abstract} parse(const string& input) : DataObject 
+	+{abstract} serialize(const DataObject* object) : string 
+	+{abstract} serialize(const DataArray* array) : string 
+	+{abstract} serialize(const DataPrimitive* primitive) : string 
+	+{abstract} supportedExtension() : string 
+}
+
+
+
+
+/' Inheritance relationships '/
+
+
+.Parser <|-- .JsonParser
+
+
+.Parser <|-- .XMLParser
+
+
+
+
+
+/' Dependency relationships '/
+
+
+
+.DataArray <.. .Parser
+
+
+.DataObject <.. .Parser
+
+
+.DataPrimitive <.. .Parser
+
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

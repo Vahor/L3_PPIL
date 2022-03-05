@@ -1,0 +1,118 @@
+@startuml
+
+abstract class Shape {
+	-borderColor : const Color*
+	-id : int
+	-color : const Color*	
+	-group : ShapeGroup*
+
+	+{static} parse(const DataObject& object, const Handler<DataObject, Shape*>* shapeHandler, const Handler<pair<DataObject*, Shape*>, Shape*>* metaHandler) : Shape*
+    +{static} nextId() : int
+    +{static} previousId : static int+isInGroup() : bool
+
+	+toDataElement(bool ignoreGroup) : DataElement*
+	+addMetaData(DataObject* object, bool ignoreGroup) : DataObject*
+	+{abstract} getCenter() : Point2D*
+	+{abstract} clone() : Shape*
+	+getMetaString() : string
+	+draw(const DrawVisitor& visitor) : void
+	+regenerateId() : void
+	+resetGroup() : void
+	+{abstract} getArea() : double
+	+{abstract} rotate(const Point2D& center, double radians) : void
+	+rotateSelf(double radians) : void
+	+{abstract} scale(double scale) : void
+	+{abstract} translate(double x, double y) : void
+	+{abstract} zoom(const Point2D& center, double scale) : void
+}
+
+/' Objects '/
+
+class Circle {
+	-position : Point2D
+	-diameter : double
+}
+
+
+class Line {
+	-from : Point2D
+	-to : Point2D
+}
+
+
+class Polygon {
+	#points : std::vector<Point2D*>
+
+	+getPointAt(int index) : Point2D*
+	+size() : int
+	+addPoint(const Point2D& point) : void
+	+removePoint(const Point2D* point) : void
+}
+
+
+class ShapeGroup {
+	-elements : std::vector<Shape*>
+
+	+getChildrenById(int id) : Shape*
+	+addShape(Shape* shape) : void
+	+regenerateChildrenIds() : void
+	+removeShape(Shape* shape) : void
+}
+
+
+class Text {
+	-position : Point2D
+	-radians : double
+	-size : double
+	-value : string
+}
+
+
+class Triangle {
+	+addPoint(const Point2D& point) : void
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+.Polygon <|-- .Triangle
+
+
+.Shape <|-- .Circle
+
+
+.Shape <|-- .Line
+
+
+.Shape <|-- .Polygon
+
+
+.Shape <|-- .ShapeGroup
+
+
+.Shape <|-- .Text
+
+
+
+
+
+/' Aggregation relationships '/
+
+.Shape o-- .ShapeGroup
+
+
+.ShapeGroup o-- .Shape
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

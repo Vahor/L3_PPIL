@@ -1,0 +1,87 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+abstract class DataElement {
+	-parent : DataElement*
+	-type : Type
+
+	+getAsArray() : DataArray* 
+	+getAsObject() : DataObject*
+	+getAsPrimitive() : DataPrimitive* 
+	+{abstract} serialize(const Parser& parser) : string 
+	+{abstract} toString() : string 
+}
+
+
+class DataArray {
+	#elements : vector<DataElement*>
+
+	+add(const DataElement& element) : void
+	+add(DataElement* element) : void
+}
+
+
+
+
+class DataObject {
+	#children : map<string, DataElement*>
+
+	+get(const string& key) : DataElement*
+	+has(const string& key) : bool
+	+put(const string& key, const DataElement& element) : void
+	+put(const string& key, const DataElement* element) : void
+}
+
+
+class DataPrimitive {
+	#value : string
+
+	+getAsBoolean() : bool
+	+getAsDouble() : double 
+	+getAsInt() : int 
+	+getAsString() : string
+}
+
+
+
+
+/' Inheritance relationships '/
+
+.DataElement <|-- .DataArray
+
+
+.DataElement <|-- .DataObject
+
+
+.DataElement <|-- .DataPrimitive
+
+
+
+
+
+/' Aggregation relationships '/
+
+.DataArray o-- .DataElement
+
+
+.DataElement o-- .DataElement
+
+
+
+.DataObject o-- .DataElement
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
