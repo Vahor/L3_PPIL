@@ -1,0 +1,57 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+abstract class Handler <template<class In, class Out>> {
+	#{abstract} parse(const In& input) : Out 
+	+{abstract} solve(const In& input) : Out 
+}
+
+abstract class CORHandler {
+	+solve(const In& input) : Out 
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+.CORHandler <|-- .BorderColorHandler
+
+
+.CORHandler <|-- .CircleHandler
+
+
+.CORHandler <|-- .ColorHandler
+
+
+.CORHandler <|-- .GroupHandler
+
+
+.CORHandler <|-- .IdHandler
+
+
+.CORHandler <|-- .PolygonHandler
+
+
+.CORHandler <|-- .TextHandler
+
+
+.Handler <|-- .CORHandler
+
+
+/' Aggregation relationships '/
+
+.CORHandler *-- .Handler
+
+
+/' Nested objects '/
+
+
+
+@enduml

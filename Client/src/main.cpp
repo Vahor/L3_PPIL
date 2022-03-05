@@ -8,14 +8,14 @@
 #include "scene/SceneDao.h"
 #include "scene/Scene.h"
 
-#include "cli/commands/ExitCommand.h"
-#include "cli/commands/HelpCommand.h"
-#include "cli/commands/LoadCommand.h"
-#include "cli/commands/SaveCommand.h"
-#include "cli/commands/ListCommand.h"
-#include "cli/commands/ReconnectCommand.h"
+//#include "cli/commands/ExitCommand.h"
+//#include "cli/commands/HelpCommand.h"
+//#include "cli/commands/LoadCommand.h"
+//#include "cli/commands/SaveCommand.h"
+//#include "cli/commands/ListCommand.h"
+//#include "cli/commands/ReconnectCommand.h"
 #include "cli/commands/DrawCommand.h"
-#include "cli/commands/ShapeCommand.h"
+//#include "cli/commands/ShapeCommand.h"
 
 void solar() {
 
@@ -83,7 +83,6 @@ void solar() {
     while (true) {
         scene.draw(visitor);
         double rad = 10 * M_PI / 180;
-        // todo: Add tests for zoom
 //        everything.zoom(center, scale ? 2 : 1);
 //        everything.rotate({0, 0}, rad);
 
@@ -289,29 +288,24 @@ void alexTest() {
 
 int main() {
 
-    bool useCli = true;
     Client *client = TCPClient::getInstance();
     client->connect("127.0.0.1", 10000);
-    alexTest();
+    dvdTest();
     getchar();
 
-    if (useCli) {
-        Cli *cli = Cli::getInstance();
-        cli->setPrefix("\033[32mcli > \033[37m");
-
-        cli->addCommand("exit", new ExitCommand());
-        cli->addCommand("help", new HelpCommand());
-        cli->addCommand("load", new LoadCommand());
-        cli->addCommand("save", new SaveCommand());
-        cli->addCommand("list", new ListCommand());
-        cli->addCommand("draw", new DrawCommand());
-        cli->addCommand("reconnect", new ReconnectCommand());
-        cli->addCommand("shape", new ShapeCommand());
-
-        // TODO : Ajouter une commande pour initialiser le parser
-
-        cli->init();
-    }
+//        Cli *cli = Cli::getInstance();
+//        cli->setPrefix("\033[32mcli > \033[37m");
+//
+//        cli->addCommand("exit", new ExitCommand());
+//        cli->addCommand("help", new HelpCommand());
+//        cli->addCommand("load", new LoadCommand());
+//        cli->addCommand("save", new SaveCommand());
+//        cli->addCommand("list", new ListCommand());
+//        cli->addCommand("draw", new DrawCommand());
+//        cli->addCommand("reconnect", new ReconnectCommand());
+//        cli->addCommand("shape", new ShapeCommand());
+//
+//        cli->init();
 
 
     return 0;

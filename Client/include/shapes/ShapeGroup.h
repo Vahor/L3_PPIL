@@ -44,7 +44,7 @@ public:
      */
     void removeShape(Shape *shape) {
         if (shape == nullptr) return;
-        // todo remove_if fonctionne mieux ici ?
+        // remove_if fonctionne mieux ici
         // erase fait une exception EXC BAD ACCESS lors de la suppression
         elements.erase(std::remove_if(
                 elements.begin(), elements.end(),
