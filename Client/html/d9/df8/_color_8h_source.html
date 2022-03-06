@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Client:  Fichier source de include/Color.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Client
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">Color.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by Nathan David on 01/12/2021.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;data/DataObject.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;data/DataPrimitive.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d9/ddd/class_color.html">   10</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d8/dc2/class_data_object.html">DataObject</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">// Utilisation du char, car une couleur est entre 0 et 255, comme le char</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> red;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> green;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> blue;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> alpha;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="comment">// Default TRANSPARENT</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a>() : <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a>(0, 0, 0, 0) {}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> red, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> green, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> blue, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> alpha) : red(red), green(green),</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                                                                             blue(blue), alpha(alpha) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        put(<span class="stringliteral">&quot;r&quot;</span>, <a class="code hl_class" href="../../dc/d12/class_data_primitive.html">DataPrimitive</a>(to_string(red)));</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        put(<span class="stringliteral">&quot;g&quot;</span>, <a class="code hl_class" href="../../dc/d12/class_data_primitive.html">DataPrimitive</a>(to_string(green)));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        put(<span class="stringliteral">&quot;b&quot;</span>, <a class="code hl_class" href="../../dc/d12/class_data_primitive.html">DataPrimitive</a>(to_string(blue)));</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        put(<span class="stringliteral">&quot;a&quot;</span>, <a class="code hl_class" href="../../dc/d12/class_data_primitive.html">DataPrimitive</a>(to_string(alpha)));</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *TRANSPARENT;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *WHITE;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *BLACK;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *BLUE;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *RED;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *GREEN;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *YELLOW;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *CYAN;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *LIGHT_GRAY;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">static</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> *ORANGE;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">return</span> red == other.red &amp;&amp;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>               green == other.green &amp;&amp;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>               blue == other.blue &amp;&amp;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>               alpha == other.alpha;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/ddd/class_color.html">Color</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == other);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="ttc" id="aclass_color_html"><div class="ttname"><a href="../../d9/ddd/class_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> Color.h:10</div></div>
+<div class="ttc" id="aclass_data_object_html"><div class="ttname"><a href="../../d8/dc2/class_data_object.html">DataObject</a></div><div class="ttdef"><b>Definition:</b> DataObject.h:12</div></div>
+<div class="ttc" id="aclass_data_primitive_html"><div class="ttname"><a href="../../dc/d12/class_data_primitive.html">DataPrimitive</a></div><div class="ttdef"><b>Definition:</b> DataPrimitive.h:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Samedi 5 Mars 2022 12:15:44 pour Client par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>

@@ -1,0 +1,15 @@
+fr.nathan.mim
+fr.nathan.mim.api
+fr.nathan.mim.api.data
+fr.nathan.mim.api.data.json
+fr.nathan.mim.api.geom
+fr.nathan.mim.api.handler
+fr.nathan.mim.render.renderer
+fr.nathan.mim.render.renderer.actions.meta
+fr.nathan.mim.render.renderer.actions.renderer
+fr.nathan.mim.render.shape
+fr.nathan.mim.render.shape.actions
+fr.nathan.mim.render.shape.actions.meta
+fr.nathan.mim.render.shape.actions.shapes
+fr.nathan.mim.render.shape.shapes
+fr.nathan.mim.server
