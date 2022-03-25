@@ -1,5 +1,9 @@
 # Projet PPIL
 
+Application de dessin.
+Les formes sont créées côté C++.
+Puis affichées côté Java.
+
 ## Testé et compilé avec :
 - Java 1.8.0_312
 - Cmake 3.22.2
